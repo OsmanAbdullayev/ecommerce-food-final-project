@@ -1,4 +1,4 @@
-import "./App.scss";
+import "./assets/sass/global.scss";
 import Header from "./components/Header";
 
 function App() {
