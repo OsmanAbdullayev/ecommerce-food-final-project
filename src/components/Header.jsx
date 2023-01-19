@@ -7,7 +7,7 @@ import Button from "react-bootstrap/Button";
 import Stack from "react-bootstrap/Stack";
 import Form from "react-bootstrap/Form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBurger, faCartShopping, faPizzaSlice, faSandwich, faSalad, faHotdog, faBowlFood, faBoxesStacked, faChampagneGlasses, faIceCream, faKitchenSet } from "@fortawesome/free-solid-svg-icons";
+import { faBurger, faCartShopping, faPizzaSlice, faSandwich, faSalad, faHotdog, faBowlFood, faBoxesStacked, faChampagneGlasses, faIceCream, faKitchenSet, faCircleHalfStroke, faUser, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 function Header() {
 	return (
@@ -21,17 +21,31 @@ function Header() {
 					<Navbar.Collapse id="basic-navbar-nav" className="py-3">
 						<Nav>
 							<Nav.Link href="#home">Home</Nav.Link>
-							<Nav.Link href="#link">Order Online</Nav.Link>
-							<NavDropdown title="Products" id="basic-nav-dropdown">
+							<Nav.Link href="#home">About</Nav.Link>
+							<Nav.Link href="#home">Blog</Nav.Link>
+							
+							<NavDropdown title="Menu" id="basic-nav-dropdown">
 								<NavDropdown.Item href="#action/3.1">Burger</NavDropdown.Item>
 								<NavDropdown.Item href="#action/3.2">Potatoes</NavDropdown.Item>
 								<NavDropdown.Item href="#action/3.3">Drinks</NavDropdown.Item>
 								<NavDropdown.Divider />
 								<NavDropdown.Item href="#action/3.4">All</NavDropdown.Item>
 							</NavDropdown>
+							<Form className="d-flex">
+            <Form.Control
+              type="search"
+              placeholder="Search"
+              className="me-2"
+              aria-label="Search"
+            />
+            <Button variant="outline-light">
+<FontAwesomeIcon icon={faMagnifyingGlass} />
+						
+						</Button>
+          </Form>
 						</Nav>
 						<Nav className="ms-auto">
-							<Stack gap={2} className="me-4">
+							<Stack className="me-4">
 								<Stack direction="horizontal" gap={4}>
 									<p className={styles.p}>Call and Order in</p>
 									<Form.Select className={styles.select} size="sm">
@@ -40,27 +54,26 @@ function Header() {
 										<option className={styles.select}>Ganja</option>
 									</Form.Select>
 								</Stack>{" "}
-								<h2 className={`${styles.number} text-start text-white`}>54 548 779 654</h2>
+								<h2 className={`${styles.number} text-start text-white`}>055 875 83 22</h2>
 							</Stack>
 							<Stack direction="horizontal">
 								<Button as="a" variant="secondary" className={`${styles.cart}`}>
 									<Stack direction="vertical" className={`${styles.vstack}`}>
 										<Stack direction="horizontal" className={`${styles.tophstack}`}>
-											<FontAwesomeIcon icon={faCartShopping} className="me-2 my-0 py-0" /> <p>Your Cart is Empty</p>
+											<FontAwesomeIcon icon={faCartShopping} /> <p className="p-0 m-0 bolder">Your Cart is Empty</p>
 										</Stack>
-										<Stack direction="horizontal" className={`${styles.bottomhstack}`}>
-											<div className={`${styles.receipt}`}>
-											<span className={styles.count}>0 items</span> <span className={styles.amount}>£0.00</span>
-											</div>
-										</Stack>
+										
 									</Stack>
 								</Button>
+								<Button className="text-white" variant="secondary">
+								<FontAwesomeIcon icon={faUser} />
 
+								</Button>
 								<Button className="text-white" variant="secondary mx-1">
-									ENG
+								<FontAwesomeIcon icon={faCircleHalfStroke} />
 								</Button>
 								<Button className="text-white" variant="secondary">
-									Dark
+									ENG
 								</Button>
 							</Stack>
 						</Nav>

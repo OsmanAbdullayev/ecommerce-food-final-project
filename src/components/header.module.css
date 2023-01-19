@@ -41,38 +41,12 @@
   padding: 0.66rem 0.9rem;
   border-radius: 50px;
   color: #fff;
-  line-height: 1;
+  line-height: 2;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
   max-width: 225px;
   font-size: 1rem;
-}
-.cart .vstack .bottomhstack {
-  border-top: 2px solid #226f0b;
-  width: 150px;
-  margin: 0 auto;
-  position: absolute;
-  bottom: -63px;
-  overflow: hidden;
-  min-height: 52px;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-.cart .vstack .bottomhstack .receipt {
-  background-color: #fff;
-  height: 45px;
-  width: inherit;
-  padding: 6px;
-  display: flex;
-  justify-content: space-between;
-}
-.cart .vstack .bottomhstack .receipt .count {
-  color: black;
-  margin-right: 4px;
-}
-.cart .vstack .bottomhstack .receipt .amount {
-  color: black;
 }
 
 .menuNav {
@@ -81,7 +55,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  color: rgba(255, 255, 255, 0.648);
+  color: rgba(255, 255, 255, 0.771);
 }
 .menuNav:hover {
   color: white;
