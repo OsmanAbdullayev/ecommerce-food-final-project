@@ -1,10 +1,13 @@
 import React from 'react'
+import { Container } from 'react-bootstrap'
+import Menu from '../Menu/Menu'
 
 const AboutUs = () => {
   return (
-    <div>About Us:
-      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. In fuga accusamus adipisci vero, aspernatur nostrum excepturi recusandae autem veniam provident tempora laborum ipsa, enim quam at quis, consequatur impedit voluptatibus.</p>
-    </div>
+    <Container>
+        <h1 className='text-center p-5'>We are a restaurant functioning in Baku, Azerbaijan.</h1>
+        <Menu lg="2"/>
+    </Container>
   )
 }
 
