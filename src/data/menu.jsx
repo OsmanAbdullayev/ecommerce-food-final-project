@@ -358,7 +358,7 @@ const menu = [
 		quantity: 0,
 	},
 	{
-		id: 340,
+		id: 40,
 		img: Pepsi,
 		title: "Pepsi",
 		category: "drinks",

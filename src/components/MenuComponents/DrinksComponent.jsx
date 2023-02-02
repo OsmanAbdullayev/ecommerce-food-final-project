@@ -1,13 +1,14 @@
 import React from 'react'
 import { Col, Container, Row } from 'react-bootstrap';
-import Item from '../../components/Item/Item';
+import Item from '../Item/Item';
 import menu from '../../data/menu'
-
-const Menu = (props) => {
+const DrinksComponent = (props) => {
   return (
-    <Container className='my-5'>
+    <Container>
+			<h1 className="text-center py-5">Drinks</h1>
+
 			<Row className='g-3'>
-				{menu.map((fd, i) => {
+				{menu.filter((menu) => menu.title|menu.category.toLowerCase().includes("drinks")).map((fd, i) => {
 					return (
             <Col lg={props.lg} md={props.md} sm={props.sm}>
 							<Item key={i} img={fd.img} title={fd.title} price={fd.price} addProduct={fd} />
@@ -19,4 +20,4 @@ const Menu = (props) => {
   )
 }
 
-export default Menu
+export default DrinksComponent
