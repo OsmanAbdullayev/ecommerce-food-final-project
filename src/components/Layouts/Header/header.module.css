@@ -63,4 +63,8 @@
 .menuNav svg {
   font-size: 2.5rem;
   padding-right: 1rem;
+}
+
+.hidingSection {
+  transition: 0.5s;
 }/*# sourceMappingURL=header.module.css.map */

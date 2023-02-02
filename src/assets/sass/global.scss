@@ -1,3 +1,72 @@
 @import "../../../node_modules/bootstrap/scss/bootstrap";
 // @import "./../../assets/sass/custom";
-// @import "./mixins";
+@import "./mixins";
+// @import "./_reset";
+
+
+
+
+.object-fit {
+	object-fit: cover;
+}
+
+.card {
+	img {
+		transition: 0.3s;
+	}
+	&:hover {
+		img {
+			scale: 1.1;
+			z-index: 3;
+		}
+	}
+}
+
+.navbar-brand {
+	.icon {
+		transition: 0.5s;
+	}
+	&:hover {
+		.icon {
+			scale: 1.4;
+			padding-right: 20px;
+			padding-left: 10px;
+		}
+	}
+}
+
+figure {
+	height: 300px;
+}
+
+// a.active {
+// 	color: #ff731d !important;
+// 	border: 1px solid #ff731d;
+// 	border-radius: 20px;
+// }
+
+.react-confirm-alert-button-group {
+	button:nth-of-type(1) {
+		background-color: #da0037 !important;
+	}
+	button:nth-of-type(2) {
+		background-color: #1e5128 !important;
+	}
+}
+
+tr {
+	button {
+		width: 120px;
+	}
+}
+
+
+td {
+	img {
+		width: 150px;
+	}
+}
+
+// .card {
+// 	width: 300px;
+// }

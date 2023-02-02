@@ -9,11 +9,30 @@ import Form from "react-bootstrap/Form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBurger, faCartShopping, faPizzaSlice, faHotdog, faBowlFood, faChampagneGlasses, faIceCream, faKitchenSet, faCircleHalfStroke, faUser, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { Link, NavLink } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 function Header() {
+
+	
+
+  const [isHidden, setIsHidden] = useState(false);
+
+  useEffect(() => {
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset >= 1) {
+        setIsHidden(true);
+      } else {
+        setIsHidden(false);
+      }
+    });
+
+    return () => {
+      window.removeEventListener('scroll', () => {});
+    };
+  }, []);
 	return (
 		<>
-			<Navbar className={`${styles.navbarbg} d-flex flex-column`} variant="dark" expand="lg">
+			<Navbar className={`${styles.navbarbg} d-flex flex-column sticky-top`} variant="dark" expand="lg">
 				<Container>
 					<Navbar.Brand as={NavLink} to="/">
 						<h1>Dadly</h1>
@@ -60,7 +79,8 @@ function Header() {
 							</Stack> */}
 
 							<Stack direction="horizontal" className="mb-3">
-								<Button as="a" variant="secondary" className={`${styles.cart}`}>
+								<Button as={NavLink} to="/cart" variant="secondary" className={`${styles.cart}`
+							}>
 									<Stack direction="vertical" className={`${styles.vstack}`}>
 										<Stack direction="horizontal" className={`${styles.tophstack}`}>
 											<FontAwesomeIcon icon={faCartShopping} /> <p className="p-0 m-0 bolder">Your Cart is Empty</p>
@@ -80,7 +100,7 @@ function Header() {
 						</Nav>
 					</Navbar.Collapse>
 				</Container>
-				<Container>
+				<Container className={`${styles.hidingSection}`} style={{ display: isHidden ? 'none' : 'block' }}>
 					<Navbar.Collapse id="basic-navbar-nav" className={`${styles.line} py-3 mt-0 w-100`}>
 						<Nav className="d-flex justify-content-between align-items-start w-100">
 							<Nav.Link as={NavLink} to="/menu/pizza" className={`${styles.menuNav}`}>

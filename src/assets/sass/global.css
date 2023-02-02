@@ -10932,4 +10932,44 @@ textarea.form-control-lg {
   .d-print-none {
     display: none !important;
   }
+}
+.object-fit {
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.card img {
+  transition: 0.3s;
+}
+.card:hover img {
+  scale: 1.1;
+  z-index: 3;
+}
+
+.navbar-brand .icon {
+  transition: 0.5s;
+}
+.navbar-brand:hover .icon {
+  scale: 1.4;
+  padding-right: 20px;
+  padding-left: 10px;
+}
+
+figure {
+  height: 300px;
+}
+
+.react-confirm-alert-button-group button:nth-of-type(1) {
+  background-color: #da0037 !important;
+}
+.react-confirm-alert-button-group button:nth-of-type(2) {
+  background-color: #1e5128 !important;
+}
+
+tr button {
+  width: 120px;
+}
+
+td img {
+  width: 150px;
 }/*# sourceMappingURL=global.css.map */
