@@ -1,10 +1,14 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { selectAllProducts } from "../../redux/productsSlice";
 import { Col, Container, Row } from "react-bootstrap";
 import Item from "../Item/Item";
-import products from "../../data/menu";
+// import products from "../../data/menu";
 import PaginationComponent from "../PaginationComponent";
+import AddProductForm from "./AddProductForm";
 
 const AllProductsComponent = (props) => {
+  const products = useSelector(selectAllProducts)
   const productsCount = products.length;
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(8);
@@ -28,6 +32,7 @@ const AllProductsComponent = (props) => {
 					);
 				})}
 			</Row>
+      <AddProductForm />
 			<PaginationComponent
           itemsCount={productsCount}
           itemsPerPage={productsPerPage}

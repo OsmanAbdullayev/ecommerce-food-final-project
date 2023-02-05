@@ -1,18 +1,21 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './routers/AppRouter';
-import reportWebVitals from './reportWebVitals';
-import { CartProvider } from 'react-use-cart';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./routers/AppRouter";
+import reportWebVitals from "./reportWebVitals";
+import { CartProvider } from "react-use-cart";
+import { store } from "./redux/store";
+import { Provider } from "react-redux";
 // import "./assets/sass/global.scss";
 
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
- <CartProvider>
-   <React.StrictMode>
-    <App />
-  </React.StrictMode>
- </CartProvider>
+	<CartProvider>
+		<React.StrictMode>
+			<Provider store={store}>
+				<App />
+			</Provider>
+		</React.StrictMode>
+	</CartProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

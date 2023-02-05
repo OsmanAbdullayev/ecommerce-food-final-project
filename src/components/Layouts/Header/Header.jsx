@@ -35,7 +35,7 @@ function Header() {
 			<Navbar className={`${styles.navbarbg} d-flex flex-column sticky-top`} variant="dark" expand="lg">
 				<Container>
 					<Navbar.Brand as={NavLink} to="/">
-						<h1>Dadly</h1>
+						<h1>Bakuviano</h1>
 					</Navbar.Brand>
 					<Navbar.Toggle aria-controls="basic-navbar-nav" />
 					<Navbar.Collapse id="basic-navbar-nav" className="pt-3">
