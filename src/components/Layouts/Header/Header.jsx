@@ -1,3 +1,4 @@
+import { useCart } from "react-use-cart";
 import styles from "./header.module.scss";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
@@ -6,61 +7,84 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import Button from "react-bootstrap/Button";
 import Stack from "react-bootstrap/Stack";
 import Form from "react-bootstrap/Form";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBurger, faCartShopping, faPizzaSlice, faHotdog, faBowlFood, faChampagneGlasses, faIceCream, faKitchenSet, faCircleHalfStroke, faUser, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { Link, NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
 
+import { CiPizza, CiBurger, CiFries, CiIceCream, CiCoffeeCup, CiShoppingCart, CiDark, CiLight, CiUser, CiSearch } from "react-icons/ci";
+import { BsCart2, BsCircleHalf, BsPerson } from "react-icons/bs";
+import { GiAlmond } from "react-icons/gi";
+
+
+
 function Header() {
-
+	const { totalItems } = useCart();
+	const [isHidden, setIsHidden] = useState(false);
 	
-
-  const [isHidden, setIsHidden] = useState(false);
-
-  useEffect(() => {
-    window.addEventListener('scroll', () => {
-      if (window.pageYOffset >= 1) {
-        setIsHidden(true);
-      } else {
-        setIsHidden(false);
-      }
-    });
-
-    return () => {
-      window.removeEventListener('scroll', () => {});
-    };
-  }, []);
+	useEffect(() => {
+		window.addEventListener("scroll", () => {
+			if (window.pageYOffset >= 1) {
+				setIsHidden(true);
+			} else {
+				setIsHidden(false);
+			}
+		});
+		
+		return () => {
+			window.removeEventListener("scroll", () => {});
+		};
+	}, []);
 	return (
 		<>
-			<Navbar className={`${styles.navbarbg} d-flex flex-column sticky-top`} variant="dark" expand="lg">
-				<Container>
+			<Navbar className={`${styles.navbarbg} d-flex flex-column sticky-top m-0 p-0`} variant="dark" expand="lg">
+				<Container className="py-2">
 					<Navbar.Brand as={NavLink} to="/">
-						<h1>Bakuviano</h1>
+						<h1 className="pb-1 m-0 d-flex justify-content-between align-items-start">
+							<GiAlmond size="1.2em" className="me-2 " />
+							<span>badam</span>
+						</h1>
 					</Navbar.Brand>
 					<Navbar.Toggle aria-controls="basic-navbar-nav" />
-					<Navbar.Collapse id="basic-navbar-nav" className="pt-3">
-						<Nav>
-							<Nav.Link as={NavLink} to="/">Home</Nav.Link>
-							<Nav.Link as={NavLink} to="/aboutus">About Us</Nav.Link>
-							<Nav.Link as={NavLink} to="/blog">Blog</Nav.Link>
-							<Nav.Link as={NavLink} to="/contacts">Contacts</Nav.Link>
+					<Navbar.Collapse id="basic-navbar-nav">
+						<Nav className="d-flex align-items-start">
+							<Nav.Link as={NavLink} to="/">
+								Home
+							</Nav.Link>
+							<Nav.Link as={NavLink} to="/aboutus" className={`${styles.nowrap}`}>
+								About Us
+							</Nav.Link>
+							<Nav.Link as={NavLink} to="/blog">
+								Blog
+							</Nav.Link>
+							<Nav.Link as={NavLink} to="/contacts">
+								Contacts
+							</Nav.Link>
 
 							<NavDropdown title="Menu" id="basic-nav-dropdown" className="me-3">
-								<NavDropdown.Item as={Link} to="#action/3.2">Burgers</NavDropdown.Item>
-								<NavDropdown.Item as={Link} to="#action/3.3">Hotdog</NavDropdown.Item>
-								<NavDropdown.Item as={Link} to="#action/3.3">Sides & Salads</NavDropdown.Item>
-								<NavDropdown.Item as={Link} to="#action/3.3">Combos</NavDropdown.Item>
-								<NavDropdown.Item as={Link} to="#action/3.3">Drinks</NavDropdown.Item>
-								<NavDropdown.Item as={Link} to="#action/3.3">Desserts</NavDropdown.Item>
-								<NavDropdown.Item as={Link} to="#action/3.1">Pizza</NavDropdown.Item>
-								<NavDropdown.Divider />
-								<NavDropdown.Item as={Link} to="#action/3.4">All</NavDropdown.Item>
+								<NavDropdown.Item as={Link} to="/menu/pizza">
+									Pizza
+								</NavDropdown.Item>
+								<NavDropdown.Item as={Link} to="/menu/burgers">
+									Burgers
+								</NavDropdown.Item>
+								<NavDropdown.Item as={Link} to="/menu/sidesandsalads">
+									Sides & Salads
+								</NavDropdown.Item>
+								<NavDropdown.Item as={Link} to="/menu/desserts">
+									Desserts
+								</NavDropdown.Item>
+								<NavDropdown.Item as={Link} to="/menu/drinks">
+									Drinks
+								</NavDropdown.Item>
+								
+								<NavDropdown.Item as={Link} to="/menu">
+									All
+								</NavDropdown.Item>
 							</NavDropdown>
 
-							<Form className="d-flex mb-3">
+							<Form className="d-flex align-items-start">
 								<Form.Control type="search" placeholder="Search" className="me-2" aria-label="Search" />
 								<Button variant="outline-light">
-									<FontAwesomeIcon icon={faMagnifyingGlass} />
+									<CiSearch />
 								</Button>
 							</Form>
 						</Nav>
@@ -78,47 +102,46 @@ function Header() {
 								<h2 className={`${styles.number} text-start text-white`}>055 875 83 22</h2>
 							</Stack> */}
 
-							<Stack direction="horizontal" className="mb-3">
-								<Button as={NavLink} to="/cart" variant="secondary" className={`${styles.cart}`
-							}>
+							<Stack direction="horizontal">
+								<Button as={NavLink} to="/cart" variant="secondary" className={`${styles.cart} my-1`}>
 									<Stack direction="vertical" className={`${styles.vstack}`}>
 										<Stack direction="horizontal" className={`${styles.tophstack}`}>
-											<FontAwesomeIcon icon={faCartShopping} /> <p className="p-0 m-0 bolder">Your Cart is Empty</p>
+											<BsCart2 size="1.5em" className="me-2"/> <p className="p-0 m-0 bolder">Cart ({totalItems})</p>
 										</Stack>
 									</Stack>
 								</Button>
-								<Button className="text-white" variant="secondary">
-									<FontAwesomeIcon icon={faUser} />
+								<Button className="text-white d-flex justify-content-center align-items-center h-50" variant="secondary">
+									<BsPerson size="1.5em" />
 								</Button>
-								<Button className="text-white" variant="secondary mx-1">
-									<FontAwesomeIcon icon={faCircleHalfStroke} />
+								<Button className="text-white d-flex justify-content-center align-items-center h-50" variant="secondary mx-1">
+									<BsCircleHalf size="1.1em" />
 								</Button>
-								<Button className="text-white" variant="secondary">
+								<Button className="text-white d-flex justify-content-center align-items-center h-50" variant="secondary">
 									EN
 								</Button>
 							</Stack>
 						</Nav>
 					</Navbar.Collapse>
 				</Container>
-				<Container className={`${styles.hidingSection}`} style={{ display: isHidden ? 'none' : 'block' }}>
-					<Navbar.Collapse id="basic-navbar-nav" className={`${styles.line} py-3 mt-0 w-100`}>
+				<Container className={`${styles.hidingSection}`} style={{ display: isHidden ? "none" : "block" }}>
+					<Navbar.Collapse id="basic-navbar-nav" className={`${styles.line} py-0 mt-0 w-100`}>
 						<Nav className="d-flex justify-content-between align-items-start w-100">
 							<Nav.Link as={NavLink} to="/menu/pizza" className={`${styles.menuNav}`}>
-								<FontAwesomeIcon icon={faPizzaSlice} /> Pizza
+								<CiPizza size="1.8em" /> Pizza
 							</Nav.Link>
 							<Nav.Link as={NavLink} to="/menu/burgers" className={`${styles.menuNav}`}>
-								<FontAwesomeIcon icon={faBurger} /> Burgers
+								<CiBurger size="1.8em" /> Burgers
 							</Nav.Link>
-			
+
 							<Nav.Link as={NavLink} to="/menu/sidesandsalads" className={`${styles.menuNav}`}>
-								<FontAwesomeIcon icon={faBowlFood} /> Sides & Salads
+								<CiFries size="1.8em" /> Sides & Salads
 							</Nav.Link>
-	
+
 							<Nav.Link as={NavLink} to="/menu/desserts" className={`${styles.menuNav}`}>
-								<FontAwesomeIcon icon={faIceCream} /> Desserts
+								<CiIceCream size="1.8em" /> Desserts
 							</Nav.Link>
 							<Nav.Link as={NavLink} to="/menu/drinks" className={`${styles.menuNav}`}>
-								<FontAwesomeIcon icon={faChampagneGlasses} /> Drinks
+								<CiCoffeeCup size="1.8em" /> Drinks
 							</Nav.Link>
 						</Nav>
 					</Navbar.Collapse>

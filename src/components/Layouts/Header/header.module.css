@@ -44,7 +44,7 @@
   line-height: 2;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
   max-width: 225px;
   font-size: 1rem;
 }
@@ -60,6 +60,9 @@
 .menuNav:hover {
   color: white;
 }
+.menuNav:target {
+  color: red;
+}
 .menuNav svg {
   font-size: 2.5rem;
   padding-right: 1rem;
@@ -67,4 +70,8 @@
 
 .hidingSection {
   transition: 0.5s;
+}
+
+.nowrap {
+  white-space: nowrap;
 }/*# sourceMappingURL=header.module.css.map */

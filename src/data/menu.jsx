@@ -1,3 +1,4 @@
+
 import BlackBurger from "../assets/img/menu/burgers-1-300x300.png";
 import DoubleBurger from "../assets/img/menu/burgers-2-300x300.png";
 import ThaiBurger from "../assets/img/menu/burgers-3-300x300.png";
@@ -368,3 +369,4 @@ const menu = [
 ];
 
 export default menu;
+

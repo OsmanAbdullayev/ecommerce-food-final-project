@@ -6,7 +6,7 @@ import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Button, Container, Table } from "react-bootstrap";
-
+import {BsTrashFill} from "react-icons/bs"
 const Cart = () => {
 	const { isEmpty, totalUniqueItems, items, updateItemQuantity, removeItem, emptyCart, totalItems, cartTotal } = useCart();
 	const removed = () => toast("Item removed successfully!");
@@ -98,7 +98,7 @@ const Cart = () => {
 												removed();
 												removeItem(fd.id);
 											}}>
-											Remove
+											<BsTrashFill />
 										</Button>
 										<ToastContainer position="bottom-center" autoClose={1000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="colored" />
 									</tr>
