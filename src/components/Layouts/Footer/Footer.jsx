@@ -9,6 +9,9 @@ import { faFacebook, faInstagram, faTiktok, faYoutube } from "@fortawesome/free-
 import { NavLink } from "react-router-dom";
 
 const Footer = () => {
+
+	const date = new Date();
+	const year = date.getFullYear()
 	return (
 		<div className={styles.footer}>
 			<Container fluid className={styles.container}>
@@ -97,7 +100,7 @@ const Footer = () => {
 					</Col>
 
 					<Col sm={12} lg={6} className="text-end">
-				Copyright © 2022 All rights reserved.
+				Copyright &copy; {year} All rights reserved.
 					
 					</Col>
 				</Row>
