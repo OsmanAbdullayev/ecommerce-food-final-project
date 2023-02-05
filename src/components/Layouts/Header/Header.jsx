@@ -110,7 +110,7 @@ function Header() {
 										</Stack>
 									</Stack>
 								</Button>
-								<Button className="text-white d-flex justify-content-center align-items-center h-50" variant="secondary">
+								<Button as={NavLink} to="/login" className="text-white d-flex justify-content-center align-items-center h-50" variant="secondary">
 									<BsPerson size="1.5em" />
 								</Button>
 								<Button className="text-white d-flex justify-content-center align-items-center h-50" variant="secondary mx-1">
