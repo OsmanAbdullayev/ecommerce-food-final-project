@@ -17,10 +17,15 @@ import AllProducts from "../pages/Menu/AllProducts";
 import LogIn from "../pages/Auth/LogIn";
 import SignUp from "../pages/Auth/SignUp";
 import Reset from "../pages/Auth/Reset";
+import { ToastContainer } from "react-toastify";
+import Admin from "../pages/Admin/Admin";
+
 
 function App() {
 	return (
 		<BrowserRouter>
+			<ToastContainer />
+
 			<Header />
 			<Routes>
 				<Route path="/" element={<Home />}></Route>
@@ -39,6 +44,7 @@ function App() {
 				<Route path="/login" element={<LogIn />}></Route>
 				<Route path="/signup" element={<SignUp />}></Route>
 				<Route path="/reset" element={<Reset />}></Route>
+				<Route path="/admin" element={<Admin />}></Route>
 
 
 

@@ -7,46 +7,98 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import Button from "react-bootstrap/Button";
 import Stack from "react-bootstrap/Stack";
 import Form from "react-bootstrap/Form";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-import { CiPizza, CiBurger, CiFries, CiIceCream, CiCoffeeCup, CiShoppingCart, CiDark, CiLight, CiUser, CiSearch } from "react-icons/ci";
-import { BsCart2, BsCircleHalf, BsPerson } from "react-icons/bs";
+import { CiPizza, CiBurger, CiFries, CiSearch } from "react-icons/ci";
+import { BiCake } from "react-icons/bi";
+import { BsCart2, BsCircleHalf, BsCupStraw, BsPerson } from "react-icons/bs";
 import { GiAlmond } from "react-icons/gi";
-
-
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import { auth } from "../../../firebase/config";
+import { toast } from "react-toastify";
+import Loader from "../../loader/Loader";
+import { useDispatch } from "react-redux";
+import { REMOVE_ACTIVE_USER, SET_ACTIVE_USER } from "../../../redux/slice/authSlice";
+import ShowOnLogIn, { ShowOnLogOut } from "../../hiddenLink/HiddenLink";
+import AdminOnlyRoute from "../../adminOnlyRoute/AdminOnlyRoute";
 
 function Header() {
 	const { totalItems } = useCart();
 	const [isHidden, setIsHidden] = useState(false);
-	
+	const [isLoading, setIsLoading] = useState(false);
+	const [displayName, setDisplayName] = useState("");
+	const dispatch = useDispatch();
+
+	const navigate = useNavigate();
+
+	const logOut = () => {
+		setIsLoading(true);
+		signOut(auth)
+			.then(() => {
+				// Sign-out successful.
+				// toast.success("Signed Out Successfully!");
+				setIsLoading(false);
+				navigate("/");
+			})
+			.catch((error) => {
+				// An error happened.
+				toast.error(`An error happened: ${error}`);
+			});
+	};
+
 	useEffect(() => {
+		onAuthStateChanged(auth, (user) => {
+			if (user) {
+				if (user.displayName == null) {
+					const u1 = user.email.substring(0, user.email.indexOf("@"));
+					const uName = u1.charAt(0).toUpperCase() + u1.slice(1);
+					setDisplayName(uName);
+				} else {
+					setDisplayName(user.displayName);
+				}
+
+				console.log(displayName);
+				dispatch(
+					SET_ACTIVE_USER({
+						email: user.email,
+						userName: displayName,
+						userID: user.uid,
+					})
+				);
+			} else {
+				setDisplayName("");
+				dispatch(REMOVE_ACTIVE_USER());
+			}
+		});
+
 		window.addEventListener("scroll", () => {
-			if (window.pageYOffset >= 1) {
+			if (window.pageYOffset > 10) {
 				setIsHidden(true);
 			} else {
 				setIsHidden(false);
 			}
+
+			return () => {
+				window.removeEventListener("scroll", () => {});
+			};
 		});
-		
-		return () => {
-			window.removeEventListener("scroll", () => {});
-		};
-	}, []);
+	}, [dispatch, displayName]);
 	return (
 		<>
+			{isLoading && <Loader />}
 			<Navbar className={`${styles.navbarbg} d-flex flex-column sticky-top m-0 p-0`} variant="dark" expand="lg">
 				<Container className="py-2">
 					<Navbar.Brand as={NavLink} to="/">
 						<h1 className="pb-1 m-0 d-flex justify-content-between align-items-start">
 							<GiAlmond size="1.2em" className="me-2 " />
-							<span>badam</span>
+							<span>Badam</span>
 						</h1>
 					</Navbar.Brand>
 					<Navbar.Toggle aria-controls="basic-navbar-nav" />
 					<Navbar.Collapse id="basic-navbar-nav">
 						<Nav className="d-flex align-items-start">
-							<Nav.Link as={NavLink} to="/">
+							{/* <Nav.Link as={NavLink} to="/">
 								Home
 							</Nav.Link>
 							<Nav.Link as={NavLink} to="/aboutus" className={`${styles.nowrap}`}>
@@ -54,7 +106,8 @@ function Header() {
 							</Nav.Link>
 							<Nav.Link as={NavLink} to="/blog">
 								Blog
-							</Nav.Link>
+							</Nav.Link> */}
+
 							<Nav.Link as={NavLink} to="/contacts">
 								Contacts
 							</Nav.Link>
@@ -75,7 +128,7 @@ function Header() {
 								<NavDropdown.Item as={Link} to="/menu/drinks">
 									Drinks
 								</NavDropdown.Item>
-								
+
 								<NavDropdown.Item as={Link} to="/menu">
 									All
 								</NavDropdown.Item>
@@ -106,14 +159,37 @@ function Header() {
 								<Button as={NavLink} to="/cart" variant="secondary" className={`${styles.cart} my-1`}>
 									<Stack direction="vertical" className={`${styles.vstack}`}>
 										<Stack direction="horizontal" className={`${styles.tophstack}`}>
-											<BsCart2 size="1.5em" className="me-2"/> <p className="p-0 m-0 bolder">Cart ({totalItems})</p>
+											<BsCart2 size="1.5em" className="me-2" /> <p className="p-0 m-0 bolder">Cart ({totalItems})</p>
 										</Stack>
 									</Stack>
 								</Button>
-								<Button as={NavLink} to="/login" className="text-white d-flex justify-content-center align-items-center h-50" variant="secondary">
-									<BsPerson size="1.5em" />
-								</Button>
-								<Button className="text-white d-flex justify-content-center align-items-center h-50" variant="secondary mx-1">
+								<ShowOnLogOut>
+									<Button as={NavLink} to="/login" className="text-white d-flex justify-content-center align-items-center h-50" variant="secondary me-1">
+										Log In
+									</Button>
+								</ShowOnLogOut>
+								<ShowOnLogIn>
+									<Button as={NavLink} to="/profile" className="text-white me-1">
+										<BsPerson size="1.4em" />
+										{displayName}
+									</Button>
+									<AdminOnlyRoute>
+										<Button variant="dark" className="text-white me-1" as={NavLink} to="/admin">
+											Admin
+										</Button>
+									</AdminOnlyRoute>
+								</ShowOnLogIn>
+								<ShowOnLogOut>
+									<Button as={NavLink} to="/signup" className="text-white d-flex justify-content-center align-items-center h-50" variant="warning me-1">
+										Sign Up
+									</Button>
+								</ShowOnLogOut>
+								<ShowOnLogIn>
+									<Button onClick={logOut} className="text-white d-flex justify-content-center align-items-center h-50" variant="warning me-1">
+										Log Out
+									</Button>
+								</ShowOnLogIn>
+								<Button className="text-white d-flex justify-content-center align-items-center h-50" variant="secondary me-1">
 									<BsCircleHalf size="1.1em" />
 								</Button>
 								<Button className="text-white d-flex justify-content-center align-items-center h-50" variant="secondary">
@@ -138,10 +214,10 @@ function Header() {
 							</Nav.Link>
 
 							<Nav.Link as={NavLink} to="/menu/desserts" className={`${styles.menuNav}`}>
-								<CiIceCream size="1.8em" /> Desserts
+								<BiCake size="1.8em" /> Desserts
 							</Nav.Link>
 							<Nav.Link as={NavLink} to="/menu/drinks" className={`${styles.menuNav}`}>
-								<CiCoffeeCup size="1.8em" /> Drinks
+								<BsCupStraw size="1.8em" /> Drinks
 							</Nav.Link>
 						</Nav>
 					</Navbar.Collapse>

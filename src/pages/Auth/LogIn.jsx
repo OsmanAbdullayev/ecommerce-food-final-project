@@ -4,7 +4,7 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import { Form, Button, Col, Container, Row } from "react-bootstrap";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase/config";
-import { ToastContainer, toast } from "react-toastify";
+import {  toast } from "react-toastify";
 import Loader from "../../components/loader/Loader";
 
 const LogIn = () => {
@@ -20,8 +20,8 @@ const LogIn = () => {
     signInWithEmailAndPassword(auth, email, password)
   .then((userCredential) => {
     setIsLoading(false)
-    const user = userCredential.user;
-    toast.success("You Logged In Successfully!")
+    // const user = userCredential.user;
+    // toast.success("You Logged In Successfully!")
     navigate("/")
   })
   .catch((error) => {
@@ -33,7 +33,6 @@ const LogIn = () => {
 
 	return (
 	<>
-    	<ToastContainer />
 			{isLoading && <Loader />}
   	<Container className="my-5 gradient-form">
 			<Row>
@@ -66,7 +65,7 @@ const LogIn = () => {
 
 						<div className="d-flex flex-row align-items-center justify-content-center pb-4 mb-4">
 							<p className="mb-0">Don't have an account?</p>
-							<Button as={NavLink} to="/signup" outline className="mx-2 text-white" color="danger" variant="secondary">
+							<Button as={NavLink} to="/signup" className="mx-2 text-white" color="danger" variant="secondary">
 								Sign Up
 							</Button>
 						</div>
@@ -76,8 +75,8 @@ const LogIn = () => {
 				<Col lg="6" sm="12" className="mb-5">
 					<div className="d-flex flex-column  justify-content-center bg-primary h-100 mb-4">
 						<div className="text-white px-3 py-4 p-md-5 mx-md-4">
-							<h4 class="mb-4">We are more than just a company</h4>
-							<p class="small mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+							<h4 className="mb-4">We are more than just a company</h4>
+							<p className="small mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
 						</div>
 					</div>
 				</Col>

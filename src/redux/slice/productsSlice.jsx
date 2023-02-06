@@ -1,5 +1,5 @@
 import { createSlice, nanoid } from "@reduxjs/toolkit";
-import menu from "../data/menu";
+import menu from "../../data/menu";
 
 const initialState = menu;
 

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import { NavLink, useNavigate } from "react-router-dom";
 import { Form, Button, Col, Row, Container } from "react-bootstrap";
-import { ToastContainer, toast } from "react-toastify";
+import {  toast } from "react-toastify";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase/config";
 import Loader from "../../components/loader/Loader";
@@ -26,7 +26,7 @@ const SignUp = () => {
 					const user = userCredential.user;
 					console.log(user);
 					setIsLoading(false);
-					toast.success("You Signed Up Successfully!");
+					// toast.success("You Signed Up Successfully!");
 					navigate("/login");
 				})
 				.catch((error) => {
@@ -39,7 +39,6 @@ const SignUp = () => {
 
 	return (
 		<>
-			<ToastContainer />
 			{isLoading && <Loader />}
 			<Container className="mt-5">
 				<div className="d-flex flex-column justify-content-center align-items-center ms-5">
@@ -98,7 +97,7 @@ const SignUp = () => {
 					</Form>
 					<div className="d-flex flex-row align-items-center justify-content-center my-4">
 						<p className="mb-0">Already have an account?</p>
-						<Button as={NavLink} to="/login" outline className="mx-2 text-white" color="danger" variant="secondary">
+						<Button as={NavLink} to="/login" className="mx-2 text-white" color="danger" variant="secondary">
 							Log In
 						</Button>
 					</div>

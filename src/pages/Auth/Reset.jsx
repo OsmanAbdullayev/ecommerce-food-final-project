@@ -1,32 +1,61 @@
-import React from 'react'
-import { Link, NavLink } from "react-router-dom";
-import { Form, Button, Col, Row, Container } from "react-bootstrap";
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { Form, Button, Container } from "react-bootstrap";
+import { useState } from "react";
+import { sendPasswordResetEmail } from "firebase/auth";
+import { auth } from "../../firebase/config";
+import { toast } from "react-toastify";
+import Loader from "../../components/loader/Loader";
 
 const Reset = () => {
-  return (
-    <Container className="mt-5">
-    <div className="d-flex flex-column justify-content-center align-items-center ms-5">
-      <div className="text-center">
-        <h4 className="my-2 pb-3">Please, fill in your details</h4>
-      </div>
+	const [email, setEmail] = useState("");
+	const [isLoading, setIsLoading] = useState(false);
 
-      <Form className="w-50 ">
+	const resetPassword = (e) => {
+		e.preventDefault();
+		setIsLoading(true);
+		sendPasswordResetEmail(auth, email)
+			.then(() => {
+				setIsLoading(false);
+				toast.success("The reset link has been sent to your email.")
+			})
+			.catch((error) => {
+				setIsLoading(false);
+				toast.error(error.message);
+				// ..
+			});
+	};
 
-          <Form.Group className="mb-3" controlId="formGridEmail">
-            <Form.Control type="email" placeholder="Enter email" required/>
-          </Form.Group>
+	return (
+		<>
+			{isLoading && <Loader />}
+			<Container className="mt-5">
+				<div className="d-flex flex-column justify-content-center align-items-center ms-5">
+					<div className="text-center">
+						<h4 className="my-2 pb-3">Please, fill in your details</h4>
+					</div>
 
-        <Button variant="primary" type="submit">
-          Reset Password
-        </Button>
-      <div className="d-flex justify-content-between align-items-center w-100 my-4">
-        <Link className="text-muted" to="/login">Log In</Link>
-        <Link className="text-muted" to="/signup">Sign Up</Link>
-      </div>
-      </Form>
-    </div>
-  </Container>
-  )
-}
+					<Form onSubmit={resetPassword} className="w-50 ">
+						<Form.Group className="mb-3" controlId="formGridEmail">
+							<Form.Control type="email" placeholder="Enter email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+						</Form.Group>
 
-export default Reset
+						<Button variant="primary" type="submit">
+							Reset Password
+						</Button>
+						<div className="d-flex justify-content-between align-items-center w-100 my-4">
+							<Link className="text-muted" to="/login">
+								Log In
+							</Link>
+							<Link className="text-muted" to="/signup">
+								Sign Up
+							</Link>
+						</div>
+					</Form>
+				</div>
+			</Container>
+		</>
+	);
+};
+
+export default Reset;
