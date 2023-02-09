@@ -19,7 +19,7 @@ import SignUp from "../pages/Auth/SignUp";
 import Reset from "../pages/Auth/Reset";
 import { ToastContainer } from "react-toastify";
 import Admin from "../pages/Admin/Admin";
-
+import AdminOnlyRoute from "../components/adminOnlyRoute/AdminOnlyRoute";
 
 function App() {
 	return (
@@ -28,27 +28,32 @@ function App() {
 
 			<Header />
 			<Routes>
-				<Route path="/" element={<Home />}></Route>
-				<Route path="/aboutus" element={<AboutUs />}></Route>
-				<Route path="/blog" element={<Blog />}></Route>
-				<Route path="/contacts" element={<Contacts />}></Route>
-				<Route path="/menu" element={<AllProducts />}></Route>
-				<Route path="/cart" element={<Cart />}></Route>
-				<Route path="/menu" element={<AllProducts />}></Route>
-				<Route path="/menu/pizza" element={<Pizza />}></Route>
-				<Route path="/menu/burgers" element={<Burgers />}></Route>
-				<Route path="/menu/sidesandsalads" element={<SidesAndSalads />}></Route>
-				<Route path="/menu/desserts" element={<Desserts />}></Route>
-				<Route path="/menu/drinks" element={<Drinks />}></Route>
+				<Route path="/" element={<Home />} />
+				<Route path="/aboutus" element={<AboutUs />} />
+				<Route path="/blog" element={<Blog />} />
+				<Route path="/contacts" element={<Contacts />} />
+				<Route path="/menu" element={<AllProducts />} />
+				<Route path="/cart" element={<Cart />} />
+				<Route path="/menu" element={<AllProducts />} />
+				<Route path="/menu/pizza" element={<Pizza />} />
+				<Route path="/menu/burgers" element={<Burgers />} />
+				<Route path="/menu/sidesandsalads" element={<SidesAndSalads />} />
+				<Route path="/menu/desserts" element={<Desserts />} />
+				<Route path="/menu/drinks" element={<Drinks />} />
 
-				<Route path="/login" element={<LogIn />}></Route>
-				<Route path="/signup" element={<SignUp />}></Route>
-				<Route path="/reset" element={<Reset />}></Route>
-				<Route path="/admin" element={<Admin />}></Route>
+				<Route path="/login" element={<LogIn />} />
+				<Route path="/signup" element={<SignUp />} />
+				<Route path="/reset" element={<Reset />} />
+				<Route path="*" element={<NotFoundPage />} />
 
+				<Route
+					path="/admin/*"
+					element={
+						<AdminOnlyRoute>
+							<Admin />
+						</AdminOnlyRoute>
+					} />
 
-
-				<Route path="*" element={<NotFoundPage />}></Route>
 			</Routes>
 			<Footer />
 		</BrowserRouter>

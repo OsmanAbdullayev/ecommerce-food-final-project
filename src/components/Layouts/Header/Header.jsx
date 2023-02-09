@@ -21,7 +21,7 @@ import Loader from "../../loader/Loader";
 import { useDispatch } from "react-redux";
 import { REMOVE_ACTIVE_USER, SET_ACTIVE_USER } from "../../../redux/slice/authSlice";
 import ShowOnLogIn, { ShowOnLogOut } from "../../hiddenLink/HiddenLink";
-import AdminOnlyRoute from "../../adminOnlyRoute/AdminOnlyRoute";
+import AdminOnlyRoute, { AdminOnlyLink } from "../../adminOnlyRoute/AdminOnlyRoute";
 
 function Header() {
 	const { totalItems } = useCart();
@@ -173,11 +173,11 @@ function Header() {
 										<BsPerson size="1.4em" />
 										{displayName}
 									</Button>
-									<AdminOnlyRoute>
-										<Button variant="dark" className="text-white me-1" as={NavLink} to="/admin">
+									<AdminOnlyLink>
+										<Button variant="dark" className="text-white me-1" as={NavLink} to="/admin/home">
 											Admin
 										</Button>
-									</AdminOnlyRoute>
+									</AdminOnlyLink>
 								</ShowOnLogIn>
 								<ShowOnLogOut>
 									<Button as={NavLink} to="/signup" className="text-white d-flex justify-content-center align-items-center h-50" variant="warning me-1">
