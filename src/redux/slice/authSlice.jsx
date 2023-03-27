@@ -14,7 +14,7 @@ const authSlice = createSlice({
 	initialState,
 	reducers: {
 		SET_ACTIVE_USER: (state, action) => {
-			console.log(action.payload);
+			// console.log(action.payload);
       
 			const { email, userName, userID } = action.payload;
 			state.isLoggedIn = true;
@@ -24,7 +24,7 @@ const authSlice = createSlice({
 		},
     // this is another way of writing an action: without the arrow function
     REMOVE_ACTIVE_USER(state, action) {
-      console.log(state.isLoggedIn)
+      // console.log(state.isLoggedIn)
       
 			state.isLoggedIn = false;
 			state.email = null;

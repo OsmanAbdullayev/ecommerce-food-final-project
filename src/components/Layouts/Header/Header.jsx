@@ -58,7 +58,7 @@ function Header() {
 					setDisplayName(user.displayName);
 				}
 
-				console.log(displayName);
+				// console.log(displayName);
 				dispatch(
 					SET_ACTIVE_USER({
 						email: user.email,

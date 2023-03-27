@@ -4,51 +4,33 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { db, storage } from "../../../firebase/config";
-import { CiEdit, CiTrash } from "react-icons/ci";
+import { CiEdit } from "react-icons/ci";
+import { BsTrash } from "react-icons/bs";
 import styles from "./ViewProducts.module.scss";
 import Loader from "../../loader/Loader";
 import { deleteObject, ref } from "firebase/storage";
 import Notiflix from "notiflix";
-import { useDispatch } from "react-redux";
-import { STORE_PRODUCTS } from "../../../redux/slice/productsSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { selectProducts, STORE_PRODUCTS } from "../../../redux/slice/productsSlice";
+import useFetchCollection from "../../../customHooks/useFetchCollection";
+
+
 
 const ViewProducts = () => {
-	const [products, setProducts] = useState([]);
-	const [isLoading, setIsLoading] = useState(false);
+	const { data, isLoading } = useFetchCollection("products");
+	const products =  useSelector(selectProducts)
 
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		getProducts();
-	}, []);
+		dispatch(
+			STORE_PRODUCTS({
+				products: data,
+			})
+		);
+	}, [dispatch, data]);
 
-	const getProducts = () => {
-		setIsLoading(true);
-
-		try {
-			const productsRef = collection(db, "products");
-			const q = query(productsRef, orderBy("createdAt"));
-
-			onSnapshot(q, (snapshot) => {
-				// console.log(snapshot);
-				const allProducts = snapshot.docs.map((doc) => ({
-					id: doc.id,
-					...doc.data(),
-				}));
-				console.log(allProducts);
-				setProducts(allProducts);
-				setIsLoading(false);
-				dispatch(
-					STORE_PRODUCTS({
-						products: allProducts,
-					})
-				);
-			});
-		} catch (error) {
-			setIsLoading(false);
-			toast.error(error.mesage);
-		}
-	};
+	
 	const confirmDelete = (id, imageURL) => {
 		Notiflix.Confirm.show(
 			"Are you sure?",
@@ -115,11 +97,11 @@ const ViewProducts = () => {
 										<td>{`$${price}`}</td>
 										<td>{`${discount}%`}</td>
 										<td>
-											<Link to="/admin/add-product">
+											<Link to={`/admin/add-product/${id}`}>
 												<CiEdit size={20} color="green" />
 											</Link>
 											&nbsp;
-											<CiTrash
+											<BsTrash
 												size={20}
 												color="red"
 												onClick={() => {

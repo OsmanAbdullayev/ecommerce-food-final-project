@@ -3,11 +3,13 @@ import { useState } from "react";
 import { Button, Card, Form } from "react-bootstrap";
 import styles from "./AddProduct.module.scss";
 import { db, storage } from "../../../firebase/config";
-import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { deleteObject, getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { toast } from "react-toastify";
-import { addDoc, collection, Timestamp } from "firebase/firestore";
-import { useNavigate } from "react-router";
+import { addDoc, collection, doc, setDoc, Timestamp } from "firebase/firestore";
+import { useNavigate, useParams } from "react-router";
 import Loader from "../../loader/Loader";
+import { useSelector } from "react-redux";
+import { selectProducts } from "../../../redux/slice/productsSlice";
 
 const categories = [
 	{
@@ -45,8 +47,15 @@ const initialState = {
 };
 
 const AddProduct = () => {
-	const [product, setproduct] = useState({
-		...initialState,
+	const { id } = useParams();
+
+	const products = useSelector(selectProducts);
+	const productEdit = products.find((item) => item.id === id);
+	console.log(productEdit);
+
+	const [product, setproduct] = useState(() => {
+		const newState = detectForm(id, { ...initialState }, productEdit);
+		return newState;
 	});
 
 	const [uploadProgress, setUploadProgress] = useState(0);
@@ -89,12 +98,12 @@ const AddProduct = () => {
 				name: product.name,
 				imageURL: product.imageURL,
 				category: product.category,
-				description: product.desc,
+				description: product.description,
 				price: Number(product.price),
 				discount: Number(product.discount),
 				vegetarian: Boolean(product.vegetarian),
 				spicy: Boolean(product.spicy),
-				createdAt: Timestamp.now().toDate(),
+				createdAt: JSON.stringify(Timestamp.now().toDate()),
 			});
 
 			setIsLoading(false);
@@ -109,14 +118,53 @@ const AddProduct = () => {
 		}
 	};
 
+	const editProduct = (e) => {
+		e.preventDefault();
+		setIsLoading(true);
+
+		if (product.imageURL !== productEdit.imageURL) {
+			const storageRef = ref(storage, productEdit.imageURL);
+			deleteObject(storageRef);
+		}
+
+		try {
+			setDoc(doc(db, "products", id), {
+				name: product.name,
+				imageURL: product.imageURL,
+				category: product.category,
+				description: product.description,
+				price: Number(product.price),
+				discount: Number(product.discount),
+				vegetarian: Boolean(product.vegetarian),
+				spicy: Boolean(product.spicy),
+				createdAt: productEdit.createdAt,
+				editedAt: JSON.stringify(Timestamp.now().toDate()),
+			});
+
+			setIsLoading(false);
+			toast.success("Product Edited Sucessfully!");
+			navigate("/admin/all-products");
+		} catch (error) {
+			setIsLoading(false);
+			toast.error(error.message);
+		}
+	};
+
+	function detectForm(id, f1, f2) {
+		if (id === "ADD") {
+			return f1;
+		} else {
+			return f2;
+		}
+	}
+
 	return (
 		<>
 			{isLoading && <Loader />}
 			<div className={styles.product}>
-				<h1>Add New Product</h1>
+				<h2>{detectForm(id, "Add New Product", "Edit Product")}</h2>
 				<Card className={styles.card}>
-
-					<Form onSubmit={addProduct}>
+					<Form onSubmit={detectForm(id, addProduct, editProduct)}>
 						{/* name */}
 
 						<Form.Group className="mb-3 px-3">
@@ -171,7 +219,7 @@ const AddProduct = () => {
 
 						<Form.Group className="mb-3 px-3">
 							<Form.Label>Product Description:</Form.Label>
-							<Form.Control type="text" placeholder="Describe your product" required name="desc" value={product.desc} onChange={(e) => handleInputChange(e)} />
+							<Form.Control type="text" placeholder="Describe your product" required name="description" value={product.description} onChange={(e) => handleInputChange(e)} />
 						</Form.Group>
 
 						{/* price  */}
@@ -197,7 +245,7 @@ const AddProduct = () => {
 							<Form.Check label="Spicy" type="switch" name="spicy" value={product.spicy} onChange={(e) => handleInputChange(e)} />
 						</Form.Group>
 
-						<Button type="submit">Save Product</Button>
+						<Button type="submit">{detectForm(id, "Save Product", "Edit Product")}</Button>
 					</Form>
 				</Card>
 			</div>
