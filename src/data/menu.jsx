@@ -51,8 +51,12 @@ const menu = [
 		img: BlackBurger,
 		title: "Black Burger",
 		category: "burgers",
+		description: "Mouth watering pepperoni, cabanossi, mushroom, capsicum, black olives and stretchy mozzarella, seasoned with garlic and oregano.",
 		price: 5,
 		quantity: 0,
+		discount: 20,
+		vegetarian: false,
+		spicy: false,
 	},
 	{
 		id: 2,

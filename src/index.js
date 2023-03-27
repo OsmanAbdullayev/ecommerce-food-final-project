@@ -3,8 +3,8 @@ import ReactDOM from "react-dom/client";
 import App from "./routers/AppRouter";
 import reportWebVitals from "./reportWebVitals";
 import { CartProvider } from "react-use-cart";
-import { store } from "./redux/store";
 import { Provider } from "react-redux";
+import store from "./redux/store";
 // import "./assets/sass/global.scss";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

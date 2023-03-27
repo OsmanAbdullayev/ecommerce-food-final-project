@@ -1,31 +1,21 @@
 import { createSlice, nanoid } from "@reduxjs/toolkit";
 import menu from "../../data/menu";
 
-const initialState = menu;
+const initialState = {
+	products: [],
+};
 
 const productsSlice = createSlice({
-	name: "products",
+	name: "product",
 	initialState,
 	reducers: {
-		productAdded: {
-			reducer(state, action) {
-				state.push(action.payload);
-			},
-			prepare(title, price) {
-				return {
-					payload: {
-						id: nanoid(),
-						title,
-						price,
-					},
-				};
-			},
+		STORE_PRODUCTS(state, action) {
+			console.log(action.payload);
 		},
 	},
 });
 
-export const selectAllProducts = (state) => state.products;
-
-export const { productAdded } = productsSlice.actions;
+export const { STORE_PRODUCTS } = productsSlice.actions;
+export const selectProducts = (state) => state.product.products;
 
 export default productsSlice.reducer;

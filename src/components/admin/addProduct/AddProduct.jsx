@@ -35,10 +35,13 @@ const categories = [
 const initialState = {
 	name: "",
 	imageURL: "",
-	price: 0,
 	category: "",
-	brand: "",
-	desc: "",
+	description: "",
+	price: 0,
+	quantity: 0,
+	discount: 0,
+	vegetarian: false,
+	spicy: false,
 };
 
 const AddProduct = () => {
@@ -85,11 +88,15 @@ const AddProduct = () => {
 			const docRef = addDoc(collection(db, "products"), {
 				name: product.name,
 				imageURL: product.imageURL,
-				price: Number(product.price),
 				category: product.category,
-				desc: product.desc,
+				description: product.desc,
+				price: Number(product.price),
+				discount: Number(product.discount),
+				vegetarian: Boolean(product.vegetarian),
+				spicy: Boolean(product.spicy),
 				createdAt: Timestamp.now().toDate(),
 			});
+
 			setIsLoading(false);
 			setUploadProgress(0);
 			setproduct({ ...initialState });
@@ -108,11 +115,34 @@ const AddProduct = () => {
 			<div className={styles.product}>
 				<h1>Add New Product</h1>
 				<Card className={styles.card}>
+
 					<Form onSubmit={addProduct}>
+						{/* name */}
+
 						<Form.Group className="mb-3 px-3">
 							<Form.Label>Product Name:</Form.Label>
-							<Form.Control type="text" placeholder="Product Name" required name="name" value={product.name} onChange={(e) => handleInputChange(e)} />
+							<Form.Control type="text" placeholder="Enter product name" required name="name" value={product.name} onChange={(e) => handleInputChange(e)} />
 						</Form.Group>
+
+						{/* category */}
+
+						<Form.Group className="mb-3 px-3">
+							<Form.Label>Product Category:</Form.Label>
+							<Form.Select required name="category" value={product.category} onChange={(e) => handleInputChange(e)}>
+								<option value="" disabled>
+									-- choose product category --
+								</option>
+								{categories.map((cat) => {
+									return (
+										<option key={cat.id} value={cat.name}>
+											{cat.name}
+										</option>
+									);
+								})}
+							</Form.Select>
+						</Form.Group>
+
+						{/* imageURL */}
 
 						<Form.Group className="mb-3 px-3">
 							<Form.Label>Product Image:</Form.Label>
@@ -137,26 +167,36 @@ const AddProduct = () => {
 							</Card>
 						</Form.Group>
 
+						{/* description */}
+
+						<Form.Group className="mb-3 px-3">
+							<Form.Label>Product Description:</Form.Label>
+							<Form.Control type="text" placeholder="Describe your product" required name="desc" value={product.desc} onChange={(e) => handleInputChange(e)} />
+						</Form.Group>
+
+						{/* price  */}
+
 						<Form.Group className="mb-3 px-3">
 							<Form.Label>Product Price:</Form.Label>
 							<Form.Control type="number" placeholder="Product Price" required name="price" value={product.price} onChange={(e) => handleInputChange(e)} />
 						</Form.Group>
 
+						{/* discount */}
 						<Form.Group className="mb-3 px-3">
-							<Form.Label>Product Category:</Form.Label>
-							<Form.Select required name="category" value={product.category} onChange={(e) => handleInputChange(e)}>
-								<option value="" disabled>
-									-- choose product category --
-								</option>
-								{categories.map((cat) => {
-									return (
-										<option key={cat.id} value={cat.name}>
-											{cat.name}
-										</option>
-									);
-								})}
-							</Form.Select>
+							<Form.Label>Discount {product.discount}%</Form.Label>
+							<Form.Range min="0" max="100" step="1" placeholder="Product Discount" required name="discount" value={product.discount} onChange={(e) => handleInputChange(e)} />
 						</Form.Group>
+
+						{/* vegetarian */}
+						<Form.Group className="mb-3 px-3">
+							<Form.Check label="Vegetarian" type="switch" name="vegetarian" value={product.vegetarian} onChange={(e) => handleInputChange(e)} />
+						</Form.Group>
+
+						{/* spicy */}
+						<Form.Group className="mb-3 px-3">
+							<Form.Check label="Spicy" type="switch" name="spicy" value={product.spicy} onChange={(e) => handleInputChange(e)} />
+						</Form.Group>
+
 						<Button type="submit">Save Product</Button>
 					</Form>
 				</Card>

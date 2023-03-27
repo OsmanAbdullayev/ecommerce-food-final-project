@@ -13,8 +13,8 @@
   font-size: 1.4rem;
 }
 .table table thead {
-  border-top: 2px solid var(--light-blue);
-  border-bottom: 2px solid var(--light-blue);
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
 }
 .table table th {
   border: 1px solid #eee;
