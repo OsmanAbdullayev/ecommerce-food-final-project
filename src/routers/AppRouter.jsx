@@ -20,6 +20,7 @@ import Reset from "../pages/Auth/Reset";
 import { ToastContainer } from "react-toastify";
 import Admin from "../pages/Admin/Admin";
 import AdminOnlyRoute from "../components/adminOnlyRoute/AdminOnlyRoute";
+import ProductDetails from "../components/product/productDetails/productDetails";
 
 function App() {
 	return (
@@ -54,6 +55,7 @@ function App() {
 						</AdminOnlyRoute>
 					} />
 
+					<Route path="/product-details/:id" element={<ProductDetails />} />
 			</Routes>
 			<Footer />
 		</BrowserRouter>

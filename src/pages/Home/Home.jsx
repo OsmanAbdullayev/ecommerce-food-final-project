@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Container } from "react-bootstrap";
 import BestDeals from "../../components/BestDeals/BestDeals";
 import Hero from "../../components/Hero/Hero";
@@ -7,6 +7,24 @@ import Menu from "../../components/MenuComponents/AllProductsComponent";
 import Product from "../../components/product/Product";
 
 const Home = () => {
+const url = window.location.href;
+
+
+// SCROLLS TO PRODUCTS
+// const scrollToProducts = () => {
+// 	if (url.includes("#products")) {
+// 		window.scrollTo({
+// 			top: 700,
+// 			behavior: "smooth"
+// 		})
+// 		return 
+// 	}
+// }
+
+// useEffect(() => {
+// scrollToProducts()
+// }, [])
+
 	return (
 		<>
 		<Product />
