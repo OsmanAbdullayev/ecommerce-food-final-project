@@ -64,11 +64,31 @@ const filterSlice = createSlice({
 				tempProducts = products.filter((product) => product.vegetarian === true);
 			}
 			state.filteredProducts = tempProducts;
+			// console.log("vegetarian dispatched");
+		},
+		FILTER_SPICY(state, action) {
+			const { products, spicy } = action.payload;
+			let tempProducts = [];
+			if (spicy === false) {
+				tempProducts = products;
+			} else {
+				tempProducts = products.filter((product) => product.spicy === true);
+			}
+			state.filteredProducts = tempProducts;
+			// console.log("spicy dispatched");
+		},
+
+		FILTER_BY_PRICE(state, action) {
+			const { products, price } = action.payload;
+			let tempProducts = [];
+			tempProducts = products.filter((product) => product.price <= price);
+
+			state.filteredProducts = tempProducts;
 		},
 	},
 });
 
-export const { FILTER_BY_SEARCH, SORT_PRODUCTS, FILTER_BY_CATEGORY, FILTER_VEGETARIAN } = filterSlice.actions;
+export const { FILTER_BY_SEARCH, SORT_PRODUCTS, FILTER_BY_CATEGORY, FILTER_VEGETARIAN, FILTER_SPICY, FILTER_BY_PRICE } = filterSlice.actions;
 export const selectFilteredProducts = (state) => state.filter.filteredProducts;
 
 export default filterSlice.reducer;

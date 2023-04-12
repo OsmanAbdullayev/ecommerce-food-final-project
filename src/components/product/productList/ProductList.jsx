@@ -1,26 +1,34 @@
 import React, { useEffect, useState } from "react";
+import { Pagination } from "react-bootstrap";
 import { BsFillGridFill } from "react-icons/bs";
 import { FaListAlt } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { FILTER_BY_SEARCH, selectFilteredProducts, SORT_PRODUCTS } from "../../../redux/slice/filterSlice";
+import PaginationComponent from "../../PaginationComponent";
 import Search from "../../search/Search";
 import ProductItem from "../productItem/ProductItem";
 import styles from "./ProductList.module.scss";
 
-
 const ProductList = ({ products }) => {
 	const [grid, setGrid] = useState(true);
 	const [search, setSearch] = useState("");
-	const [sort, setSort] = useState("latest")
+	const [sort, setSort] = useState("latest");
 	const filteredProducts = useSelector(selectFilteredProducts);
+	const productsCount = filteredProducts.length;
+	const [currentPage, setCurrentPage] = useState(1);
+	const [productsPerPage] = useState(2);
+
+	const lastProductNumber = currentPage * productsPerPage;
+	const firstProductNumber = lastProductNumber - productsPerPage;
+	const currentProducts = filteredProducts.slice(firstProductNumber, lastProductNumber);
 
 	const dispatch = useDispatch(selectFilteredProducts);
+	console.log(currentPage);
 
 	useEffect(() => {
 		dispatch(SORT_PRODUCTS({ products, sort }));
 	}, [dispatch, products, sort]);
 
-	
 	useEffect(() => {
 		dispatch(FILTER_BY_SEARCH({ products, search }));
 	}, [dispatch, products, search]);
@@ -69,13 +77,12 @@ const ProductList = ({ products }) => {
 					</select>
 				</div>
 			</div>
-
 			<div className={grid ? `${styles.grid}` : `${styles.list}`}>
 				{products.length === 0 ? (
 					<p>No product found.</p>
 				) : (
 					<>
-						{filteredProducts.map((product) => {
+						{currentProducts.map((product) => {
 							return (
 								<div key={product.id}>
 									<ProductItem {...product} grid={grid} product={product} />
@@ -85,6 +92,7 @@ const ProductList = ({ products }) => {
 					</>
 				)}
 			</div>
+			<PaginationComponent itemsCount={productsCount} itemsPerPage={productsPerPage} currentPage={currentPage} setCurrentPage={setCurrentPage} alwaysShown={false} />
 		</div>
 	);
 };

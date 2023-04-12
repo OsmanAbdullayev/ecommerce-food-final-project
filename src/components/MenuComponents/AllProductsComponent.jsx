@@ -23,6 +23,7 @@ const AllProductsComponent = (props) => {
 	// 		<h1 className="text-center py-5">All Products</h1>
 	// 		<Row className="g-3">
 	// 			{currentProducts.map((fd, i) => {
+		
 	// 				return (
 	// 					<Col key={i} lg={props.lg} md={props.md} sm={props.sm}>
 	// 						<Item img={fd.img} title={fd.title} price={fd.price} addProduct={fd} id={nanoid()} />
