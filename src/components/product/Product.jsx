@@ -29,7 +29,7 @@ const Product = () => {
 		<section>
 			<div className={`container ${styles.product}`}>
 				<aside className={styles.filter}>{isLoading ? null : <ProductFilter />}</aside>
-				<div className={styles.content}>{isLoading ? <img src={spinnerImg} alt="Loading..." style={{ width: "50px" }} className="text-center m-3" /> : <ProductList products={products} />}</div>
+				<div className={styles.content}>{isLoading ? <img src={spinnerImg} alt="Loading..." style={{ width: "300px" }} className="text-center m-3" /> : <ProductList products={products} />}</div>
 			</div>
 			<h2>Product</h2>
 		</section>

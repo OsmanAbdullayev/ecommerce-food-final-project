@@ -8,7 +8,7 @@ const ProductFilter = () => {
 	const [category, setCategory] = useState("All");
 	const [vegetarian, setVegetarian] = useState(false);
 	const [spicy, setSpicy] = useState(false);
-	const [price, setPrice] = useState(30);
+	const [price, setPrice] = useState(19);
 	const products = useSelector(selectProducts);
 	const minPrice = useSelector(selectMinPrice);
 	const maxPrice = useSelector(selectMaxPrice);

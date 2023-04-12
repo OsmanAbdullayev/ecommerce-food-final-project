@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Pagination } from "react-bootstrap";
+import { Col, Pagination, Row } from "react-bootstrap";
 import { BsFillGridFill } from "react-icons/bs";
 import { FaListAlt } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,14 +9,14 @@ import Search from "../../search/Search";
 import ProductItem from "../productItem/ProductItem";
 import styles from "./ProductList.module.scss";
 
-const ProductList = ({ products }) => {
+const ProductList = ({ products }, props) => {
 	const [grid, setGrid] = useState(true);
 	const [search, setSearch] = useState("");
 	const [sort, setSort] = useState("latest");
 	const filteredProducts = useSelector(selectFilteredProducts);
 	const productsCount = filteredProducts.length;
 	const [currentPage, setCurrentPage] = useState(1);
-	const [productsPerPage] = useState(2);
+	const [productsPerPage] = useState(8);
 
 	const lastProductNumber = currentPage * productsPerPage;
 	const firstProductNumber = lastProductNumber - productsPerPage;
@@ -77,21 +77,24 @@ const ProductList = ({ products }) => {
 					</select>
 				</div>
 			</div>
-			<div className={grid ? `${styles.grid}` : `${styles.list}`}>
+			{/* <div className={grid ? `${styles.grid}` : `${styles.list}`}> */}
+
+			<Row className="g-3 my-1">
 				{products.length === 0 ? (
 					<p>No product found.</p>
 				) : (
 					<>
 						{currentProducts.map((product) => {
 							return (
-								<div key={product.id}>
+								<Col key={product.id} lg={grid ? 3 : 12} md={grid ? 4 : 12} sm={grid ? 6 : 12}>
 									<ProductItem {...product} grid={grid} product={product} />
-								</div>
+								</Col>
 							);
 						})}
 					</>
 				)}
-			</div>
+			</Row>
+			{/* </div> */}
 			<PaginationComponent itemsCount={productsCount} itemsPerPage={productsPerPage} currentPage={currentPage} setCurrentPage={setCurrentPage} alwaysShown={false} />
 		</div>
 	);
