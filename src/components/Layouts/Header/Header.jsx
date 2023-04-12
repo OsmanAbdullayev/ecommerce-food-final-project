@@ -73,8 +73,9 @@ function Header() {
 		});
 
 		window.addEventListener("scroll", () => {
-			if (window.pageYOffset > 10) {
+			if (window.pageYOffset > 1) {
 				setIsHidden(true);
+				console.log("activated");
 			} else {
 				setIsHidden(false);
 			}
@@ -87,7 +88,7 @@ function Header() {
 	return (
 		<>
 			{isLoading && <Loader />}
-			<Navbar className={`${styles.navbarbg} d-flex flex-column sticky-top m-0 p-0`} variant="dark" expand="lg">
+			<Navbar className={isHidden ? `${styles.fixed}` : `${styles.navbar}`} variant="dark" expand="lg">
 				<Container className="py-2">
 					<Navbar.Brand as={NavLink} to="/">
 						<h1 className="pb-1 m-0 d-flex justify-content-between align-items-start">
@@ -199,7 +200,7 @@ function Header() {
 						</Nav>
 					</Navbar.Collapse>
 				</Container>
-				<Container className={`${styles.hidingSection}`} style={{ display: isHidden ? "none" : "block" }}>
+				<Container className={isHidden ? `${styles.hidden}` : `${styles.hidingSection}`}>
 					<Navbar.Collapse id="basic-navbar-nav" className={`${styles.line} py-0 mt-0 w-100`}>
 						<Nav className="d-flex justify-content-between align-items-start w-100">
 							<Nav.Link as={NavLink} to="/menu/pizza" className={`${styles.menuNav}`}>

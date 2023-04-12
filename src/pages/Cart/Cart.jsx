@@ -68,10 +68,10 @@ const Cart = () => {
 									{i + 1}
 								</th>
 								<td>
-									<img src={fd.img} alt="error" className="shadow"></img>
+									<img src={fd.imageURL} alt="error" className="shadow"></img>
 								</td>
 								<td>
-									<h3 className="text-primary">{fd.title}</h3>
+									<h3 className="text-primary">{fd.name}</h3>
 								</td>
 								<td className="align-middle">
 									<h5>${fd.price * fd.quantity}</h5>

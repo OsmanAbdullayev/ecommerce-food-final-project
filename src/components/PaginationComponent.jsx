@@ -17,7 +17,7 @@ const PaginationComponent = ({ itemsCount, itemsPerPage, currentPage, setCurrent
 	const changePage = (number) => {
 		if (currentPage === number) return;
 		setCurrentPage(number);
-		// scrollToTop();
+		scrollToTop();
 	};
 
 	const onPageNumberClick = (pageNumber) => {

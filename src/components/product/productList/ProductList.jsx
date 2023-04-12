@@ -33,6 +33,7 @@ const ProductList = ({ products }, props) => {
 		dispatch(FILTER_BY_SEARCH({ products, search }));
 	}, [dispatch, products, search]);
 
+
 	return (
 		<div className={styles["product-list"]} id="product">
 			<div className={styles.top}>
@@ -87,7 +88,7 @@ const ProductList = ({ products }, props) => {
 						{currentProducts.map((product) => {
 							return (
 								<Col key={product.id} lg={grid ? 3 : 12} md={grid ? 4 : 12} sm={grid ? 6 : 12}>
-									<ProductItem {...product} grid={grid} product={product} />
+									<ProductItem {...product} grid={grid} product={product} addProduct={product}/>
 								</Col>
 							);
 						})}

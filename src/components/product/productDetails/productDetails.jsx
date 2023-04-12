@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { db } from "../../../firebase/config";
 import { Link } from "react-router-dom";
 import spinnerImg from "../../../assets/loader.gif";
+import { useCart } from "react-use-cart";
 
 const ProductDetails = () => {
 	const { id } = useParams();
@@ -23,6 +24,7 @@ const ProductDetails = () => {
 			// console.log("Document data:", docSnap.data());
 			const obj = {
 				...docSnap.data(),
+				id,
 			};
 			setProduct(obj);
 		} else {
@@ -31,6 +33,8 @@ const ProductDetails = () => {
 			toast.error("Product not found.");
 		}
 	};
+
+	const { addItem } = useCart();
 
 	return (
 		<section>
@@ -58,12 +62,14 @@ const ProductDetails = () => {
 								<p>
 									<b>CATEGORY: </b> {product.category}
 								</p>
-								<div className={styles.count}>
+								{/* <div className={styles.count}>
 									<button className="--btn">-</button>
 									<p>1</p>
 									<button className="--btn">+</button>
-								</div>
-								<button className={`--btn --btn-danger`}>Add To Card</button>
+								</div> */}
+								<button className={`--btn --btn-danger`} onClick={() => addItem(product)}>
+									Add To Card
+								</button>
 							</div>
 						</div>
 					</>
