@@ -1,16 +1,38 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useCart } from "react-use-cart";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Button, Container, Table } from "react-bootstrap";
-import {BsTrashFill} from "react-icons/bs"
+import { BsTrashFill } from "react-icons/bs";
+import { useDispatch, useSelector } from "react-redux";
+import { selectIsLoggedIn } from "../../redux/slice/authSlice";
+import { SAVE_URL } from "../../redux/slice/cartSlice";
 const Cart = () => {
 	const { isEmpty, totalUniqueItems, items, updateItemQuantity, removeItem, emptyCart, totalItems, cartTotal } = useCart();
 	const removed = () => toast("Item removed successfully!");
-	const checkedOut = () => toast("Checking out...");
+
+	const navigate = useNavigate();
+	const dispatch = useDispatch();
+
+	const isLoggedIn = useSelector(selectIsLoggedIn);
+	const url = window.location.href;
+
+	useEffect(() => {
+		dispatch(SAVE_URL(""));
+	});
+
+	const checkout = () => {
+		toast("Checking out...");
+		if (isLoggedIn) {
+			navigate("/checkout-details");
+		} else {
+			dispatch(SAVE_URL(url));
+			navigate("/login");
+		}
+	};
 
 	const removeAllItems = () => {
 		confirmAlert({
@@ -52,7 +74,7 @@ const Cart = () => {
 			<div className="table-responsive-sm">
 				<Table>
 					<thead>
-						<tr className="align-middle text-center" >
+						<tr className="align-middle text-center">
 							<th scope="col">#</th>
 							<th scope="col">Product Photo</th>
 							<th scope="col">Product Name</th>
@@ -116,11 +138,10 @@ const Cart = () => {
 								<h3 className="text-danger">x{totalItems} </h3>
 							</td>
 							<td className="d-flex justify-content-around align-items-center flex-column">
-								<Button variant="secondary" className="fs-5 my-1 text-light" onClick={checkedOut}>
+								<Button variant="secondary" className="fs-5 my-1 text-light" onClick={checkout}>
 									Checkout
 								</Button>
 								<ToastContainer position="bottom-center" autoClose={1000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="colored" />
-
 							</td>
 						</tr>
 					</tbody>

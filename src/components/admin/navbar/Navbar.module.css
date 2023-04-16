@@ -9,7 +9,7 @@
   flex-direction: column;
   padding: 4rem;
   background-color: var(--light-blue);
-  background-color: red;
+  background-color: #c00a27;
 }
 .navbar .user h4 {
   color: #fff;

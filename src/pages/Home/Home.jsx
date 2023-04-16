@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import { Container } from "react-bootstrap";
+import React from "react";
 import BestDeals from "../../components/BestDeals/BestDeals";
 import Hero from "../../components/Hero/Hero";
 import ProductsSection from "../../components/ProductsSection/ProductsSection";
@@ -7,28 +6,27 @@ import Menu from "../../components/MenuComponents/AllProductsComponent";
 import Product from "../../components/product/Product";
 
 const Home = () => {
-const url = window.location.href;
+	// const url = window.location.href;
 
+	// SCROLLS TO PRODUCTS
+	// const scrollToProducts = () => {
+	// 	if (url.includes("#products")) {
+	// 		window.scrollTo({
+	// 			top: 700,
+	// 			behavior: "smooth"
+	// 		})
+	// 		return
+	// 	}
+	// }
 
-// SCROLLS TO PRODUCTS
-// const scrollToProducts = () => {
-// 	if (url.includes("#products")) {
-// 		window.scrollTo({
-// 			top: 700,
-// 			behavior: "smooth"
-// 		})
-// 		return 
-// 	}
-// }
-
-// useEffect(() => {
-// scrollToProducts()
-// }, [])
+	// useEffect(() => {
+	// scrollToProducts()
+	// }, [])
 
 	return (
 		<>
-		<Product />
 			<Hero />
+			<Product />
 			<ProductsSection />
 			<BestDeals />
 			<Menu lg="3" md="6" sm="12" />

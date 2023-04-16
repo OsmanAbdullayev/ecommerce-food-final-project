@@ -1,15 +1,22 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  cartItems: []
-}
+	cartItems: [],
+	previousURL: "",
+};
 
 const cartSlice = createSlice({
-  name: second,
-  initialState,
-  reducers: {}
+	name: "cart",
+	initialState,
+	reducers: {
+		SAVE_URL(state, action) {
+			state.previousURL = action.payload;
+		},
+	},
 });
 
-export const {} = cartSlice.actions
+export const { SAVE_URL } = cartSlice.actions;
 
-export default cartSlice.reducer
+export const selectPreviousURL = (state) => state.cart.previousURL;
+
+export default cartSlice.reducer;

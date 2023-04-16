@@ -21,7 +21,7 @@ import Loader from "../../loader/Loader";
 import { useDispatch } from "react-redux";
 import { REMOVE_ACTIVE_USER, SET_ACTIVE_USER } from "../../../redux/slice/authSlice";
 import ShowOnLogIn, { ShowOnLogOut } from "../../hiddenLink/HiddenLink";
-import AdminOnlyRoute, { AdminOnlyLink } from "../../adminOnlyRoute/AdminOnlyRoute";
+import { AdminOnlyLink } from "../../adminOnlyRoute/AdminOnlyRoute";
 
 function Header() {
 	const { totalItems } = useCart();
@@ -73,7 +73,7 @@ function Header() {
 		});
 
 		window.addEventListener("scroll", () => {
-			if (window.pageYOffset > 1) {
+			if (window.pageYOffset > 100) {
 				setIsHidden(true);
 				console.log("activated");
 			} else {
@@ -157,7 +157,7 @@ function Header() {
 							</Stack> */}
 
 							<Stack direction="horizontal">
-								<Button as={NavLink} to="/cart" variant="secondary" className={`${styles.cart} my-1`}>
+								<Button as={NavLink} to="/cart" variant="secondary" className={`${styles.cart} my-1 ms-3 me-1`}>
 									<Stack direction="vertical" className={`${styles.vstack}`}>
 										<Stack direction="horizontal" className={`${styles.tophstack}`}>
 											<BsCart2 size="1.5em" className="me-2" /> <p className="p-0 m-0 bolder">Cart ({totalItems})</p>
@@ -170,9 +170,9 @@ function Header() {
 									</Button>
 								</ShowOnLogOut>
 								<ShowOnLogIn>
-									<Button as={NavLink} to="/profile" className="text-white me-1">
-										<BsPerson size="1.4em" />
-										{displayName}
+									<Button as={NavLink} to="/profile" className="text-white me-1 pe-3 text-nowrap">
+										<BsPerson size="1.4em" className="me-1"/>
+										{displayName.substring(0, 6)}
 									</Button>
 									<AdminOnlyLink>
 										<Button variant="dark" className="text-white me-1" as={NavLink} to="/admin/home">
@@ -181,12 +181,12 @@ function Header() {
 									</AdminOnlyLink>
 								</ShowOnLogIn>
 								<ShowOnLogOut>
-									<Button as={NavLink} to="/signup" className="text-white d-flex justify-content-center align-items-center h-50" variant="warning me-1">
+									<Button as={NavLink} to="/signup" className="text-white d-flex justify-content-center align-items-center h-50 text-nowrap" variant="warning me-1">
 										Sign Up
 									</Button>
 								</ShowOnLogOut>
 								<ShowOnLogIn>
-									<Button onClick={logOut} className="text-white d-flex justify-content-center align-items-center h-50" variant="warning me-1">
+									<Button onClick={logOut} className="text-white d-flex justify-content-center align-items-center h-50 text-nowrap" variant="warning me-1">
 										Log Out
 									</Button>
 								</ShowOnLogIn>

@@ -40,8 +40,8 @@ const SignUp = () => {
 	return (
 		<>
 			{isLoading && <Loader />}
-			<Container className="mt-5">
-				<div className="d-flex flex-column justify-content-center align-items-center ms-5">
+			<Container className="">
+				<div className="d-flex flex-column justify-content-center align-items-center ms-5	">
 					<div className="text-center">
 						<h4 className="my-2 pb-3">Please, fill in your details</h4>
 					</div>

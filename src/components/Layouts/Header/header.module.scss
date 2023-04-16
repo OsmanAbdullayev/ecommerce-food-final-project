@@ -5,7 +5,6 @@
 	margin: 0;
 	padding: 0;
 	width: 100%;
-
 	z-index: 10;
 }
 
@@ -18,13 +17,14 @@
 	position: fixed;
 	width: 100%;
 	z-index: 10;
-
 }
 
 .hidden {
 	display: none !important;
-	background-color: green;
+	// transform: translate(0, -100px) !important;
+	// background-color: green;
 	transition: 1s !important;
+	z-index: 0;
 }
 
 .select {
@@ -50,8 +50,8 @@
 }
 
 .cart {
-	min-width: 225px;
-	margin-right: 30px;
+	min-width: 200px;
+	// margin-right: 30px;
 
 	// padding: 1rem 1.5rem;
 	position: relative;
@@ -62,9 +62,9 @@
 	font-weight: 600;
 
 	.vstack {
-		width: 100%;
+		// width: 100%;
 		.tophstack {
-			padding: 0.66rem 0.9rem;
+			padding: 0.66rem 0.5rem;
 			// background-color: #8ca93e;
 			border-radius: 50px;
 			color: #fff;
@@ -75,7 +75,6 @@
 			max-width: 225px;
 			font-size: 1rem;
 		}
-		
 	}
 }
 
@@ -89,7 +88,7 @@
 	&:hover {
 		color: white;
 	}
-	&:target{
+	&:target {
 		color: red;
 	}
 	svg {
@@ -98,13 +97,10 @@
 	}
 }
 
-
 .hidingSection {
-  transition: 0.5s;
+	transition: 0.5s;
 }
 
-
-
 .nowrap {
-	white-space: nowrap
+	white-space: nowrap;
 }

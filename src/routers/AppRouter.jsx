@@ -21,6 +21,8 @@ import { ToastContainer } from "react-toastify";
 import Admin from "../pages/Admin/Admin";
 import AdminOnlyRoute from "../components/adminOnlyRoute/AdminOnlyRoute";
 import ProductDetails from "../components/product/productDetails/productDetails";
+import CheckoutDetails from "../pages/Checkout/CheckoutDetails";
+import Checkout from "../pages/Checkout/Checkout";
 
 function App() {
 	return (
@@ -53,9 +55,12 @@ function App() {
 						<AdminOnlyRoute>
 							<Admin />
 						</AdminOnlyRoute>
-					} />
+					}
+				/>
 
-					<Route path="/product-details/:id" element={<ProductDetails />} />
+				<Route path="/product-details/:id" element={<ProductDetails />} />
+				<Route path="/checkout-details" element={<CheckoutDetails />} />
+				<Route path="/checkout" element={<Checkout />} />
 			</Routes>
 			<Footer />
 		</BrowserRouter>

@@ -3,7 +3,7 @@ import { Button, Card, Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useCart } from "react-use-cart";
 
-import styles from "./ProductItem.module.scss";
+// import styles from "./ProductItem.module.scss";
 
 const ProductItem = ({ product, grid, id, name, price, description, vegetarian, spicy, imageURL, discount, addProduct }) => {
 	const shortenText = (text, n) => {
@@ -32,7 +32,7 @@ const ProductItem = ({ product, grid, id, name, price, description, vegetarian, 
 							<b>{`$${price}`}</b>
 						</h3>
 					</Card.Subtitle>
-					<Card.Text>{shortenText(description, 100)}</Card.Text>
+					<Card.Text>{shortenText(description, 70)}</Card.Text>
 					</Row>
 					
 					<Button variant="primary" onClick={() => addItem(addProduct)} className="text-white mt-3">

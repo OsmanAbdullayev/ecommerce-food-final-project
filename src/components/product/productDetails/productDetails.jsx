@@ -5,12 +5,19 @@ import { useParams } from "react-router";
 import { toast } from "react-toastify";
 import { db } from "../../../firebase/config";
 import { Link } from "react-router-dom";
-import spinnerImg from "../../../assets/loader.gif";
 import { useCart } from "react-use-cart";
+import LeaveReview from "../../Reviews/LeaveReview/LeaveReview";
+import Loader from "../../loader/Loader";
+import useFetchCollection from "../../../customHooks/useFetchCollection";
+import { Button, Card, Container } from "react-bootstrap";
+import StarsRating from "react-star-rate";
 
 const ProductDetails = () => {
 	const { id } = useParams();
 	const [product, setProduct] = useState(null);
+	const { data } = useFetchCollection("reviews");
+
+	const filteredReviews = data.filter((review) => review.productID === id);
 
 	useEffect(() => {
 		getProduct();
@@ -44,7 +51,7 @@ const ProductDetails = () => {
 					<Link to="/#products">&larr; Back To Products</Link>
 				</div>
 				{product === null ? (
-					<img src={spinnerImg} alt="Loading..." />
+					<Loader />
 				) : (
 					<>
 						<div className={styles.details}>
@@ -67,14 +74,39 @@ const ProductDetails = () => {
 									<p>1</p>
 									<button className="--btn">+</button>
 								</div> */}
-								<button className={`--btn --btn-danger`} onClick={() => addItem(product)}>
+								<Button variant="primary" onClick={() => addItem(product)}>
 									Add To Card
-								</button>
+								</Button>
 							</div>
 						</div>
 					</>
 				)}
 			</div>
+			<LeaveReview id={id} product={product} />
+			<Container className="my-3">
+				<h3>Product Reviews</h3>
+				{filteredReviews.length === 0 ? (
+					<p>There are no reviews for this product yet. </p>
+				) : (
+					<>
+						{filteredReviews.map((item, index) => {
+							const { rate, review, reviewDate, userName } = item;
+							return (
+								<Card key={index} className="my-2">
+									<Card.Header className="d-flex justify-content-between align-items-center"><b>{userName}</b> <StarsRating value={rate} /></Card.Header>
+									<Card.Body>
+										
+										<Card.Text>{review}</Card.Text>
+										<Card.Text><i>{reviewDate}</i></Card.Text>
+											
+										
+									</Card.Body>
+								</Card>
+							);
+						})}
+					</>
+				)}
+			</Container>
 		</section>
 	);
 };
