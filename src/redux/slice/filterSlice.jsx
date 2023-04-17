@@ -45,6 +45,7 @@ const filterSlice = createSlice({
 
 			state.filteredProducts = tempProducts;
 		},
+
 		FILTER_BY_CATEGORY(state, action) {
 			const { products, category } = action.payload;
 			let tempProducts = [];

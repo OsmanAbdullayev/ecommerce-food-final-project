@@ -116,11 +116,11 @@ function Header() {
 								Blog
 							</Nav.Link> */}
 
-							<Nav.Link as={NavLink} to="/contacts">
+							<Nav.Link as={NavLink} to="/contacts" className={colorMode === "dark" ? "" : "text-white"}>
 								Contacts
 							</Nav.Link>
 
-							<NavDropdown title="Menu" id="basic-nav-dropdown" className="me-3" data-bs-theme="dark">
+							<NavDropdown  title={<span className={colorMode === "dark" ? "" : "text-white"}>Menu</span>} id="basic-nav-dropdown" menuVariant={colorMode === "dark" ? "dark" : "light"} className="me-2" >
 								<NavDropdown.Item as={Link} to="/menu/pizza">
 									Pizza
 								</NavDropdown.Item>

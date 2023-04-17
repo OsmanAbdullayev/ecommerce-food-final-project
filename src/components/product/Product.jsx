@@ -6,6 +6,7 @@ import styles from "./Product.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { GET_PRICE_RANGE, selectProducts, STORE_PRODUCTS } from "../../redux/slice/productsSlice";
 import Loader from "../loader/Loader";
+import { Col, Container, Row } from "react-bootstrap";
 
 const Product = () => {
 	const { data, isLoading } = useFetchCollection("products");
@@ -26,13 +27,16 @@ const Product = () => {
 		);
 	}, [dispatch, data]);
 	return (
-		<section>
-			<div className={`container ${styles.product}`}>
-				<aside className={styles.filter}>{isLoading ? null : <ProductFilter />}</aside>
-				<div className={styles.content}>{isLoading ? <Loader/> : <ProductList products={products} />}</div>
-			</div>
-			<h2>Product</h2>
-		</section>
+		<Container>
+			<Row>
+				<Col lg={3} md={3} sm={12}>
+					{isLoading ? null : <ProductFilter />}
+				</Col>
+				<Col lg={9} md={9} sm={12}>
+					{isLoading ? <Loader /> : <ProductList products={products} />}
+				</Col>
+			</Row>
+		</Container>
 	);
 };
 

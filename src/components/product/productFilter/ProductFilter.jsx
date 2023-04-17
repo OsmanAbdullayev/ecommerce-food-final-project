@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { FILTER_BY_CATEGORY, FILTER_BY_PRICE, FILTER_SPICY, FILTER_VEGETARIAN, selectFilteredProducts } from "../../../redux/slice/filterSlice";
 import { selectMaxPrice, selectMinPrice, selectProducts } from "../../../redux/slice/productsSlice";
 import styles from "./ProductFilter.module.scss";
+import { Button, ButtonGroup, Form } from "react-bootstrap";
 
 const ProductFilter = () => {
 	const [category, setCategory] = useState("All");
@@ -43,34 +44,31 @@ const ProductFilter = () => {
 	};
 
 	return (
-		<div className={styles.filter}>
-			<h4>Categories</h4>
-			<div className={styles.category}>
+		<aside >
+			<h4 className="mt-4 mb-3 text-center">Categories</h4>
+			<div className="shadow p-2">
+			<ButtonGroup vertical className="w-100">
 				{allCategories.map((cat, index) => {
 					return (
-						<button key={index} className={`${category}` === cat ? `${styles.active}` : null} onClick={() => filterProducts(cat)}>
+						<Button variant="light" key={index} className={`${category}` === cat ? `active text-dark` : `text-dark`} onClick={() => filterProducts(cat)}>
 							&#8250; {cat}
-						</button>
+						</Button>
 					);
 				})}
-			</div>
-			<div className={styles.brand}>
-				<input type="checkbox" id="vegetarian-checkbox" name="vegetarian" onClick={() => setVegetarian(!vegetarian)} />
-				<label htmlFor="vegetarian">Vegetarian</label>
-			</div>
+			</ButtonGroup>
 
-			<div className={styles.brand}>
-				<input type="checkbox" id="spicy-checkbox" name="spicy" onClick={() => setSpicy(!spicy)} />
-				<label htmlFor="spicy">Spicy</label>
+			<Form>
+					<Form.Check className="my-3" type="switch" label="Vegetarian" onClick={() => setVegetarian(!vegetarian)} />
+					<Form.Check className="my-3" type="switch" label="Spicy" onClick={() => setSpicy(!spicy)} />
+			</Form>
+
+			<Form.Label><p>Max price: {`$${price}`}</p></Form.Label>
+			<Form.Range value={price} min={minPrice} max={maxPrice} onChange={(e) => setPrice(e.target.value)}/>
+		
+			
+			<Button className="my-3" onClick={clearFilters}>Clear Filters</Button>
 			</div>
-			<h4>{maxPrice}</h4>
-			<p>{`$${price}`}</p>
-			<div className={styles.price}>
-				<input type="range" name="price" value={price} min={minPrice} max={maxPrice} onChange={(e) => setPrice(e.target.value)} />
-			</div>
-			<br />
-			<button onClick={clearFilters}>Clear Filters</button>
-		</div>
+		</aside>
 	);
 };
 

@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Button, Card, Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useCart } from "react-use-cart";
+import { ColorModeContext } from "../../../routers/AppRouter";
 
 // import styles from "./ProductItem.module.scss";
 
@@ -14,12 +15,14 @@ const ProductItem = ({ product, grid, id, name, price, description, vegetarian, 
 		return text;
 	};
 
+	const { colorMode, toggleColorMode } = useContext(ColorModeContext);
+
 	const { addItem } = useCart();
 
 	if (grid) {
 		return (
 			// <Card cardclass={grid ? `${styles.grid}` : ` ${styles.list}`}>
-			<Card className="shadow overflow-hidden h-100">
+			<Card className={colorMode === "dark" ? "shadow overflow-hidden h-100 bg-dark" : "shadow overflow-hidden h-100"}>
 				<Link to={`/product-details/${id}`} className="overflow-hidden">
 					<Card.Img variant="top" className="object-fit-cover " src={imageURL} alt={name} />
 				</Link>

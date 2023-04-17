@@ -35,47 +35,49 @@ function App() {
 	};
 
 	return (
-		<BrowserRouter>
-			<ToastContainer />
+		<ColorModeContext.Provider value={{ colorMode, toggleColorMode }}>
+			<div style={colorMode === "dark" ? { backgroundColor: "rgba(0, 0, 0, 0.75)" } : {}} className={colorMode === "dark" ? "text-white" : ""}>
+				<BrowserRouter>
+					<ToastContainer />
 
-			<ColorModeContext.Provider value={{ colorMode, toggleColorMode }}>
-				<Header />
-			</ColorModeContext.Provider>
+					<Header />
 
-			<Routes>
-				<Route path="/" element={<Home />} />
-				<Route path="/aboutus" element={<AboutUs />} />
-				<Route path="/blog" element={<Blog />} />
-				<Route path="/contacts" element={<Contacts />} />
-				<Route path="/menu" element={<AllProducts />} />
-				<Route path="/cart" element={<Cart />} />
-				<Route path="/menu" element={<AllProducts />} />
-				<Route path="/menu/pizza" element={<Pizza />} />
-				<Route path="/menu/burgers" element={<Burgers />} />
-				<Route path="/menu/sidesandsalads" element={<SidesAndSalads />} />
-				<Route path="/menu/desserts" element={<Desserts />} />
-				<Route path="/menu/drinks" element={<Drinks />} />
+					<Routes>
+						<Route path="/" element={<Home />} />
+						<Route path="/aboutus" element={<AboutUs />} />
+						<Route path="/blog" element={<Blog />} />
+						<Route path="/contacts" element={<Contacts />} />
+						<Route path="/menu" element={<AllProducts />} />
+						<Route path="/cart" element={<Cart />} />
+						<Route path="/menu" element={<AllProducts />} />
+						<Route path="/menu/pizza" element={<Pizza />} />
+						<Route path="/menu/burgers" element={<Burgers />} />
+						<Route path="/menu/sidesandsalads" element={<SidesAndSalads />} />
+						<Route path="/menu/desserts" element={<Desserts />} />
+						<Route path="/menu/drinks" element={<Drinks />} />
 
-				<Route path="/login" element={<LogIn />} />
-				<Route path="/signup" element={<SignUp />} />
-				<Route path="/reset" element={<Reset />} />
-				<Route path="*" element={<NotFoundPage />} />
+						<Route path="/login" element={<LogIn />} />
+						<Route path="/signup" element={<SignUp />} />
+						<Route path="/reset" element={<Reset />} />
+						<Route path="*" element={<NotFoundPage />} />
 
-				<Route
-					path="/admin/*"
-					element={
-						<AdminOnlyRoute>
-							<Admin />
-						</AdminOnlyRoute>
-					}
-				/>
+						<Route
+							path="/admin/*"
+							element={
+								<AdminOnlyRoute>
+									<Admin />
+								</AdminOnlyRoute>
+							}
+						/>
 
-				<Route path="/product-details/:id" element={<ProductDetails />} />
-				<Route path="/checkout-details" element={<CheckoutDetails />} />
-				<Route path="/checkout" element={<Checkout />} />
-			</Routes>
-			<Footer />
-		</BrowserRouter>
+						<Route path="/product-details/:id" element={<ProductDetails />} />
+						<Route path="/checkout-details" element={<CheckoutDetails />} />
+						<Route path="/checkout" element={<Checkout />} />
+					</Routes>
+					<Footer />
+				</BrowserRouter>
+			</div>
+		</ColorModeContext.Provider>
 	);
 }
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Col, Pagination, Row } from "react-bootstrap";
+import { Button, Col, Form, Pagination, Row, Stack } from "react-bootstrap";
 import { BsFillGridFill } from "react-icons/bs";
 import { FaListAlt } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
@@ -33,51 +33,54 @@ const ProductList = ({ products }, props) => {
 		dispatch(FILTER_BY_SEARCH({ products, search }));
 	}, [dispatch, products, search]);
 
-
 	return (
-		<div className={styles["product-list"]} id="product">
-			<div className={styles.top}>
-				<div className={styles.icons}>
-					<BsFillGridFill
-						size={22}
-						color="orangered"
-						onClick={() => {
-							setGrid(true);
-						}}
-					/>
-					<FaListAlt
-						size={24}
-						color="#0066d4"
-						onClick={() => {
-							setGrid(false);
-						}}
-					/>
-					<p>
-						<b>{filteredProducts.length}</b> Products found.
-					</p>
-				</div>
-				{/* Search Icon */}
-				<div>
+		<div id="product">
+			<Row gutter={3} className="my-3">
+				<Col className="my-1" lg={3} md={6} sm={6}>
 					<Search
 						value={search}
 						onChange={(e) => {
 							setSearch(e.target.value);
 						}}
 					/>
-				</div>
+				</Col>
 
-				{/* Sort Products */}
-				<div className={styles.sort}>
-					<label>Sort by:</label>
-					<select value={sort} onChange={(e) => setSort(e.target.value)}>
+				<Col className="my-1" lg={3} md={6} sm={6}>
+					<Form.Select onChange={(e) => setSort(e.target.value)}>
+						<option>Sort by:</option>
 						<option value="latest">Latest</option>
 						<option value="lowest-price">Lowest Price</option>
 						<option value="highest-price">Highest Price</option>
 						<option value="a-z">A-Z</option>
 						<option value="z-a">Z-A</option>
-					</select>
-				</div>
-			</div>
+					</Form.Select>
+				</Col>
+				<Col className="my-1 d-flex justify-content-start align-items-start" lg={3} md={6} sm={6}>
+					<p className="text-center h-100 text-nowrap">
+						<b>{filteredProducts.length}</b> Products found.
+					</p>
+				</Col>
+
+				<Col className="my-1 d-flex justify-content-end align-items-center" lg={3} md={6} sm={6}>
+					<Button className="me-2">
+						<BsFillGridFill
+							size={22}
+							onClick={() => {
+								setGrid(true);
+							}}
+						/>
+					</Button>
+					<Button>
+						<FaListAlt
+							size={24}
+							onClick={() => {
+								setGrid(false);
+							}}
+						/>
+					</Button>
+				</Col>
+			</Row>
+
 			{/* <div className={grid ? `${styles.grid}` : `${styles.list}`}> */}
 
 			<Row className="g-3 my-1">
@@ -88,7 +91,7 @@ const ProductList = ({ products }, props) => {
 						{currentProducts.map((product) => {
 							return (
 								<Col key={product.id} lg={grid ? 3 : 12} md={grid ? 4 : 12} sm={grid ? 6 : 12}>
-									<ProductItem {...product} grid={grid} product={product} addProduct={product}/>
+									<ProductItem {...product} grid={grid} product={product} addProduct={product} />
 								</Col>
 							);
 						})}
