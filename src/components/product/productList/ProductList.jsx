@@ -16,7 +16,7 @@ const ProductList = ({ products }, props) => {
 	const filteredProducts = useSelector(selectFilteredProducts);
 	const productsCount = filteredProducts.length;
 	const [currentPage, setCurrentPage] = useState(1);
-	const [productsPerPage] = useState(8);
+	const [productsPerPage, setProductsPerPage] = useState(8);
 
 	const lastProductNumber = currentPage * productsPerPage;
 	const firstProductNumber = lastProductNumber - productsPerPage;

@@ -73,7 +73,7 @@ function Header() {
 		});
 
 		window.addEventListener("scroll", () => {
-			if (window.pageYOffset > 100) {
+			if (window.scrollY > 50) {
 				setIsHidden(true);
 				console.log("activated");
 			} else {
@@ -88,7 +88,7 @@ function Header() {
 	return (
 		<>
 			{isLoading && <Loader />}
-			<Navbar className={isHidden ? `${styles.fixed}` : `${styles.navbar}`} variant="dark" expand="lg">
+			<Navbar bg="primary" sticky="top" variant="light" expand="lg">
 				<Container className="py-2">
 					<Navbar.Brand as={NavLink} to="/">
 						<h1 className="pb-1 m-0 d-flex justify-content-between align-items-start">
@@ -113,7 +113,7 @@ function Header() {
 								Contacts
 							</Nav.Link>
 
-							<NavDropdown title="Menu" id="basic-nav-dropdown" className="me-3">
+							<NavDropdown title="Menu" id="basic-nav-dropdown" className="me-3" data-bs-theme="dark">
 								<NavDropdown.Item as={Link} to="/menu/pizza">
 									Pizza
 								</NavDropdown.Item>
@@ -136,7 +136,7 @@ function Header() {
 							</NavDropdown>
 
 							<Form className="d-flex align-items-start">
-								<Form.Control type="search" placeholder="Search" className="me-2" aria-label="Search" />
+								<Form.Control type="search" placeholder="Search" className="me-2" aria-label="Search"/>
 								<Button variant="outline-light">
 									<CiSearch />
 								</Button>
@@ -156,6 +156,130 @@ function Header() {
 								<h2 className={`${styles.number} text-start text-white`}>055 875 83 22</h2>
 							</Stack> */}
 
+							
+								<Button as={NavLink} to="/cart" variant="primary" className="my-1 ms-3 me-1">
+											<BsCart2 size="1.5em" className="me-2" /> Cart ({totalItems})
+								</Button>
+								<ShowOnLogOut>
+									<Button as={NavLink} to="/login" className="d-flex justify-content-center align-items-center h-50" variant="secondary me-1">
+										Log In
+									</Button>
+								</ShowOnLogOut>
+								<ShowOnLogIn>
+									<Button as={NavLink} to="/profile" className="me-1 pe-3 text-nowrap">
+										<BsPerson size="1.4em" className="me-1" />
+										{displayName.substring(0, 6)}
+									</Button>
+									<AdminOnlyLink>
+										<Button variant="dark" className="me-1" as={NavLink} to="/admin/home">
+											Admin
+										</Button>
+									</AdminOnlyLink>
+								</ShowOnLogIn>
+								<ShowOnLogOut>
+									<Button as={NavLink} to="/signup" className="d-flex justify-content-center align-items-center h-50 text-nowrap" variant="warning me-1">
+										Sign Up
+									</Button>
+								</ShowOnLogOut>
+								<ShowOnLogIn>
+									<Button onClick={logOut} className="d-flex justify-content-center align-items-center h-50 text-nowrap" variant="warning me-1">
+										Log Out
+									</Button>
+								</ShowOnLogIn>
+								<Button className="d-flex justify-content-center align-items-center h-50" variant="secondary me-1">
+									<BsCircleHalf size="1.1em" />
+								</Button>
+								<Button className="d-flex justify-content-center align-items-center h-50" variant="secondary">
+									EN
+								</Button>
+				
+						</Nav>
+					</Navbar.Collapse>
+				</Container>
+				{/* <Container className={isHidden ? `${styles.hidingSection} d-none` : `${styles.hidingSection}`}>
+					<Navbar.Collapse id="basic-navbar-nav" className={`${styles.line} py-0 mt-0 w-100`}>
+						<Nav className="d-flex justify-content-between align-items-start w-100">
+							<Nav.Link as={NavLink} to="/menu/pizza" className={`${styles.menuNav}`}>
+								<CiPizza size="1.8em" /> Pizza
+							</Nav.Link>
+							<Nav.Link as={NavLink} to="/menu/burgers" className={`${styles.menuNav}`}>
+								<CiBurger size="1.8em" /> Burgers
+							</Nav.Link>
+
+							<Nav.Link as={NavLink} to="/menu/sidesandsalads" className={`${styles.menuNav}`}>
+								<CiFries size="1.8em" /> Sides & Salads
+							</Nav.Link>
+
+							<Nav.Link as={NavLink} to="/menu/desserts" className={`${styles.menuNav}`}>
+								<BiCake size="1.8em" /> Desserts
+							</Nav.Link>
+							<Nav.Link as={NavLink} to="/menu/drinks" className={`${styles.menuNav}`}>
+								<BsCupStraw size="1.8em" /> Drinks
+							</Nav.Link>
+						</Nav>
+					</Navbar.Collapse>
+				</Container> */}
+			</Navbar>
+			{/* <Navbar bg="primary" sticky="top" variant="light" expand="lg">
+				<Container className="py-2">
+					<Navbar.Brand as={NavLink} to="/">
+						<h1 className="pb-1 m-0 d-flex justify-content-between align-items-start">
+							<GiAlmond size="1.2em" className="me-2 " />
+							<span>Badam</span>
+						</h1>
+					</Navbar.Brand>
+					<Navbar.Toggle aria-controls="basic-navbar-nav" />
+					<Navbar.Collapse id="basic-navbar-nav">
+						<Nav className="d-flex align-items-start">
+					
+
+							<Nav.Link as={NavLink} to="/contacts">
+								Contacts
+							</Nav.Link>
+
+							<NavDropdown title="Menu" id="basic-nav-dropdown" className="me-3" data-bs-theme="dark">
+								<NavDropdown.Item as={Link} to="/menu/pizza">
+									Pizza
+								</NavDropdown.Item>
+								<NavDropdown.Item as={Link} to="/menu/burgers">
+									Burgers
+								</NavDropdown.Item>
+								<NavDropdown.Item as={Link} to="/menu/sidesandsalads">
+									Sides & Salads
+								</NavDropdown.Item>
+								<NavDropdown.Item as={Link} to="/menu/desserts">
+									Desserts
+								</NavDropdown.Item>
+								<NavDropdown.Item as={Link} to="/menu/drinks">
+									Drinks
+								</NavDropdown.Item>
+
+								<NavDropdown.Item as={Link} to="/menu">
+									All
+								</NavDropdown.Item>
+							</NavDropdown>
+
+							<Form className="d-flex align-items-start">
+								<Form.Control type="search" placeholder="Search" className="me-2" aria-label="Search"/>
+								<Button variant="outline-light">
+									<CiSearch />
+								</Button>
+							</Form>
+						</Nav>
+
+						<Nav className="ms-auto">
+							<Stack className="ms-3">
+								<Stack direction="horizontal" gap={4}>
+									<p className={styles.p}>Call and Order in</p>
+									<Form.Select className={styles.select} size="sm">
+										<option className={styles.select}>Baku</option>
+										<option className={styles.select}>Sumgait</option>
+										<option className={styles.select}>Ganja</option>
+									</Form.Select>
+								</Stack>
+								<h2 className={`${styles.number} text-start text-white`}>055 875 83 22</h2>
+							</Stack>
+
 							<Stack direction="horizontal">
 								<Button as={NavLink} to="/cart" variant="secondary" className={`${styles.cart} my-1 ms-3 me-1`}>
 									<Stack direction="vertical" className={`${styles.vstack}`}>
@@ -171,7 +295,7 @@ function Header() {
 								</ShowOnLogOut>
 								<ShowOnLogIn>
 									<Button as={NavLink} to="/profile" className="text-white me-1 pe-3 text-nowrap">
-										<BsPerson size="1.4em" className="me-1"/>
+										<BsPerson size="1.4em" className="me-1" />
 										{displayName.substring(0, 6)}
 									</Button>
 									<AdminOnlyLink>
@@ -200,7 +324,7 @@ function Header() {
 						</Nav>
 					</Navbar.Collapse>
 				</Container>
-				<Container className={isHidden ? `${styles.hidden}` : `${styles.hidingSection}`}>
+				<Container className={isHidden ? `${styles.hidingSection} d-none` : `${styles.hidingSection}`}>
 					<Navbar.Collapse id="basic-navbar-nav" className={`${styles.line} py-0 mt-0 w-100`}>
 						<Nav className="d-flex justify-content-between align-items-start w-100">
 							<Nav.Link as={NavLink} to="/menu/pizza" className={`${styles.menuNav}`}>
@@ -223,7 +347,7 @@ function Header() {
 						</Nav>
 					</Navbar.Collapse>
 				</Container>
-			</Navbar>
+			</Navbar> */}
 		</>
 	);
 }

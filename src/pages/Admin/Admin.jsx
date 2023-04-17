@@ -7,6 +7,7 @@ import AddProduct from "../../components/admin/addProduct/AddProduct";
 import Orders from "../../components/admin/orders/Orders";
 
 import styles from "./Admin.module.scss";
+import OrderDetails from "../../components/admin/oderDetails/OrderDetails";
 
 const Admin = () => {
 	return (
@@ -20,6 +21,7 @@ const Admin = () => {
 					<Route path="all-products" element={<ViewProducts />} />
 					<Route path="add-product/:id" element={<AddProduct />} />
 					<Route path="orders" element={<Orders />} />
+					<Route path="order-details" element={<OrderDetails />} />
 				</Routes>
 			</div>
 		</div>
