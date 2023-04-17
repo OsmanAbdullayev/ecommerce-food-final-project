@@ -23,13 +23,25 @@ import AdminOnlyRoute from "../components/adminOnlyRoute/AdminOnlyRoute";
 import ProductDetails from "../components/product/productDetails/productDetails";
 import CheckoutDetails from "../pages/Checkout/CheckoutDetails";
 import Checkout from "../pages/Checkout/Checkout";
+import { createContext, useState } from "react";
+
+export const ColorModeContext = createContext();
 
 function App() {
+	const [colorMode, setColorMode] = useState("primary");
+
+	const toggleColorMode = () => {
+		colorMode === "dark" ? setColorMode("primary") : setColorMode("dark");
+	};
+
 	return (
 		<BrowserRouter>
 			<ToastContainer />
 
-			<Header />
+			<ColorModeContext.Provider value={{ colorMode, toggleColorMode }}>
+				<Header />
+			</ColorModeContext.Provider>
+
 			<Routes>
 				<Route path="/" element={<Home />} />
 				<Route path="/aboutus" element={<AboutUs />} />

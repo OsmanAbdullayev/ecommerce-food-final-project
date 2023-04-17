@@ -3,12 +3,8 @@ import Pagination from "react-bootstrap/Pagination";
 import PropTypes from "prop-types";
 import { scrollToTop } from "../helpers/scroll";
 
-const PaginationComponent = ({ itemsCount, itemsPerPage, currentPage, setCurrentPage, alwaysShown = true,  }) => {
+const PaginationComponent = ({ itemsCount, itemsPerPage, currentPage, setCurrentPage, alwaysShown = true }) => {
 	const pagesCount = Math.ceil(itemsCount / itemsPerPage);
-	console.log("~~~~~~~~~~~~~~~~~~~~~~");
-	console.log(`items count is ${itemsCount}`);
-	console.log(`items per page is ${itemsPerPage}`);
-	console.log(`page count is ${pagesCount}`);
 
 	const isPaginationShown = alwaysShown ? true : pagesCount > 1;
 	const isCurrentPageFirst = currentPage === 1;
@@ -25,11 +21,8 @@ const PaginationComponent = ({ itemsCount, itemsPerPage, currentPage, setCurrent
 	};
 
 	useEffect(() => {
-		
-			onPageNumberClick(1)
-		
-	}, [pagesCount])
-	
+		onPageNumberClick(1);
+	}, [pagesCount]);
 
 	const onPreviousPageClick = () => {
 		changePage((currentPage) => currentPage - 1);

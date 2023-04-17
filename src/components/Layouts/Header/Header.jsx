@@ -8,7 +8,7 @@ import Button from "react-bootstrap/Button";
 import Stack from "react-bootstrap/Stack";
 import Form from "react-bootstrap/Form";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, createContext, useEffect, useState } from "react";
 
 import { CiPizza, CiBurger, CiFries, CiSearch } from "react-icons/ci";
 import { BiCake } from "react-icons/bi";
@@ -22,6 +22,10 @@ import { useDispatch } from "react-redux";
 import { REMOVE_ACTIVE_USER, SET_ACTIVE_USER } from "../../../redux/slice/authSlice";
 import ShowOnLogIn, { ShowOnLogOut } from "../../hiddenLink/HiddenLink";
 import { AdminOnlyLink } from "../../adminOnlyRoute/AdminOnlyRoute";
+import { ColorModeContext } from "../../../routers/AppRouter";
+import Switch from "react-switch";
+import ReactSwitch from "react-switch";
+import { Dropdown } from "react-bootstrap";
 
 function Header() {
 	const { totalItems } = useCart();
@@ -29,6 +33,8 @@ function Header() {
 	const [isLoading, setIsLoading] = useState(false);
 	const [displayName, setDisplayName] = useState("");
 	const dispatch = useDispatch();
+
+	const { colorMode, toggleColorMode } = useContext(ColorModeContext);
 
 	const navigate = useNavigate();
 
@@ -75,7 +81,7 @@ function Header() {
 		window.addEventListener("scroll", () => {
 			if (window.scrollY > 50) {
 				setIsHidden(true);
-				console.log("activated");
+				// console.log("activated");
 			} else {
 				setIsHidden(false);
 			}
@@ -85,13 +91,14 @@ function Header() {
 			};
 		});
 	}, [dispatch, displayName]);
+
 	return (
 		<>
 			{isLoading && <Loader />}
-			<Navbar bg="primary" sticky="top" variant="light" expand="lg">
+			<Navbar bg={colorMode} sticky="top" variant={colorMode} expand="lg">
 				<Container className="py-2">
 					<Navbar.Brand as={NavLink} to="/">
-						<h1 className="pb-1 m-0 d-flex justify-content-between align-items-start">
+						<h1 className={colorMode === `dark` ? `text-primary  pb-1 m-0 d-flex justify-content-between align-items-start` : `text-white pb-1 m-0 d-flex justify-content-between align-items-start`}>
 							<GiAlmond size="1.2em" className="me-2 " />
 							<span>Badam</span>
 						</h1>
@@ -136,7 +143,7 @@ function Header() {
 							</NavDropdown>
 
 							<Form className="d-flex align-items-start">
-								<Form.Control type="search" placeholder="Search" className="me-2" aria-label="Search"/>
+								<Form.Control type="search" placeholder="Search" className="me-2" aria-label="Search" />
 								<Button variant="outline-light">
 									<CiSearch />
 								</Button>
@@ -156,43 +163,49 @@ function Header() {
 								<h2 className={`${styles.number} text-start text-white`}>055 875 83 22</h2>
 							</Stack> */}
 
-							
-								<Button as={NavLink} to="/cart" variant="primary" className="my-1 ms-3 me-1">
-											<BsCart2 size="1.5em" className="me-2" /> Cart ({totalItems})
-								</Button>
-								<ShowOnLogOut>
-									<Button as={NavLink} to="/login" className="d-flex justify-content-center align-items-center h-50" variant="secondary me-1">
-										Log In
-									</Button>
-								</ShowOnLogOut>
-								<ShowOnLogIn>
-									<Button as={NavLink} to="/profile" className="me-1 pe-3 text-nowrap">
-										<BsPerson size="1.4em" className="me-1" />
-										{displayName.substring(0, 6)}
-									</Button>
-									<AdminOnlyLink>
-										<Button variant="dark" className="me-1" as={NavLink} to="/admin/home">
-											Admin
-										</Button>
-									</AdminOnlyLink>
-								</ShowOnLogIn>
-								<ShowOnLogOut>
-									<Button as={NavLink} to="/signup" className="d-flex justify-content-center align-items-center h-50 text-nowrap" variant="warning me-1">
-										Sign Up
-									</Button>
-								</ShowOnLogOut>
-								<ShowOnLogIn>
-									<Button onClick={logOut} className="d-flex justify-content-center align-items-center h-50 text-nowrap" variant="warning me-1">
-										Log Out
-									</Button>
-								</ShowOnLogIn>
-								<Button className="d-flex justify-content-center align-items-center h-50" variant="secondary me-1">
-									<BsCircleHalf size="1.1em" />
-								</Button>
-								<Button className="d-flex justify-content-center align-items-center h-50" variant="secondary">
-									EN
-								</Button>
-				
+							<Button as={NavLink} to="/cart" className={colorMode === "dark" ? "me-1" : "text-white me-1"} variant={colorMode === "dark" ? "outline-primary " : "secondary"}>
+								<BsCart2 size="1.5em" className="me-2" /> Cart ({totalItems})
+							</Button>
+
+							<Dropdown>
+								<Dropdown.Toggle className={colorMode === "dark" ? "" : "text-white"} variant={colorMode === "dark" ? "outline-secondary " : "secondary "}>
+									<BsPerson size="1.4em" className="" />
+									{displayName.substring(0, 6)}
+								</Dropdown.Toggle>
+
+								<Dropdown.Menu>
+									<ShowOnLogOut>
+										<Dropdown.Item as={NavLink} to="/login" variant={colorMode === "dark" ? "outline-secondary " : "secondary "}>
+											Log In
+										</Dropdown.Item>
+									</ShowOnLogOut>
+
+									<ShowOnLogIn>
+										<AdminOnlyLink>
+											<Dropdown.Item as={NavLink} to="/admin/home" variant={colorMode === "dark" ? "outline-primary " : "dark "}>
+												Admin Panel
+											</Dropdown.Item>
+										</AdminOnlyLink>
+									</ShowOnLogIn>
+
+									<ShowOnLogOut>
+										<Dropdown.Item as={NavLink} to="/signup" variant={colorMode === "dark" ? "outline-secondary " : "secondary "}>
+											Sign Up
+										</Dropdown.Item>
+									</ShowOnLogOut>
+
+									<ShowOnLogIn>
+										<Dropdown.Item onClick={logOut} variant={colorMode === "dark" ? "outline-primary " : "outline-light "}>
+											Log Out
+										</Dropdown.Item>
+									</ShowOnLogIn>
+								</Dropdown.Menu>
+							</Dropdown>
+
+							<ReactSwitch onChange={toggleColorMode} checked={colorMode === "dark"} offColor="#FFF" onColor="#111" offHandleColor="#c00a27" uncheckedIcon={false} checkedIcon={false} className="px-2" />
+							<Button className={colorMode === "dark" ? "" : "text-white"} variant={colorMode === "dark" ? "outline-secondary " : "secondary "}>
+								EN
+							</Button>
 						</Nav>
 					</Navbar.Collapse>
 				</Container>
@@ -281,7 +294,7 @@ function Header() {
 							</Stack>
 
 							<Stack direction="horizontal">
-								<Button as={NavLink} to="/cart" variant="secondary" className={`${styles.cart} my-1 ms-3 me-1`}>
+								<Button as={NavLink} to="/cart" variant="secondary" className={`${styles.cart} my-1 ms-3 `}>
 									<Stack direction="vertical" className={`${styles.vstack}`}>
 										<Stack direction="horizontal" className={`${styles.tophstack}`}>
 											<BsCart2 size="1.5em" className="me-2" /> <p className="p-0 m-0 bolder">Cart ({totalItems})</p>
@@ -289,32 +302,32 @@ function Header() {
 									</Stack>
 								</Button>
 								<ShowOnLogOut>
-									<Button as={NavLink} to="/login" className="text-white d-flex justify-content-center align-items-center h-50" variant="secondary me-1">
+									<Button as={NavLink} to="/login" className="text-white d-flex justify-content-center align-items-center h-50" variant="secondary ">
 										Log In
 									</Button>
 								</ShowOnLogOut>
 								<ShowOnLogIn>
-									<Button as={NavLink} to="/profile" className="text-white me-1 pe-3 text-nowrap">
-										<BsPerson size="1.4em" className="me-1" />
+									<Button as={NavLink} to="/profile" className="text-white  pe-3 text-nowrap">
+										<BsPerson size="1.4em" className="" />
 										{displayName.substring(0, 6)}
 									</Button>
 									<AdminOnlyLink>
-										<Button variant="dark" className="text-white me-1" as={NavLink} to="/admin/home">
+										<Button variant="dark" className="text-white " as={NavLink} to="/admin/home">
 											Admin
 										</Button>
 									</AdminOnlyLink>
 								</ShowOnLogIn>
 								<ShowOnLogOut>
-									<Button as={NavLink} to="/signup" className="text-white d-flex justify-content-center align-items-center h-50 text-nowrap" variant="warning me-1">
+									<Button as={NavLink} to="/signup" className="text-white d-flex justify-content-center align-items-center h-50 text-nowrap" variant="warning ">
 										Sign Up
 									</Button>
 								</ShowOnLogOut>
 								<ShowOnLogIn>
-									<Button onClick={logOut} className="text-white d-flex justify-content-center align-items-center h-50 text-nowrap" variant="warning me-1">
+									<Button onClick={logOut} className="text-white d-flex justify-content-center align-items-center h-50 text-nowrap" variant="warning ">
 										Log Out
 									</Button>
 								</ShowOnLogIn>
-								<Button className="text-white d-flex justify-content-center align-items-center h-50" variant="secondary me-1">
+								<Button className="text-white d-flex justify-content-center align-items-center h-50" variant="secondary ">
 									<BsCircleHalf size="1.1em" />
 								</Button>
 								<Button className="text-white d-flex justify-content-center align-items-center h-50" variant="secondary">
