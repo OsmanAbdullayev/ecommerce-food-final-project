@@ -26,8 +26,8 @@ const ProductList = ({ products }, props) => {
 	console.log(currentPage);
 
 	useEffect(() => {
-		dispatch(SORT_PRODUCTS({ products, sort }));
-	}, [dispatch, products, sort]);
+		dispatch(SORT_PRODUCTS({ sort }));
+	}, [dispatch, sort, search]);
 
 	useEffect(() => {
 		dispatch(FILTER_BY_SEARCH({ products, search }));

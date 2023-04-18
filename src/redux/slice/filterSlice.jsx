@@ -18,27 +18,27 @@ const filterSlice = createSlice({
 			const { products, sort } = action.payload;
 			let tempProducts = [];
 			if (sort === "latest") {
-				tempProducts = products;
+				tempProducts = state.filteredProducts;
 			}
 			if (sort === "lowest-price") {
-				tempProducts = products.slice().sort((a, b) => {
+				tempProducts = state.filteredProducts.slice().sort((a, b) => {
 					return a.price - b.price;
 				});
 			}
 			if (sort === "highest-price") {
-				tempProducts = products.slice().sort((a, b) => {
+				tempProducts = state.filteredProducts.slice().sort((a, b) => {
 					return b.price - a.price;
 				});
 			}
 
 			if (sort === "a-z") {
-				tempProducts = products.slice().sort((a, b) => {
+				tempProducts = state.filteredProducts.slice().sort((a, b) => {
 					return a.name.localeCompare(b.name);
 				});
 			}
 
 			if (sort === "z-a") {
-				tempProducts = products.slice().sort((a, b) => {
+				tempProducts = state.filteredProducts.slice().sort((a, b) => {
 					return b.name.localeCompare(a.name);
 				});
 			}
@@ -46,50 +46,80 @@ const filterSlice = createSlice({
 			state.filteredProducts = tempProducts;
 		},
 
-		FILTER_BY_CATEGORY(state, action) {
-			const { products, category } = action.payload;
+		FILTER(state, action) {
+			const { products, category, vegetarian, spicy, price } = action.payload;
 			let tempProducts = [];
+			let tempProductsCat = [];
+			let tempProductsSpicy = [];
+			let tempProductsVeg = [];
+
 			if (category === "All") {
-				tempProducts = products;
+				tempProductsCat = products;
 			} else {
-				tempProducts = products.filter((product) => product.category === category);
+				tempProductsCat = products.filter((product) => product.category === category);
 			}
-			state.filteredProducts = tempProducts;
-		},
-		FILTER_VEGETARIAN(state, action) {
-			const { products, vegetarian } = action.payload;
-			let tempProducts = [];
 			if (vegetarian === false) {
-				tempProducts = products;
+				tempProductsVeg = tempProductsCat;
 			} else {
-				tempProducts = products.filter((product) => product.vegetarian === true);
+				tempProductsVeg = tempProductsCat.filter((product) => product.vegetarian === vegetarian);
 			}
-			state.filteredProducts = tempProducts;
-			// console.log("vegetarian dispatched");
-		},
-		FILTER_SPICY(state, action) {
-			const { products, spicy } = action.payload;
-			let tempProducts = [];
 			if (spicy === false) {
-				tempProducts = products;
+				tempProductsSpicy = tempProductsVeg;
 			} else {
-				tempProducts = products.filter((product) => product.spicy === true);
+				tempProductsSpicy = tempProductsVeg.filter((product) => product.spicy === spicy);
 			}
-			state.filteredProducts = tempProducts;
-			// console.log("spicy dispatched");
-		},
+			tempProducts = tempProductsSpicy.filter((product) => product.price <= price);
 
-		FILTER_BY_PRICE(state, action) {
-			const { products, price } = action.payload;
-			let tempProducts = [];
-			tempProducts = products.filter((product) => product.price <= price);
+
 
 			state.filteredProducts = tempProducts;
 		},
+
+	// 	FILTER_BY_CATEGORY(state, action) {
+	// 		const { products, category } = action.payload;
+	// 		let tempProducts = [];
+	// 		if (category === "All") {
+	// 			tempProducts = products;
+	// 		} else {
+	// 			tempProducts = products.filter((product) => product.category === category);
+	// 		}
+	// 		state.filteredProducts = tempProducts;
+	// 	},
+
+	// 	FILTER_VEGETARIAN(state, action) {
+	// 		const { products, vegetarian } = action.payload;
+	// 		let tempProducts = [];
+	// 		if (vegetarian === false) {
+	// 			tempProducts = products;
+	// 		} else {
+	// 			tempProducts = products.filter((product) => product.vegetarian === true);
+	// 		}
+	// 		state.filteredProducts = tempProducts;
+	// 		// console.log("vegetarian dispatched");
+	// 	},
+	// 	FILTER_SPICY(state, action) {
+	// 		const { products, spicy } = action.payload;
+	// 		let tempProducts = [];
+	// 		if (spicy === false) {
+	// 			tempProducts = products;
+	// 		} else {
+	// 			tempProducts = products.filter((product) => product.spicy === true);
+	// 		}
+	// 		state.filteredProducts = tempProducts;
+	// 		// console.log("spicy dispatched");
+	// 	},
+
+	// 	FILTER_BY_PRICE(state, action) {
+	// 		const { products, price } = action.payload;
+	// 		let tempProducts = [];
+	// 		tempProducts = products.filter((product) => product.price <= price);
+
+	// 		state.filteredProducts = tempProducts;
+	// 	},
 	},
 });
 
-export const { FILTER_BY_SEARCH, SORT_PRODUCTS, FILTER_BY_CATEGORY, FILTER_VEGETARIAN, FILTER_SPICY, FILTER_BY_PRICE } = filterSlice.actions;
+export const { FILTER_BY_SEARCH, SORT_PRODUCTS, FILTER } = filterSlice.actions;
 export const selectFilteredProducts = (state) => state.filter.filteredProducts;
 
 export default filterSlice.reducer;
