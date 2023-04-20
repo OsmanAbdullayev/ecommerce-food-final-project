@@ -3,6 +3,11 @@ import { Button, Card, Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useCart } from "react-use-cart";
 import { ColorModeContext } from "../../../routers/AppRouter";
+import { ADD_TO_WISHLIST, CHECK_WISHED_PRODUCT, REMOVE_FROM_WISHLIST } from "../../../redux/slice/wishlistSlice";
+import { useDispatch } from "react-redux";
+import { BsFillHeartFill } from "react-icons/bs";
+import { useState } from "react";
+import { useEffect } from "react";
 
 // import styles from "./ProductItem.module.scss";
 
@@ -13,6 +18,26 @@ const ProductItem = ({ product, grid, id, name, price, description, vegetarian, 
 			return shortenedText;
 		}
 		return text;
+	};
+
+	const dispatch = useDispatch();
+
+	const checkWishedProduct = (wishlist) => {
+		dispatch(CHECK_WISHED_PRODUCT(wishlist));
+	};
+
+	const wishlistToggle = (wishlist) => {
+		if (dispatch(CHECK_WISHED_PRODUCT(wishlist))) {
+			addToWishlist(wishlist);
+		} else removeFromWishlist(wishlist);
+	};
+
+	const addToWishlist = (wishlist) => {
+		dispatch(ADD_TO_WISHLIST(wishlist));
+	};
+
+	const removeFromWishlist = (wishlist) => {
+		dispatch(REMOVE_FROM_WISHLIST(wishlist));
 	};
 
 	const { colorMode, toggleColorMode } = useContext(ColorModeContext);
@@ -29,19 +54,23 @@ const ProductItem = ({ product, grid, id, name, price, description, vegetarian, 
 
 				<Card.Body className="d-flex flex-column justify-content-between">
 					<Row>
-					<Card.Title>{shortenText(name, 18)}</Card.Title>
-					<Card.Subtitle>
-						<h3 className="text-primary">
-							<b>{`$${price}`}</b>
-						</h3>
-					</Card.Subtitle>
-					<Card.Text>{shortenText(description, 70)}</Card.Text>
+						<Card.Title>{shortenText(name, 18)}</Card.Title>
+						<Card.Subtitle>
+							<h3 className="text-primary">
+								<b>{`$${price}`}</b>
+							</h3>
+						</Card.Subtitle>
+						<Card.Text>{shortenText(description, 70)}</Card.Text>
 					</Row>
-					
-					<Button variant="primary" onClick={() => addItem(addProduct)} className="text-white mt-3">
-						Add to Cart
-					</Button>
-					
+
+					<div className="d-flex justify-content-between align-items-center">
+						<Button variant="primary" onClick={() => addItem(addProduct)} className="text-white mt-3 text-nowrap">
+							Add to Cart
+						</Button>
+						<Button variant="primary" onClick={() => wishlistToggle(addProduct)} className="text-white mt-3 text-nowrap">
+							<BsFillHeartFill className={checkWishedProduct(addProduct) ? `bg-primary` : `bg-secondary`} />
+						</Button>
+					</div>
 				</Card.Body>
 			</Card>
 		);
@@ -58,16 +87,19 @@ const ProductItem = ({ product, grid, id, name, price, description, vegetarian, 
 					<Col md={8} className="d-flex flex-column justify-content-center align-items-start">
 						<Card.Body className="d-flex flex-column justify-content-between align-items-start">
 							<Row>
-							<Card.Title>{name}</Card.Title>
-							<Card.Subtitle>
-								<h3 className="text-primary">
-									<b>{`$${price}`}</b>
-								</h3>
-							</Card.Subtitle>
-							<Card.Text>{shortenText(description, 300)}</Card.Text>
+								<Card.Title>{name}</Card.Title>
+								<Card.Subtitle>
+									<h3 className="text-primary">
+										<b>{`$${price}`}</b>
+									</h3>
+								</Card.Subtitle>
+								<Card.Text>{shortenText(description, 300)}</Card.Text>
 							</Row>
 							<Button variant="primary" onClick={() => addItem(addProduct)} className="text-white my-3">
 								Add to Cart
+							</Button>
+							<Button variant="primary" onClick={() => addToWishlist(addProduct)} className="text-white mt-3">
+								Add to Wishlist
 							</Button>
 						</Card.Body>
 					</Col>

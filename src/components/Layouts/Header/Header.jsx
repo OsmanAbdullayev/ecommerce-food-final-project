@@ -163,7 +163,7 @@ function Header() {
 								<h2 className={`${styles.number} text-start text-white`}>055 875 83 22</h2>
 							</Stack> */}
 
-							<Button as={NavLink} to="/cart" className={colorMode === "dark" ? "me-1" : "text-white me-1"} variant={colorMode === "dark" ? "outline-primary " : "secondary"}>
+							<Button as={NavLink} to="/cart" className={colorMode === "dark" ? "mx-1 text-nowrap" : "text-white mx-1 text-nowrap"} variant={colorMode === "dark" ? "outline-primary " : "secondary"}>
 								<BsCart2 size="1.5em" className="me-2" /> Cart ({totalItems})
 							</Button>
 

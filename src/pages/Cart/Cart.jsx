@@ -66,7 +66,7 @@ const Cart = () => {
 	return (
 		<Container>
 			<section className="d-flex justify-content-center align-items-center mt-3 p-3">
-				<h2 className="text-primary text-center m-0">Total Unique Burgers: {totalUniqueItems}</h2>
+				<h2 className="text-primary text-center m-0">Total Unique Products: {totalUniqueItems}</h2>
 				<Button variant="danger" className="fs-5 text-light mx-4" onClick={removeAllItems}>
 					Remove All Items
 				</Button>
@@ -85,7 +85,7 @@ const Cart = () => {
 					</thead>
 					<tbody>
 						{items.map((fd, i) => (
-							<tr className="align-middle text-center">
+							<tr className="align-middle text-center" key={fd.id}>
 								<th scope="row" className="align-middle">
 									{i + 1}
 								</th>

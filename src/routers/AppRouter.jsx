@@ -24,6 +24,7 @@ import ProductDetails from "../components/product/productDetails/productDetails"
 import CheckoutDetails from "../pages/Checkout/CheckoutDetails";
 import Checkout from "../pages/Checkout/Checkout";
 import { createContext, useState } from "react";
+import Wishlist from "../pages/Wishlist/Wishlist";
 
 export const ColorModeContext = createContext();
 
@@ -49,6 +50,7 @@ function App() {
 						<Route path="/contacts" element={<Contacts />} />
 						<Route path="/menu" element={<AllProducts />} />
 						<Route path="/cart" element={<Cart />} />
+						<Route path="/wishlist" element={<Wishlist />} />
 						<Route path="/menu" element={<AllProducts />} />
 						<Route path="/menu/pizza" element={<Pizza />} />
 						<Route path="/menu/burgers" element={<Burgers />} />
