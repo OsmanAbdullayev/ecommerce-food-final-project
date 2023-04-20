@@ -23,7 +23,6 @@ const ProductList = ({ products }, props) => {
 	const currentProducts = filteredProducts.slice(firstProductNumber, lastProductNumber);
 
 	const dispatch = useDispatch(selectFilteredProducts);
-	console.log(currentPage);
 
 	useEffect(() => {
 		dispatch(SORT_PRODUCTS({ sort }));

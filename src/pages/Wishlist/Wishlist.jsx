@@ -10,8 +10,9 @@ import { removeListener } from "@reduxjs/toolkit";
 import { BsTrashFill } from "react-icons/bs";
 import { useCart } from "react-use-cart";
 
-const Wishlist = ({ addProduct }) => {
+const Wishlist = () => {
 	const wishlistItems = useSelector(selectWishlistItems);
+	console.log(wishlistItems);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
@@ -27,7 +28,6 @@ const Wishlist = ({ addProduct }) => {
 	const clearWishlist = () => {
 		dispatch(CLEAR_WISHLIST());
 	};
-	// console.log(wishlistItems);
 
 	// wishlistItems.map((fd) => console.log(fd.id))
 
@@ -104,9 +104,7 @@ const Wishlist = ({ addProduct }) => {
 							</tr>
 						))}
 						<tr className="align-middle text-center">
-							
-
-							<td colSpan={5} >
+							<td colSpan={5}>
 								<Button variant="secondary" className=" text-light text-nowrap w-100 p-1 py-2 my-1" onClick={() => moveAllToCart(wishlistItems)}>
 									Move All to Cart
 								</Button>

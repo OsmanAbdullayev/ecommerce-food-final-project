@@ -11,15 +11,16 @@ const wishlistSlice = createSlice({
 	name: "wishlist",
 	initialState,
 	reducers: {
-		ADD_TO_WISHLIST(state, action) {
+		TOGGLE_WISHLIST(state, action) {
 			//   console.log(action.payload);
 			const productIndex = state.wishlistItems.findIndex((item) => item.id === action.payload.id);
 
 			if (productIndex >= 0) {
-				// Item already exists in the wishlist
-				// Increase the wishlistQuantity
-				state.wishlistItems[productIndex].wishlistQuantity += 1;
-				toast.info(`${action.payload.name} increased by one`, {
+				const newWishlistItem = state.wishlistItems.filter((item) => item.id !== action.payload.id);
+
+				state.wishlistItems = newWishlistItem;
+				console.log();
+				toast.success(`${action.payload.name} removed from wishlist`, {
 					position: "top-left",
 				});
 			} else {
@@ -47,6 +48,18 @@ const wishlistSlice = createSlice({
 			localStorage.setItem("wishlistItems", JSON.stringify(state.wishlistItems));
 		},
 
+		CHECK_WISHLIST(state, action) {
+			let productIndex = state.wishlistItems.findIndex((item) => item.id === action.payload.id);
+
+			if (productIndex >= 0) {
+				productIndex = true;
+			} else {
+				productIndex = false;
+			}
+			console.log(productIndex);
+			console.log(action.payload);
+		},
+
 		CALCULATE_TOTAL_QUANTITY(state, action) {
 			const array = [];
 			state.wishlistItems.map((item) => {
@@ -58,12 +71,6 @@ const wishlistSlice = createSlice({
 				return a + b;
 			}, 0);
 			state.wishlistTotalQuantity = totalQuantity;
-		},
-
-		CHECK_WISHED_PRODUCT(state, action) {
-			const checkedProduct = state.wishlistItems.includes(action.payload, 0);
-			console.log(checkedProduct);
-			// console.log(state.wishlistItems);
 		},
 
 		CLEAR_WISHLIST(state, action) {
@@ -78,12 +85,12 @@ const wishlistSlice = createSlice({
 });
 
 export const {
-	ADD_TO_WISHLIST,
+	TOGGLE_WISHLIST,
 
 	REMOVE_FROM_WISHLIST,
 	CLEAR_WISHLIST,
 	CALCULATE_TOTAL_QUANTITY,
-	CHECK_WISHED_PRODUCT,
+	CHECK_WISHLIST,
 } = wishlistSlice.actions;
 
 export const selectWishlistItems = (state) => state.wishlist.wishlistItems;
