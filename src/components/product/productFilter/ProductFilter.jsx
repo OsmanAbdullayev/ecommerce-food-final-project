@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { FILTER, selectFilteredProducts } from "../../../redux/slice/filterSlice";
+import { FILTER, SET_CATEGORY, SET_PRICE, SET_SPICY, SET_VEGETARIAN, selectCategory, selectFilteredProducts, selectMaxPriceFilter, selectSpicy, selectVegetarian } from "../../../redux/slice/filterSlice";
 import { selectMaxPrice, selectMinPrice, selectProducts } from "../../../redux/slice/productsSlice";
 import styles from "./ProductFilter.module.scss";
 import { Button, ButtonGroup, Form } from "react-bootstrap";
 
 const ProductFilter = () => {
-	const [category, setCategory] = useState("All");
-	const [vegetarian, setVegetarian] = useState(false);
-	const [spicy, setSpicy] = useState(false);
-	const [price, setPrice] = useState(19);
 	const products = useSelector(selectProducts);
 	const minPrice = useSelector(selectMinPrice);
 	const maxPrice = useSelector(selectMaxPrice);
+
+	const category = useSelector(selectCategory);
+	const vegetarian = useSelector(selectVegetarian);
+	const spicy = useSelector(selectSpicy);
+	const maxPriceFilter = useSelector(selectMaxPriceFilter);
 
 	const dispatch = useDispatch();
 
@@ -31,18 +32,21 @@ const ProductFilter = () => {
 	// }, [dispatch, products, price]);
 
 	useEffect(() => {
-		dispatch(FILTER({ products, category, vegetarian, spicy, price }));
-	}, [dispatch, products, category, vegetarian, spicy, price]);
+		dispatch(FILTER({ products }));
+	}, [dispatch, products, category, spicy, vegetarian, maxPriceFilter]);
 
-	const filterProducts = (cat) => {
-		setCategory(cat);
-	};
+	useEffect(() => {
+		dispatch(SET_CATEGORY("All"));
+		dispatch(SET_PRICE(maxPrice ? maxPrice : 1));
+		dispatch(SET_VEGETARIAN(false));
+		dispatch(SET_SPICY(false));
+	}, [maxPrice]);
 
 	const clearFilters = () => {
-		setCategory("All");
-		setPrice(maxPrice);
-		setVegetarian(false);
-		setSpicy(false);
+		dispatch(SET_CATEGORY("All"));
+		dispatch(SET_PRICE(maxPrice));
+		dispatch(SET_VEGETARIAN(false));
+		dispatch(SET_SPICY(false));
 	};
 
 	return (
@@ -52,7 +56,7 @@ const ProductFilter = () => {
 				<ButtonGroup vertical className="w-100">
 					{allCategories.map((cat, index) => {
 						return (
-							<Button variant="light" key={index} className={`${category}` === cat ? `active text-dark` : `text-dark`} onClick={() => filterProducts(cat)}>
+							<Button variant="light" key={index} className={`${category}` === cat ? `active text-dark` : `text-dark`} onClick={() => dispatch(SET_CATEGORY(cat))}>
 								&#8250; {cat}
 							</Button>
 						);
@@ -60,14 +64,14 @@ const ProductFilter = () => {
 				</ButtonGroup>
 
 				<Form>
-					<Form.Check className="my-3" type="switch" label="Vegetarian" onClick={() => setVegetarian(!vegetarian)} />
-					<Form.Check className="my-3" type="switch" label="Spicy" onClick={() => setSpicy(!spicy)} />
+					<Form.Check className="my-3" type="switch" label="Vegetarian" onClick={() => dispatch(SET_VEGETARIAN(!vegetarian))} />
+					<Form.Check className="my-3" type="switch" label="Spicy" onClick={() => dispatch(SET_SPICY(!spicy))} />
 				</Form>
 
 				<Form.Label>
-					<p>Max price: {`$${price}`}</p>
+					<p>Max price: {`$${maxPriceFilter}`}</p>
 				</Form.Label>
-				<Form.Range value={price} min={minPrice} max={maxPrice} onChange={(e) => setPrice(e.target.value)} />
+				<Form.Range value={maxPriceFilter} min={minPrice} max={maxPrice} onChange={(e) => dispatch(SET_PRICE(e.target.value))} />
 
 				<Button className="my-3" onClick={clearFilters}>
 					Clear Filters

@@ -1,10 +1,11 @@
 import React from "react";
 import AllProductsComponent from "../../components/MenuComponents/AllProductsComponent";
+import Product from "../../components/product/Product";
 
 const AllProducts = () => {
 	return (
 		<>
-			<AllProductsComponent lg="3" md="6" sm="12" />
+			<Product />
 		</>
 	);
 };

@@ -3,7 +3,7 @@ import { Button, Col, Form, Pagination, Row, Stack } from "react-bootstrap";
 import { BsFillGridFill } from "react-icons/bs";
 import { FaListAlt } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { FILTER_BY_SEARCH, selectFilteredProducts, SORT_PRODUCTS } from "../../../redux/slice/filterSlice";
+import { FILTER, FILTER_BY_SEARCH, selectCategory, selectFilteredProducts, selectSearch, selectSort, SET_SEARCH, SET_SORT, SORT_PRODUCTS } from "../../../redux/slice/filterSlice";
 import PaginationComponent from "../../PaginationComponent";
 import Search from "../../search/Search";
 import ProductItem from "../productItem/ProductItem";
@@ -11,12 +11,10 @@ import styles from "./ProductList.module.scss";
 
 const ProductList = ({ products }, props) => {
 	const [grid, setGrid] = useState(true);
-	const [search, setSearch] = useState("");
-	const [sort, setSort] = useState("latest");
 	const filteredProducts = useSelector(selectFilteredProducts);
 	const productsCount = filteredProducts.length;
 	const [currentPage, setCurrentPage] = useState(1);
-	const [productsPerPage, setProductsPerPage] = useState(8);
+	const productsPerPage = 8;
 
 	const lastProductNumber = currentPage * productsPerPage;
 	const firstProductNumber = lastProductNumber - productsPerPage;
@@ -24,13 +22,18 @@ const ProductList = ({ products }, props) => {
 
 	const dispatch = useDispatch(selectFilteredProducts);
 
-	useEffect(() => {
-		dispatch(SORT_PRODUCTS({ sort }));
-	}, [dispatch, sort, search]);
+	const category = useSelector(selectCategory);
+	const sort = useSelector(selectSort);
+	const search = useSelector(selectSearch);
 
 	useEffect(() => {
-		dispatch(FILTER_BY_SEARCH({ products, search }));
-	}, [dispatch, products, search]);
+		dispatch(FILTER({ products }));
+	}, [dispatch, products, sort, search]);
+
+	useEffect(() => {
+		dispatch(SET_SORT("latest"));
+		dispatch(SET_SEARCH(""));
+	}, []);
 
 	return (
 		<div id="product">
@@ -39,14 +42,14 @@ const ProductList = ({ products }, props) => {
 					<Search
 						value={search}
 						onChange={(e) => {
-							setSearch(e.target.value);
+							dispatch(SET_SEARCH(e.target.value));
 						}}
 					/>
 				</Col>
 
 				<Col className="my-1" lg={3} md={6} sm={6}>
-					<Form.Select onChange={(e) => setSort(e.target.value)}>
-						<option>Sort by:</option>
+					<Form.Select onChange={(e) => dispatch(SET_SORT(e.target.value))}>
+						<option value="latest">Sort by:</option>
 						<option value="latest">Latest</option>
 						<option value="lowest-price">Lowest Price</option>
 						<option value="highest-price">Highest Price</option>
