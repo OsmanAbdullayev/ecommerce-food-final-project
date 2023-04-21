@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
+import Product from "../../components/product/Product";
 
 const initialState = {
 	wishlistItems: localStorage.getItem("wishlistItems") ? JSON.parse(localStorage.getItem("wishlistItems")) : [],
@@ -48,17 +49,7 @@ const wishlistSlice = createSlice({
 			localStorage.setItem("wishlistItems", JSON.stringify(state.wishlistItems));
 		},
 
-		CHECK_WISHLIST(state, action) {
-			let productIndex = state.wishlistItems.findIndex((item) => item.id === action.payload.id);
-
-			if (productIndex >= 0) {
-				productIndex = true;
-			} else {
-				productIndex = false;
-			}
-			console.log(productIndex);
-			console.log(action.payload);
-		},
+	
 
 		CALCULATE_TOTAL_QUANTITY(state, action) {
 			const array = [];
@@ -90,7 +81,6 @@ export const {
 	REMOVE_FROM_WISHLIST,
 	CLEAR_WISHLIST,
 	CALCULATE_TOTAL_QUANTITY,
-	CHECK_WISHLIST,
 } = wishlistSlice.actions;
 
 export const selectWishlistItems = (state) => state.wishlist.wishlistItems;

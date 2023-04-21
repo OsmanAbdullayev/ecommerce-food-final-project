@@ -12,13 +12,13 @@ import { useContext, createContext, useEffect, useState } from "react";
 
 import { CiPizza, CiBurger, CiFries, CiSearch } from "react-icons/ci";
 import { BiCake } from "react-icons/bi";
-import { BsCart2, BsCircleHalf, BsCupStraw, BsPerson } from "react-icons/bs";
+import { BsCart2, BsCircleHalf, BsCupStraw, BsFillCartFill, BsFillHeartFill, BsPerson } from "react-icons/bs";
 import { GiAlmond } from "react-icons/gi";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../../../firebase/config";
 import { toast } from "react-toastify";
 import Loader from "../../loader/Loader";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { REMOVE_ACTIVE_USER, SET_ACTIVE_USER } from "../../../redux/slice/authSlice";
 import ShowOnLogIn, { ShowOnLogOut } from "../../hiddenLink/HiddenLink";
 import { AdminOnlyLink } from "../../adminOnlyRoute/AdminOnlyRoute";
@@ -26,6 +26,7 @@ import { ColorModeContext } from "../../../routers/AppRouter";
 import Switch from "react-switch";
 import ReactSwitch from "react-switch";
 import { Dropdown } from "react-bootstrap";
+import { selectWishlistItems } from "../../../redux/slice/wishlistSlice";
 
 function Header() {
 	const { totalItems } = useCart();
@@ -33,6 +34,8 @@ function Header() {
 	const [isLoading, setIsLoading] = useState(false);
 	const [displayName, setDisplayName] = useState("");
 	const dispatch = useDispatch();
+
+	const wishlistItems = useSelector(selectWishlistItems);
 
 	const { colorMode, toggleColorMode } = useContext(ColorModeContext);
 
@@ -120,7 +123,7 @@ function Header() {
 								Contacts
 							</Nav.Link>
 
-							<NavDropdown  title={<span className={colorMode === "dark" ? "" : "text-white"}>Menu</span>} id="basic-nav-dropdown" menuVariant={colorMode === "dark" ? "dark" : "light"} className="me-2" >
+							<NavDropdown title={<span className={colorMode === "dark" ? "" : "text-white"}>Menu</span>} id="basic-nav-dropdown" menuVariant={colorMode === "dark" ? "dark" : "light"} className="me-2">
 								<NavDropdown.Item as={Link} to="/menu/pizza">
 									Pizza
 								</NavDropdown.Item>
@@ -163,8 +166,13 @@ function Header() {
 								<h2 className={`${styles.number} text-start text-white`}>055 875 83 22</h2>
 							</Stack> */}
 
-							<Button as={NavLink} to="/cart" className={colorMode === "dark" ? "mx-1 text-nowrap" : "text-white mx-1 text-nowrap"} variant={colorMode === "dark" ? "outline-primary " : "secondary"}>
-								<BsCart2 size="1.5em" className="me-2" /> Cart ({totalItems})
+							<Button as={NavLink} to="/wishlist" className={colorMode === "dark" ? "mx-1 text-nowrap" : "text-white mx-1 text-nowrap"} variant="transparent text-white">
+								<BsFillHeartFill /> <sup>{wishlistItems.length}</sup>
+							</Button>
+
+							<Button as={NavLink} to="/cart" className={colorMode === "dark" ? "mx-1 text-nowrap" : "text-white mx-1 text-nowrap"} variant="transparent text-white">
+								<BsFillCartFill size="1.2em" />
+								<sup>{totalItems}</sup>
 							</Button>
 
 							<Dropdown>

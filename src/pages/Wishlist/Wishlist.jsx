@@ -12,6 +12,8 @@ import { useCart } from "react-use-cart";
 
 const Wishlist = () => {
 	const wishlistItems = useSelector(selectWishlistItems);
+	const { items } = useCart();
+
 	console.log(wishlistItems);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
@@ -21,8 +23,22 @@ const Wishlist = () => {
 	const removed = () => toast("Item removed successfully!");
 
 	const moveAllToCart = (products) => {
-		products.map((product) => addItem(product));
-		navigate("/cart");
+		products.map((product) => {
+			if (items.some((item) => item.id === product.id)) {
+				console.log("wishlist already incldues this product");
+			} else {
+				addItem(product);
+				navigate("/cart");
+			}
+		});
+	};
+
+	const moveToCart = (product) => {
+		if (items.some((item) => item.id === product.id)) {
+			console.log("wishlist already incldues this product");
+		} else {
+			addItem(product);
+		}
 	};
 
 	const clearWishlist = () => {
@@ -96,7 +112,7 @@ const Wishlist = () => {
 											}}>
 											<BsTrashFill />
 										</Button>
-										<Button variant="secondary" className=" text-light text-nowrap p-1 py-2 my-1" onClick={() => addItem(fd)}>
+										<Button variant="secondary" className=" text-light text-nowrap p-1 py-2 my-1" onClick={() => moveToCart(fd)}>
 											Move to Cart
 										</Button>
 									</Stack>

@@ -3,8 +3,8 @@ import { Button, Card, Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useCart } from "react-use-cart";
 import { ColorModeContext } from "../../../routers/AppRouter";
-import { TOGGLE_WISHLIST, CHECK_WISHLIST, REMOVE_FROM_WISHLIST } from "../../../redux/slice/wishlistSlice";
-import { useDispatch } from "react-redux";
+import { TOGGLE_WISHLIST, selectWishlistItems } from "../../../redux/slice/wishlistSlice";
+import { useDispatch, useSelector } from "react-redux";
 import { BsFillHeartFill } from "react-icons/bs";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -12,8 +12,12 @@ import { useEffect } from "react";
 // import styles from "./ProductItem.module.scss";
 
 const ProductItem = ({ product, grid, id, name, price, description, vegetarian, spicy, imageURL, discount, addProduct }) => {
+	const wishlistItems = useSelector(selectWishlistItems);
 
-	
+	const checkWishlist = (product) => {
+		return wishlistItems.some((item) => item.id === product.id);
+	};
+
 	const shortenText = (text, n) => {
 		if (text.length > n) {
 			const shortenedText = text.substring(0, n).concat("...");
@@ -27,14 +31,6 @@ const ProductItem = ({ product, grid, id, name, price, description, vegetarian, 
 	const addToWishlist = (wishlist) => {
 		dispatch(TOGGLE_WISHLIST(wishlist));
 	};
-
-	const checkWishlist = (product) => {
-		dispatch(CHECK_WISHLIST(product));
-	};
-
-	useEffect(() => {
-		dispatch(CHECK_WISHLIST(product));
-	}, [dispatch, product]);
 
 	const { colorMode, toggleColorMode } = useContext(ColorModeContext);
 
@@ -64,7 +60,7 @@ const ProductItem = ({ product, grid, id, name, price, description, vegetarian, 
 							Add to Cart
 						</Button>
 						<Button variant="primary" onClick={() => addToWishlist(addProduct)} className="text-white mt-3 text-nowrap">
-							<BsFillHeartFill className={checkWishlist(product) ? `bg-primary` : `bg-dark`} />
+							<BsFillHeartFill className={checkWishlist(product) ? `text-secondary` : ``} />
 						</Button>
 					</div>
 				</Card.Body>
