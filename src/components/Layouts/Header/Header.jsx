@@ -50,12 +50,12 @@ function Header() {
 
 	useEffect(() => {
 		dispatch(SEARCH_PRODUCT({ products, searchedKeyword }));
-	}, [dispatch, products, searchedKeyword]);
+	}, [dispatch, products]);
 
 	const handleSearch = () => {
+		navigate("/menu");
 		dispatch(SET_SEARCH(searchedKeyword));
 
-		search === searchedKeyword ? navigate("/menu") : console.log("loading");
 		dispatch(SET_SEARCH_KEYWORD(""));
 	};
 

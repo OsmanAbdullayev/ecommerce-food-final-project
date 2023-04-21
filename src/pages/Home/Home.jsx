@@ -26,8 +26,8 @@ const Home = () => {
 	return (
 		<>
 			{/* <Hero /> */}
-			<Product />
 			<ProductsSection />
+			<Product />
 			<BestDeals />
 			<Menu lg="3" md="6" sm="12" />
 		</>

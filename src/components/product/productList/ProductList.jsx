@@ -32,7 +32,7 @@ const ProductList = ({ products }, props) => {
 
 	useEffect(() => {
 		dispatch(SET_SORT("latest"));
-		dispatch(SET_SEARCH(""));
+		// dispatch(SET_SEARCH(""));
 	}, []);
 
 	return (
