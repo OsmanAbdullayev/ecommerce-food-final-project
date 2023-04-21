@@ -27,14 +27,14 @@ import Switch from "react-switch";
 import ReactSwitch from "react-switch";
 import { Dropdown } from "react-bootstrap";
 import { selectWishlistItems } from "../../../redux/slice/wishlistSlice";
-import { FILTER, SEARCH_PRODUCT, SET_CATEGORY, SET_SEARCH, selectSearch, selectSearchedProducts } from "../../../redux/slice/filterSlice";
+import { FILTER, SEARCH_PRODUCT, SET_CATEGORY, SET_SEARCH, SET_SEARCH_KEYWORD, selectSearch, selectSearchKeyword, selectSearchedProducts } from "../../../redux/slice/filterSlice";
 import { selectProducts } from "../../../redux/slice/productsSlice";
 
 function Header() {
 	const { totalItems } = useCart();
 	const [isHidden, setIsHidden] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
-	const [keyword, setKeyword] = useState("");
+
 	const [displayName, setDisplayName] = useState("");
 	const dispatch = useDispatch();
 
@@ -42,23 +42,21 @@ function Header() {
 	const search = useSelector(selectSearch);
 	const searchedProducts = useSelector(selectSearchedProducts);
 	const products = useSelector(selectProducts);
+	const searchedKeyword = useSelector(selectSearchKeyword);
 
 	const { colorMode, toggleColorMode } = useContext(ColorModeContext);
 
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		dispatch(SEARCH_PRODUCT({ products, keyword }));
-	}, [dispatch, products, keyword]);
+		dispatch(SEARCH_PRODUCT({ products, searchedKeyword }));
+	}, [dispatch, products, searchedKeyword]);
 
-	const handleSearch = (e) => {
-		e.preventDefault();
-		console.log("before navigate");
-		navigate("/menu");
-		console.log("after navigate");
+	const handleSearch = () => {
+		dispatch(SET_SEARCH(searchedKeyword));
 
-		dispatch(SET_SEARCH(keyword));
-		console.log(search);
+		search === searchedKeyword ? navigate("/menu") : console.log("loading");
+		dispatch(SET_SEARCH_KEYWORD(""));
 	};
 
 	const logOut = () => {
@@ -196,23 +194,17 @@ function Header() {
 							</NavDropdown>
 
 							<Form className="d-flex align-items-start">
-								<Form.Control
-									type="search"
-									value={keyword}
-									onChange={(e) => {
-										setKeyword(e.target.value);
-									}}
-									placeholder="Search"
-									className="me-2"
-									aria-label="Search"
-									list="search"
-								/>
+								<Form.Control type="search" value={searchedKeyword} onChange={(e) => dispatch(SET_SEARCH_KEYWORD(e.target.value))} placeholder="Search" className="me-2" aria-label="Search" list="search" />
 								<datalist id="search">
 									{searchedProducts.map((item, key) => (
 										<option key={key} value={item.name} />
 									))}
 								</datalist>
-								<Button variant="outline-light" onClick={dispatch}>
+								<Button
+									variant="outline-light"
+									onClick={() => {
+										handleSearch();
+									}}>
 									<CiSearch />
 								</Button>
 							</Form>

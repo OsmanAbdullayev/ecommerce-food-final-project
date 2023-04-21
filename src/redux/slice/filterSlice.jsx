@@ -10,6 +10,7 @@ const initialState = {
 	maxPriceFilter: 1,
 	sort: "latest",
 	search: "",
+	searchKeyword: "",
 };
 
 const filterSlice = createSlice({
@@ -38,11 +39,14 @@ const filterSlice = createSlice({
 		SET_SEARCH(state, action) {
 			state.search = action.payload;
 		},
+		SET_SEARCH_KEYWORD(state, action) {
+			state.searchKeyword = action.payload;
+		},
 
 		SEARCH_PRODUCT(state, action) {
-			const { products, keyword } = action.payload;
+			const { products, searchedKeyword } = action.payload;
 			if (products) {
-				const tempProducts = products.filter((product) => product.name.toLowerCase().includes(keyword.toLowerCase()) || product.category.toLowerCase().includes(keyword.toLowerCase()));
+				const tempProducts = products.filter((product) => product.name.toLowerCase().includes(searchedKeyword.toLowerCase()) || product.category.toLowerCase().includes(searchedKeyword.toLowerCase()));
 
 				state.searchedProducts = tempProducts;
 			}
@@ -108,7 +112,7 @@ const filterSlice = createSlice({
 	},
 });
 
-export const { FILTER_BY_SEARCH, SORT_PRODUCTS, FILTER, SET_CATEGORY, SET_PRICE, SET_SPICY, SET_VEGETARIAN, SET_SORT, SET_SEARCH, SEARCH_PRODUCT } = filterSlice.actions;
+export const { FILTER_BY_SEARCH, SORT_PRODUCTS, FILTER, SET_CATEGORY, SET_PRICE, SET_SPICY, SET_VEGETARIAN, SET_SORT, SET_SEARCH, SEARCH_PRODUCT, SET_SEARCH_KEYWORD } = filterSlice.actions;
 export const selectFilteredProducts = (state) => state.filter.filteredProducts;
 export const selectCategory = (state) => state.filter.category;
 export const selectVegetarian = (state) => state.filter.vegetarian;
@@ -117,5 +121,6 @@ export const selectMaxPriceFilter = (state) => state.filter.maxPriceFilter;
 export const selectSort = (state) => state.filter.sort;
 export const selectSearch = (state) => state.filter.search;
 export const selectSearchedProducts = (state) => state.filter.searchedProducts;
+export const selectSearchKeyword = (state) => state.filter.searchKeyword;
 
 export default filterSlice.reducer;
