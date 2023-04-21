@@ -87,12 +87,14 @@ const ProductItem = ({ product, grid, id, name, price, description, vegetarian, 
 								</Card.Subtitle>
 								<Card.Text>{shortenText(description, 300)}</Card.Text>
 							</Row>
-							<Button variant="primary" onClick={() => addItem(addProduct)} className="text-white my-3">
-								Add to Cart
-							</Button>
-							<Button variant="primary" onClick={() => addToWishlist(addProduct)} className="text-white mt-3">
-								Add to Wishlist
-							</Button>
+							<div className="d-flex justify-content-between align-items-center w-100">
+						<Button variant="primary" onClick={() => addItem(addProduct)} className="text-white mt-3 text-nowrap">
+							Add to Cart
+						</Button>
+						<Button variant="primary" onClick={() => addToWishlist(addProduct)} className="text-white mt-3 text-nowrap">
+							<BsFillHeartFill className={checkWishlist(product) ? `text-secondary` : ``} />
+						</Button>
+					</div>
 						</Card.Body>
 					</Col>
 				</Row>

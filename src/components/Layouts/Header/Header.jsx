@@ -27,19 +27,39 @@ import Switch from "react-switch";
 import ReactSwitch from "react-switch";
 import { Dropdown } from "react-bootstrap";
 import { selectWishlistItems } from "../../../redux/slice/wishlistSlice";
+import { FILTER, SEARCH_PRODUCT, SET_CATEGORY, SET_SEARCH, selectSearch, selectSearchedProducts } from "../../../redux/slice/filterSlice";
+import { selectProducts } from "../../../redux/slice/productsSlice";
 
 function Header() {
 	const { totalItems } = useCart();
 	const [isHidden, setIsHidden] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
+	const [keyword, setKeyword] = useState("");
 	const [displayName, setDisplayName] = useState("");
 	const dispatch = useDispatch();
 
 	const wishlistItems = useSelector(selectWishlistItems);
+	const search = useSelector(selectSearch);
+	const searchedProducts = useSelector(selectSearchedProducts);
+	const products = useSelector(selectProducts);
 
 	const { colorMode, toggleColorMode } = useContext(ColorModeContext);
 
 	const navigate = useNavigate();
+
+	useEffect(() => {
+		dispatch(SEARCH_PRODUCT({ products, keyword }));
+	}, [dispatch, products, keyword]);
+
+	const handleSearch = (e) => {
+		e.preventDefault();
+		console.log("before navigate");
+		navigate("/menu");
+		console.log("after navigate");
+
+		dispatch(SET_SEARCH(keyword));
+		console.log(search);
+	};
 
 	const logOut = () => {
 		setIsLoading(true);
@@ -124,30 +144,75 @@ function Header() {
 							</Nav.Link>
 
 							<NavDropdown title={<span className={colorMode === "dark" ? "" : "text-white"}>Menu</span>} id="basic-nav-dropdown" menuVariant={colorMode === "dark" ? "dark" : "light"} className="me-2">
-								<NavDropdown.Item as={Link} to="/menu/pizza">
+								<NavDropdown.Item
+									as={Link}
+									to="/menu"
+									onClick={() => {
+										dispatch(SET_CATEGORY("Pizzas"));
+									}}>
 									Pizza
 								</NavDropdown.Item>
-								<NavDropdown.Item as={Link} to="/menu/burgers">
+								<NavDropdown.Item
+									as={Link}
+									to="/menu"
+									onClick={() => {
+										dispatch(SET_CATEGORY("Burger"));
+									}}>
 									Burgers
 								</NavDropdown.Item>
-								<NavDropdown.Item as={Link} to="/menu/sidesandsalads">
+								<NavDropdown.Item
+									as={Link}
+									to="/menu"
+									onClick={() => {
+										dispatch(SET_CATEGORY("Side & Salads"));
+									}}>
 									Sides & Salads
 								</NavDropdown.Item>
-								<NavDropdown.Item as={Link} to="/menu/desserts">
+								<NavDropdown.Item
+									as={Link}
+									to="/menu"
+									onClick={() => {
+										dispatch(SET_CATEGORY("Desserts"));
+									}}>
 									Desserts
 								</NavDropdown.Item>
-								<NavDropdown.Item as={Link} to="/menu/drinks">
+								<NavDropdown.Item
+									as={Link}
+									to="/menu"
+									onClick={() => {
+										dispatch(SET_CATEGORY("Drinks"));
+									}}>
 									Drinks
 								</NavDropdown.Item>
 
-								<NavDropdown.Item as={Link} to="/menu">
+								<NavDropdown.Item
+									as={Link}
+									to="/menu"
+									onClick={() => {
+										dispatch(SET_CATEGORY("All"));
+									}}>
 									All
 								</NavDropdown.Item>
 							</NavDropdown>
 
 							<Form className="d-flex align-items-start">
-								<Form.Control type="search" placeholder="Search" className="me-2" aria-label="Search" />
-								<Button variant="outline-light">
+								<Form.Control
+									type="search"
+									value={keyword}
+									onChange={(e) => {
+										setKeyword(e.target.value);
+									}}
+									placeholder="Search"
+									className="me-2"
+									aria-label="Search"
+									list="search"
+								/>
+								<datalist id="search">
+									{searchedProducts.map((item, key) => (
+										<option key={key} value={item.name} />
+									))}
+								</datalist>
+								<Button variant="outline-light" onClick={dispatch}>
 									<CiSearch />
 								</Button>
 							</Form>

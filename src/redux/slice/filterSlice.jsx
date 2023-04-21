@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
 	filteredProducts: [],
+	searchedProducts: [],
 
 	category: "all",
 	vegetarian: false,
@@ -36,6 +37,15 @@ const filterSlice = createSlice({
 
 		SET_SEARCH(state, action) {
 			state.search = action.payload;
+		},
+
+		SEARCH_PRODUCT(state, action) {
+			const { products, keyword } = action.payload;
+			if (products) {
+				const tempProducts = products.filter((product) => product.name.toLowerCase().includes(keyword.toLowerCase()) || product.category.toLowerCase().includes(keyword.toLowerCase()));
+
+				state.searchedProducts = tempProducts;
+			}
 		},
 
 		FILTER(state, action) {
@@ -98,7 +108,7 @@ const filterSlice = createSlice({
 	},
 });
 
-export const { FILTER_BY_SEARCH, SORT_PRODUCTS, FILTER, SET_CATEGORY, SET_PRICE, SET_SPICY, SET_VEGETARIAN, SET_SORT, SET_SEARCH } = filterSlice.actions;
+export const { FILTER_BY_SEARCH, SORT_PRODUCTS, FILTER, SET_CATEGORY, SET_PRICE, SET_SPICY, SET_VEGETARIAN, SET_SORT, SET_SEARCH, SEARCH_PRODUCT } = filterSlice.actions;
 export const selectFilteredProducts = (state) => state.filter.filteredProducts;
 export const selectCategory = (state) => state.filter.category;
 export const selectVegetarian = (state) => state.filter.vegetarian;
@@ -106,5 +116,6 @@ export const selectSpicy = (state) => state.filter.spicy;
 export const selectMaxPriceFilter = (state) => state.filter.maxPriceFilter;
 export const selectSort = (state) => state.filter.sort;
 export const selectSearch = (state) => state.filter.search;
+export const selectSearchedProducts = (state) => state.filter.searchedProducts;
 
 export default filterSlice.reducer;
