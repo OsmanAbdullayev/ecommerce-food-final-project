@@ -1,9 +1,10 @@
 import React from "react";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from "chart.js";
 import { Bar } from "react-chartjs-2";
-import Card from "../Card/Card";
+
 import styles from "./Chart.module.scss";
 import { useSelector } from "react-redux";
+import { Card } from "react-bootstrap";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -37,12 +38,12 @@ const Chart = () => {
 	};
 
 	return (
-		<div className={styles.charts}>
-			<Card cardClass={styles.card}>
-				<h3>Order Status Chart</h3>
-				<Bar options={options} data={data} />
-			</Card>
-		</div>
+	
+					<div className="text-center p-3">
+						<h3 className="my-3">Order Status Chart</h3>
+						<Bar options={options} data={data} />
+					</div>
+
 	);
 };
 

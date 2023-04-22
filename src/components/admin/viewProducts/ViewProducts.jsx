@@ -13,7 +13,7 @@ import { selectProducts, STORE_PRODUCTS } from "../../../redux/slice/productsSli
 import useFetchCollection from "../../../customHooks/useFetchCollection";
 import { FILTER, SET_CATEGORY, SET_SEARCH, SET_SORT, selectCategory, selectFilteredProducts, selectSearch, selectSort } from "../../../redux/slice/filterSlice";
 import Search from "../../search/Search";
-import { Pagination } from "react-bootstrap";
+import { Col, Pagination, Row } from "react-bootstrap";
 import PaginationComponent from "../../PaginationComponent";
 
 const ViewProducts = () => {
@@ -103,19 +103,23 @@ const ViewProducts = () => {
 		<>
 			{isLoading && <Loader />}
 			<div className={styles.table}>
-				<h2>All Products</h2>
+				<h2 className="text-center w-100 my-3">All Products</h2>
 
-				<div className={styles.search}>
-					<p>
-						<b>{filteredProducts.length}</b> products found
-					</p>
-					<Search
-						value={search}
-						onChange={(e) => {
-							dispatch(SET_SEARCH(e.target.value));
-						}}
-					/>
-				</div>
+				<Row className="g-2 my-2">
+					<Col lg={6} sm={12}>
+						<Search
+							value={search}
+							onChange={(e) => {
+								dispatch(SET_SEARCH(e.target.value));
+							}}
+						/>
+					</Col>
+					<Col lg={6} sm={12} className="text-center">
+						<p>
+							<b>{filteredProducts.length}</b> products found
+						</p>
+					</Col>
+				</Row>
 
 				{currentProducts.length === 0 ? (
 					<p>No product found.</p>

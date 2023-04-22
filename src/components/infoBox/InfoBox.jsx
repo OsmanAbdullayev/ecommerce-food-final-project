@@ -1,18 +1,21 @@
 import React from "react";
-import Card from "../Card/Card.jsx";
+
 import styles from "./InfoBox.module.scss";
+import { Card } from "react-bootstrap";
 
 const InfoBox = ({ cardClass, title, count, icon }) => {
 	return (
-		<div className={styles["info-box"]}>
-			<Card cardClass={cardClass}>
-				<h4>{title}</h4>
-				<span>
-					<h3>{count}</h3>
-					{icon}
-				</span>
+		<>
+			<Card>
+				<Card.Body>
+					<Card.Title>{title}</Card.Title>
+					<Card.Text>
+						<h3>{count}</h3>
+						{icon}
+					</Card.Text>
+				</Card.Body>
 			</Card>
-		</div>
+		</>
 	);
 };
 
