@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Card, Col, Container, Nav, Row } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import BlackBurger from "../../assets/img/menu/burgers-1-300x300.png";
@@ -8,12 +8,16 @@ import NutellaCake from "../../assets/img/menu/dessert2-300x300.jpg";
 import CocaCola from "../../assets/img/menu/drinks1-300x300.jpg";
 import { SET_CATEGORY } from "../../redux/slice/filterSlice";
 import { useDispatch } from "react-redux";
+import { t } from "i18next";
+import { ColorModeContext } from "../../routers/AppRouter";
 
 const ProductsSection = () => {
+	const { colorMode } = useContext(ColorModeContext);
+
 	const dispatch = useDispatch();
 	return (
 		<Container>
-			<h1 className="text-center p-3 my-4">Choose your product</h1>
+			<h1 className="text-center p-3 my-4">{t(`chooseyourproduct`)}</h1>
 			<Row className="justify-content-md-center my-1 g-3" >
 				<Col sm="6" xs="12" mg="4" lg="2">
 		
@@ -24,10 +28,10 @@ const ProductsSection = () => {
 						onClick={() => {
 							dispatch(SET_CATEGORY("Burger"));
 						}}>
-						<Card className="h-100 overflow-hidden shadow">
-							<Card.Img variant="top" src={BlackBurger} />
+						<Card className={colorMode === "dark" ? `h-100 overflow-hidden shadow text-primary bg-dark` : `h-100 overflow-hidden shadow`}>
+							<Card.Img variant="top" src={BlackBurger} className="bg-light"/>
 							<Card.Body>
-								<Card.Title className="text-center">Burgers</Card.Title>
+								<Card.Title className="text-center">{t(`burgers`)}</Card.Title>
 							</Card.Body>
 						</Card>
 					</Nav.Link>
@@ -41,10 +45,10 @@ const ProductsSection = () => {
 						onClick={() => {
 							dispatch(SET_CATEGORY("Pizza"));
 						}}>
-					 	<Card className="h-100 overflow-hidden shadow">
-							<Card.Img variant="top" src={PepperoniPizza} />
+					 	<Card className={colorMode === "dark" ? `h-100 overflow-hidden shadow text-primary bg-dark` : `h-100 overflow-hidden shadow`}>
+							<Card.Img variant="top" src={PepperoniPizza} className="bg-light"/>
 							<Card.Body>
-								<Card.Title className="text-center">Pizza</Card.Title>
+								<Card.Title className="text-center">{t(`pizza`)}</Card.Title>
 							</Card.Body>
 						</Card>
 					</Nav.Link>
@@ -58,10 +62,10 @@ const ProductsSection = () => {
 						onClick={() => {
 							dispatch(SET_CATEGORY("Side & Salads"));
 						}}>
-					 	<Card className="h-100 overflow-hidden shadow">
+					 	<Card className={colorMode === "dark" ? `h-100 overflow-hidden shadow text-primary bg-dark` : `h-100 overflow-hidden shadow`}>
 							<Card.Img variant="top" src={VegetableSalad} />
 							<Card.Body>
-								<Card.Title className="text-center">Sides & Salads</Card.Title>
+								<Card.Title className="text-center">{t(`sidesandsalads`)}</Card.Title>
 							</Card.Body>
 						</Card>
 					</Nav.Link>
@@ -74,10 +78,10 @@ const ProductsSection = () => {
 						onClick={() => {
 							dispatch(SET_CATEGORY("Desserts"));
 						}}>
-					 	<Card className="h-100 overflow-hidden shadow">
+					 	<Card className={colorMode === "dark" ? `h-100 overflow-hidden shadow text-primary bg-dark` : `h-100 overflow-hidden shadow`}>
 							<Card.Img variant="top" src={NutellaCake} />
 							<Card.Body>
-								<Card.Title className="text-center">Desserts</Card.Title>
+								<Card.Title className="text-center">{t(`desserts`)}</Card.Title>
 							</Card.Body>
 						</Card>
 					</Nav.Link>
@@ -90,10 +94,10 @@ const ProductsSection = () => {
 						onClick={() => {
 							dispatch(SET_CATEGORY("Drinks"));
 						}}>
-					 	<Card className="overflow-hidden shadow h-100">
+					 	<Card className={colorMode === "dark" ? `h-100 overflow-hidden shadow text-primary bg-dark` : `h-100 overflow-hidden shadow`}>
 							<Card.Img variant="top" src={CocaCola} />
 							<Card.Body>
-								<Card.Title className="text-center">Drinks</Card.Title>
+								<Card.Title className="text-center">{t(`drinks`)}</Card.Title>
 							</Card.Body>
 						</Card>
 					</Nav.Link>

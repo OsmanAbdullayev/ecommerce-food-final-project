@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { GET_PRICE_RANGE, selectProducts, STORE_PRODUCTS } from "../../redux/slice/productsSlice";
 import Loader from "../loader/Loader";
 import { Col, Container, Row } from "react-bootstrap";
+import { t } from "i18next";
 
 const Product = () => {
 	const { data, isLoading } = useFetchCollection("products");
@@ -28,7 +29,7 @@ const Product = () => {
 	}, [dispatch, data]);
 	return (
 		<Container className="mb-3">
-			<h1 className="text-center mt-4">Menu</h1>
+			<h1 className="text-center mt-4">{t(`menu`)}</h1>
 			
 			<Row>
 				<Col lg={3} md={4} sm={12}>

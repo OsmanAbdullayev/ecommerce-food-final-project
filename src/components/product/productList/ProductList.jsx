@@ -8,6 +8,7 @@ import PaginationComponent from "../../PaginationComponent";
 import Search from "../../search/Search";
 import ProductItem from "../productItem/ProductItem";
 import styles from "./ProductList.module.scss";
+import { t } from "i18next";
 
 const ProductList = ({ products }, props) => {
 	const [grid, setGrid] = useState(true);
@@ -46,6 +47,7 @@ const ProductList = ({ products }, props) => {
 				<Col className="my-1" lg={3} md={6} sm={6}>
 					<Search
 						value={search}
+						
 						onChange={(e) => {
 							dispatch(SET_SEARCH(e.target.value));
 						}}
@@ -54,17 +56,17 @@ const ProductList = ({ products }, props) => {
 
 				<Col className="my-1" lg={3} md={6} sm={6}>
 					<Form.Select onChange={(e) => dispatch(SET_SORT(e.target.value))}>
-						<option value="latest">Sort by:</option>
-						<option value="latest">Latest</option>
-						<option value="lowest-price">Lowest Price</option>
-						<option value="highest-price">Highest Price</option>
+						<option value="latest">{t(`sortby`)}</option>
+						<option value="latest">{t(`latest`)}</option>
+						<option value="lowest-price">{t(`lowestprice`)}</option>
+						<option value="highest-price">{t(`highestprice`)}</option>
 						<option value="a-z">A-Z</option>
 						<option value="z-a">Z-A</option>
 					</Form.Select>
 				</Col>
 				<Col className="my-1 d-flex justify-content-start align-items-start" lg={3} md={6} sm={6}>
 					<p className="text-center h-100 text-nowrap">
-						<b>{filteredProducts.length}</b> Products found.
+						<b>{filteredProducts.length}</b> {t(`productsfound`)}
 					</p>
 				</Col>
 

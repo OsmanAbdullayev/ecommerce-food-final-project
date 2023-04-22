@@ -12,7 +12,7 @@ import { useContext, createContext, useEffect, useState } from "react";
 
 import { CiPizza, CiBurger, CiFries, CiSearch } from "react-icons/ci";
 import { BiCake } from "react-icons/bi";
-import { BsCart2, BsCircleHalf, BsCupStraw, BsFillCartFill, BsFillHeartFill, BsGlobe, BsPerson } from "react-icons/bs";
+import { BsCart2, BsCircleHalf, BsCupStraw, BsFillBrushFill, BsFillCartFill, BsFillHeartFill, BsGlobe, BsPerson } from "react-icons/bs";
 import { GiAlmond } from "react-icons/gi";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../../../firebase/config";
@@ -32,6 +32,7 @@ import { selectProducts } from "../../../redux/slice/productsSlice";
 import i18next from "i18next";
 import detectBrowserLanguage from "detect-browser-language";
 import { t } from "i18next";
+import { FaUserAlt } from "react-icons/fa";
 
 function Header() {
 	const { totalItems } = useCart();
@@ -65,6 +66,15 @@ function Header() {
 	useEffect(() => {
 		dispatch(SEARCH_PRODUCT({ products, searchedKeyword }));
 	}, [dispatch, products]);
+
+	let optsAz = {};
+	let optsEn = {};
+	if (currentLng === "az") {
+		optsAz["selected"] = "selected";
+	}
+	if (currentLng === "en") {
+		optsEn["selected"] = "selected";
+	}
 
 	const handleSearch = (e) => {
 		e.preventDefault();
@@ -156,7 +166,7 @@ function Header() {
 								{t(`contacts`)}
 							</Nav.Link>
 
-							<NavDropdown title={<span className={colorMode === "dark" ? "text-white" : "text-white"}>Menu</span>} id="basic-nav-dropdown" menuVariant={colorMode === "dark" ? "dark" : "light"} className="me-2">
+							<NavDropdown title={<span className={colorMode === "dark" ? "text-white" : "text-white"}>{t(`menu`)}</span>} id="basic-nav-dropdown" menuVariant={colorMode === "dark" ? "dark" : "light"} className="me-2">
 								<NavDropdown.Item
 									as={Link}
 									to="/menu"
@@ -164,7 +174,7 @@ function Header() {
 										dispatch(SET_CATEGORY("Pizza"));
 										setExpanded(false);
 									}}>
-									Pizza
+									{t(`pizza`)}
 								</NavDropdown.Item>
 								<NavDropdown.Item
 									as={Link}
@@ -173,7 +183,7 @@ function Header() {
 										dispatch(SET_CATEGORY("Burger"));
 										setExpanded(false);
 									}}>
-									Burgers
+									{t(`burgers`)}
 								</NavDropdown.Item>
 								<NavDropdown.Item
 									as={Link}
@@ -182,7 +192,7 @@ function Header() {
 										dispatch(SET_CATEGORY("Side & Salads"));
 										setExpanded(false);
 									}}>
-									Sides & Salads
+									{t(`sidesandsalads`)}
 								</NavDropdown.Item>
 								<NavDropdown.Item
 									as={Link}
@@ -191,7 +201,7 @@ function Header() {
 										dispatch(SET_CATEGORY("Desserts"));
 										setExpanded(false);
 									}}>
-									Desserts
+									{t(`desserts`)}
 								</NavDropdown.Item>
 								<NavDropdown.Item
 									as={Link}
@@ -200,7 +210,7 @@ function Header() {
 										dispatch(SET_CATEGORY("Drinks"));
 										setExpanded(false);
 									}}>
-									Drinks
+									{t(`drinks`)}
 								</NavDropdown.Item>
 
 								<NavDropdown.Item
@@ -210,12 +220,12 @@ function Header() {
 										dispatch(SET_CATEGORY("All"));
 										setExpanded(false);
 									}}>
-									All
+									{t(`all`)}
 								</NavDropdown.Item>
 							</NavDropdown>
 
 							<Form className="d-flex align-items-start mt-2 mb-1">
-								<Form.Control type="search" value={searchedKeyword} onChange={(e) => dispatch(SET_SEARCH_KEYWORD(e.target.value))} placeholder="Search" className="me-2" aria-label="Search" list="search" />
+								<Form.Control type="search" value={searchedKeyword} onChange={(e) => dispatch(SET_SEARCH_KEYWORD(e.target.value))} placeholder={t(`search`)} className="me-2" aria-label="Search" list="search" />
 								<datalist id="search">
 									{searchedProducts.map((item, key) => (
 										<option key={key} value={item.name} />
@@ -259,13 +269,13 @@ function Header() {
 								<Dropdown as={Button} className="p-0 m-1">
 									<Dropdown.Toggle className={colorMode === "dark w-100" ? "" : "text-white w-100"} variant={colorMode === "dark" ? "outline-secondary " : "secondary "}>
 										<BsPerson size="1.4em" className="" />
-										{displayName.substring(0, 6)}
+										{displayName.substring(0, 10)}
 									</Dropdown.Toggle>
 
 									<Dropdown.Menu className="positi">
 										<ShowOnLogOut>
 											<Dropdown.Item onClick={() => setExpanded(false)} as={NavLink} to="/login" variant={colorMode === "dark" ? "outline-secondary " : "secondary "}>
-												Log In
+												{t(`login`)}
 											</Dropdown.Item>
 										</ShowOnLogOut>
 
@@ -279,7 +289,7 @@ function Header() {
 
 										<ShowOnLogOut>
 											<Dropdown.Item onClick={() => setExpanded(false)} as={NavLink} to="/signup" variant={colorMode === "dark" ? "outline-secondary " : "secondary "}>
-												Sign Up
+												{t(`signup`)}
 											</Dropdown.Item>
 										</ShowOnLogOut>
 
@@ -290,27 +300,29 @@ function Header() {
 													setExpanded(false);
 												}}
 												variant={colorMode === "dark" ? "outline-primary " : "outline-light "}>
-												Log Out
+												{t(`logout`)}
 											</Dropdown.Item>
 										</ShowOnLogIn>
 									</Dropdown.Menu>
 								</Dropdown>
 
-								<Form.Select
-									aria-label="Default select example"
-									className={colorMode === "dark" ? " bg-dark text-white text-nowrap m-1" : "bg-secondary text-white text-nowrap m-1"}
-									variant={colorMode === "dark" ? "outline-secondary " : "secondary "}
-									onChange={(e) => {
-										changeLanguage(e.target.value);
-									}}>
-									<option className="text-white">Lng</option>
-									<option value="en" onClick={() => setExpanded(false)} >
-										EN
-									</option>
-									<option value="az" onClick={() => setExpanded(false)}>
-										AZ
-									</option>
-								</Form.Select>
+								<div as={Button} className="text-nowrap m-1  me-2 ">
+									<Form.Select
+										aria-label="Default select example"
+										className={colorMode === "dark" ? " bg-dark text-white " : "bg-secondary text-white"}
+										variant={colorMode === "dark" ? "outline-secondary " : "secondary "}
+										onChange={(e) => {
+											changeLanguage(e.target.value);
+											setExpanded(false);
+										}}>
+										<option value="en" {...optsEn}>
+											EN
+										</option>
+										<option value="az" o {...optsAz}>
+											AZ
+										</option>
+									</Form.Select>
+								</div>
 
 								<div className="d-flex justify-content-center align-items-center">
 									<ReactSwitch

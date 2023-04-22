@@ -4,6 +4,7 @@ import { FILTER, SET_CATEGORY, SET_PRICE, SET_SPICY, SET_VEGETARIAN, selectCateg
 import { selectMaxPrice, selectMinPrice, selectProducts } from "../../../redux/slice/productsSlice";
 import styles from "./ProductFilter.module.scss";
 import { Button, ButtonGroup, Form } from "react-bootstrap";
+import { t } from "i18next";
 
 const ProductFilter = () => {
 	const products = useSelector(selectProducts);
@@ -48,7 +49,7 @@ const ProductFilter = () => {
 
 	return (
 		<aside>
-			<h4 className="mt-4 mb-3 text-center">Categories</h4>
+			<h4 className="mt-4 mb-3 text-center">{t(`categories`)}</h4>
 			<div className="shadow p-2">
 				<ButtonGroup vertical className="w-100">
 					{allCategories.map((cat, index) => {
@@ -61,17 +62,17 @@ const ProductFilter = () => {
 				</ButtonGroup>
 
 				<Form>
-					<Form.Check className="my-3" type="switch" label="Vegetarian" onClick={() => dispatch(SET_VEGETARIAN(!vegetarian))} />
-					<Form.Check className="my-3" type="switch" label="Spicy" onClick={() => dispatch(SET_SPICY(!spicy))} />
+					<Form.Check className="my-3" type="switch" label={t(`vegetarian`)} onClick={() => dispatch(SET_VEGETARIAN(!vegetarian))} />
+					<Form.Check className="my-3" type="switch" label={t(`spicy`)} onClick={() => dispatch(SET_SPICY(!spicy))} />
 				</Form>
 
 				<Form.Label>
-					<p>Max price: {`$${maxPriceFilter}`}</p>
+					<p>{t(`maxprice`)} {`$${maxPriceFilter}`}</p>
 				</Form.Label>
 				<Form.Range value={maxPriceFilter} min={minPrice} max={maxPrice} onChange={(e) => dispatch(SET_PRICE(e.target.value))} />
 
 				<Button className="my-3" onClick={clearFilters}>
-					Clear Filters
+					{t(`clearfilters`)}
 				</Button>
 			</div>
 		</aside>

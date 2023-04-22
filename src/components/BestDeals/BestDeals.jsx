@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Button, Card, Col, Container, Nav, Row, Stack } from "react-bootstrap";
 import BlackBurger from "../../assets/img/menu/burgers-1-300x300.png";
 import PepperoniPizza from "../../assets/img/menu/pizza-1-300x300.png";
@@ -11,9 +11,13 @@ import "react-multi-carousel/lib/styles.css";
 import { useSelector } from "react-redux";
 import { selectProducts } from "../../redux/slice/productsSlice";
 import ProductItem from "../product/productItem/ProductItem";
+import { t } from "i18next";
+import { ColorModeContext } from "../../routers/AppRouter";
 
 const BestDeals = () => {
 	const products = useSelector(selectProducts);
+
+	const { colorMode } = useContext(ColorModeContext);
 
 	const responsive = {
 		superLargeDesktop: {
@@ -37,19 +41,19 @@ const BestDeals = () => {
 
 	return (
 		<Container>
-			<h1 className="text-center p-3 my-4">Current Offers</h1>
+			<h1 className="text-center p-3 my-4">{t(`currentoffers`)}</h1>
 
 			<Carousel responsive={responsive}>
 				{products.map((product) => {
 					if (product.discount) {
 						return (
 							<div key={product.id} className="h-100 p-3">
-								<Card className="p-3 h-100 shadow">
+								<Card className={colorMode === "dark" ? `p-3 h-100 shadow bg-dark text-primary` : `p-3 h-100 shadow`}>
 									<Row className="g-0">
 										<Col md={6} className="d-flex flex-column justify-content-center align-items-start">
 											<Card.Body>
 												<Card.Title className="fs-5 text-danger fw-3">
-													<h1>Save {product.discount}%</h1>
+													<h1>{t(`save`)} {product.discount}%</h1>
 												</Card.Title>
 												<Card.Subtitle>
 													<h3 className="p-0 m-0">{product.name}</h3>
