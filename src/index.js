@@ -5,6 +5,7 @@ import reportWebVitals from "./reportWebVitals";
 import { CartProvider } from "react-use-cart";
 import { Provider } from "react-redux";
 import store from "./redux/store";
+import "./i18n";
 // import "./assets/sass/global.scss";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

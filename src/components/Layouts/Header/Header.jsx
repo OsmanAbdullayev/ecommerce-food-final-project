@@ -12,7 +12,7 @@ import { useContext, createContext, useEffect, useState } from "react";
 
 import { CiPizza, CiBurger, CiFries, CiSearch } from "react-icons/ci";
 import { BiCake } from "react-icons/bi";
-import { BsCart2, BsCircleHalf, BsCupStraw, BsFillCartFill, BsFillHeartFill, BsPerson } from "react-icons/bs";
+import { BsCart2, BsCircleHalf, BsCupStraw, BsFillCartFill, BsFillHeartFill, BsGlobe, BsPerson } from "react-icons/bs";
 import { GiAlmond } from "react-icons/gi";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../../../firebase/config";
@@ -29,6 +29,9 @@ import { Dropdown } from "react-bootstrap";
 import { selectWishlistItems } from "../../../redux/slice/wishlistSlice";
 import { FILTER, SEARCH_PRODUCT, SET_CATEGORY, SET_SEARCH, SET_SEARCH_KEYWORD, selectSearch, selectSearchKeyword, selectSearchedProducts } from "../../../redux/slice/filterSlice";
 import { selectProducts } from "../../../redux/slice/productsSlice";
+import i18next from "i18next";
+import detectBrowserLanguage from "detect-browser-language";
+import { t } from "i18next";
 
 function Header() {
 	const { totalItems } = useCart();
@@ -36,8 +39,13 @@ function Header() {
 	const [isLoading, setIsLoading] = useState(false);
 	const [expanded, setExpanded] = useState(false);
 
+	const currentLng = localStorage.getItem("lng");
+	console.log("current lng:" + currentLng);
+
 	const [displayName, setDisplayName] = useState("");
 	const dispatch = useDispatch();
+
+	console.log(detectBrowserLanguage());
 
 	const wishlistItems = useSelector(selectWishlistItems);
 	const search = useSelector(selectSearch);
@@ -49,6 +57,11 @@ function Header() {
 
 	const navigate = useNavigate();
 
+	const changeLanguage = (e) => {
+		i18next.changeLanguage(e);
+		localStorage.setItem("lng", e);
+	};
+
 	useEffect(() => {
 		dispatch(SEARCH_PRODUCT({ products, searchedKeyword }));
 	}, [dispatch, products]);
@@ -57,7 +70,7 @@ function Header() {
 		e.preventDefault();
 		navigate("/menu");
 		dispatch(SET_SEARCH(searchedKeyword));
-		dispatch(SET_CATEGORY("All"))
+		dispatch(SET_CATEGORY("All"));
 		dispatch(SET_SEARCH_KEYWORD(""));
 	};
 
@@ -140,7 +153,7 @@ function Header() {
 							</Nav.Link> */}
 
 							<Nav.Link as={NavLink} to="/contacts" className={colorMode === "dark " ? "" : "text-white "} onClick={() => setExpanded(false)}>
-								Contacts
+								{t(`contacts`)}
 							</Nav.Link>
 
 							<NavDropdown title={<span className={colorMode === "dark" ? "text-white" : "text-white"}>Menu</span>} id="basic-nav-dropdown" menuVariant={colorMode === "dark" ? "dark" : "light"} className="me-2">
@@ -283,9 +296,22 @@ function Header() {
 									</Dropdown.Menu>
 								</Dropdown>
 
-								<Button onClick={() => setExpanded(false)} className={colorMode === "dark" ? "text-nowrap m-1" : "text-white text-nowrap m-1"} variant={colorMode === "dark" ? "outline-secondary " : "secondary "}>
-									EN
-								</Button>
+								<Form.Select
+									aria-label="Default select example"
+									className={colorMode === "dark" ? " bg-dark text-white text-nowrap m-1" : "bg-secondary text-white text-nowrap m-1"}
+									variant={colorMode === "dark" ? "outline-secondary " : "secondary "}
+									onChange={(e) => {
+										changeLanguage(e.target.value);
+									}}>
+									<option className="text-white">Lng</option>
+									<option value="en" onClick={() => setExpanded(false)} >
+										EN
+									</option>
+									<option value="az" onClick={() => setExpanded(false)}>
+										AZ
+									</option>
+								</Form.Select>
+
 								<div className="d-flex justify-content-center align-items-center">
 									<ReactSwitch
 										onChange={() => {
