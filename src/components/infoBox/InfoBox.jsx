@@ -8,11 +8,10 @@ const InfoBox = ({ cardClass, title, count, icon }) => {
 		<>
 			<Card>
 				<Card.Body>
-					<Card.Title>{title}</Card.Title>
-					<Card.Text>
-						<h3>{count}</h3>
-						{icon}
-					</Card.Text>
+					<Card.Title>
+						{icon} {title}
+					</Card.Title>
+					<Card.Text className="fs-4">{count}</Card.Text>
 				</Card.Body>
 			</Card>
 		</>

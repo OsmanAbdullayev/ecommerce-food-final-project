@@ -12,7 +12,7 @@ const Navbar = () => {
 	const userName = useSelector(selectUserName);
 	return (
 		<>
-			<div className="bg-primary d-flex justify-content-center align-items-center flex-column p-5 border-top border-5">
+			<div className="bg-primary d-flex justify-content-center align-items-center flex-column p-5 mt-2">
 				<CiUser size="40" className="text-white" />
 				<h4 className="text-white mt-2">{userName}</h4>
 			</div>

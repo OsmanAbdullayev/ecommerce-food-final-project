@@ -37,7 +37,10 @@ const ProductFilter = () => {
 	}, [dispatch, products, category, spicy, vegetarian, maxPriceFilter]);
 
 	useEffect(() => {
-		dispatch(SET_PRICE(maxPrice ? maxPrice : 1));
+		dispatch(SET_CATEGORY(category));
+		// dispatch(SET_VEGETARIAN(false));
+		// dispatch(SET_SPICY(false));
+		dispatch(SET_PRICE(maxPrice ? maxPrice : 10000));
 	}, [maxPrice]);
 
 	const clearFilters = () => {
@@ -62,12 +65,14 @@ const ProductFilter = () => {
 				</ButtonGroup>
 
 				<Form>
-					<Form.Check className="my-3" type="switch" label={t(`vegetarian`)} onClick={() => dispatch(SET_VEGETARIAN(!vegetarian))} />
-					<Form.Check className="my-3" type="switch" label={t(`spicy`)} onClick={() => dispatch(SET_SPICY(!spicy))} />
+					<Form.Check checked={vegetarian} className="my-3" type="switch" label={t(`vegetarian`)} onChange={() => dispatch(SET_VEGETARIAN(!vegetarian))} />
+					<Form.Check checked={spicy} className="my-3" type="switch" label={t(`spicy`)} onChange={() => dispatch(SET_SPICY(!spicy))} />
 				</Form>
 
 				<Form.Label>
-					<p>{t(`maxprice`)} {`$${maxPriceFilter}`}</p>
+					<p>
+						{t(`maxprice`)} {`$${maxPriceFilter}`}
+					</p>
 				</Form.Label>
 				<Form.Range value={maxPriceFilter} min={minPrice} max={maxPrice} onChange={(e) => dispatch(SET_PRICE(e.target.value))} />
 

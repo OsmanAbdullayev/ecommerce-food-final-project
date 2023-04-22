@@ -41,12 +41,9 @@ function Header() {
 	const [expanded, setExpanded] = useState(false);
 
 	const currentLng = localStorage.getItem("lng");
-	console.log("current lng:" + currentLng);
 
 	const [displayName, setDisplayName] = useState("");
 	const dispatch = useDispatch();
-
-	console.log(detectBrowserLanguage());
 
 	const wishlistItems = useSelector(selectWishlistItems);
 	const search = useSelector(selectSearch);
@@ -67,14 +64,6 @@ function Header() {
 		dispatch(SEARCH_PRODUCT({ products, searchedKeyword }));
 	}, [dispatch, products]);
 
-	let optsAz = {};
-	let optsEn = {};
-	if (currentLng === "az") {
-		optsAz["selected"] = "selected";
-	}
-	if (currentLng === "en") {
-		optsEn["selected"] = "selected";
-	}
 
 	const handleSearch = (e) => {
 		e.preventDefault();
@@ -171,6 +160,15 @@ function Header() {
 									as={Link}
 									to="/menu"
 									onClick={() => {
+										dispatch(SET_CATEGORY("All"));
+										setExpanded(false);
+									}}>
+									{t(`all`)}
+								</NavDropdown.Item>
+								<NavDropdown.Item
+									as={Link}
+									to="/menu"
+									onClick={() => {
 										dispatch(SET_CATEGORY("Pizza"));
 										setExpanded(false);
 									}}>
@@ -211,16 +209,6 @@ function Header() {
 										setExpanded(false);
 									}}>
 									{t(`drinks`)}
-								</NavDropdown.Item>
-
-								<NavDropdown.Item
-									as={Link}
-									to="/menu"
-									onClick={() => {
-										dispatch(SET_CATEGORY("All"));
-										setExpanded(false);
-									}}>
-									{t(`all`)}
 								</NavDropdown.Item>
 							</NavDropdown>
 
@@ -266,7 +254,7 @@ function Header() {
 									<sup>{totalItems}</sup>
 								</Button>
 
-								<Dropdown as={Button} className="p-0 m-1">
+								<Dropdown  className="p-0 m-1">
 									<Dropdown.Toggle className={colorMode === "dark w-100" ? "" : "text-white w-100"} variant={colorMode === "dark" ? "outline-secondary " : "secondary "}>
 										<BsPerson size="1.4em" className="" />
 										{displayName.substring(0, 10)}
@@ -308,19 +296,17 @@ function Header() {
 
 								<div as={Button} className="text-nowrap m-1  me-2 ">
 									<Form.Select
+									
 										aria-label="Default select example"
+										defaultValue={currentLng}
 										className={colorMode === "dark" ? " bg-dark text-white " : "bg-secondary text-white"}
 										variant={colorMode === "dark" ? "outline-secondary " : "secondary "}
 										onChange={(e) => {
 											changeLanguage(e.target.value);
 											setExpanded(false);
 										}}>
-										<option value="en" {...optsEn}>
-											EN
-										</option>
-										<option value="az" o {...optsAz}>
-											AZ
-										</option>
+										<option value="en">EN</option>
+										<option value="az">AZ</option>
 									</Form.Select>
 								</div>
 

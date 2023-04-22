@@ -16,7 +16,7 @@ const Orders = () => {
 	return (
 		<>
 			<div className={styles.order}>
-				<h2>Your Order History</h2>
+				<h1 className="my-3 text-center">Your Order History</h1>
 				<p>
 					Open an order to <b>Change order status</b>
 				</p>

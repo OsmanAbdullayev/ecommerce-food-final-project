@@ -11,8 +11,9 @@
 	font-family: "Poppins", sans-serif;
 }
 
-
-
+button {
+	word-wrap: break-word;
+}
 
 .object-fit {
 	object-fit: cover;
@@ -59,12 +60,6 @@ figure {
 	}
 	button:nth-of-type(2) {
 		background-color: #1e5128 !important;
-	}
-}
-
-tr {
-	button {
-		width: 120px;
 	}
 }
 

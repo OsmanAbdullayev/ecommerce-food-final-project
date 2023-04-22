@@ -4,6 +4,7 @@ import Hero from "../../components/Hero/Hero";
 import ProductsSection from "../../components/ProductsSection/ProductsSection";
 import Menu from "../../components/MenuComponents/AllProductsComponent";
 import Product from "../../components/product/Product";
+import Loader from "../../components/loader/Loader";
 
 const Home = () => {
 	// const url = window.location.href;

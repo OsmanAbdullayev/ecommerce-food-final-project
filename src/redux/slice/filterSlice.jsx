@@ -108,7 +108,6 @@ const filterSlice = createSlice({
 			tempProductsSearch = tempProductsSort.filter((product) => product.name.toLowerCase().includes(state.search.toLowerCase()) || product.category.toLowerCase().includes(state.search.toLowerCase()));
 
 			state.filteredProducts = tempProductsSearch;
-			console.log(state.filteredProducts);
 		},
 	},
 });

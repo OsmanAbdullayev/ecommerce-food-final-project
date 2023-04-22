@@ -5,7 +5,7 @@ import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Button, Container, Table } from "react-bootstrap";
+import { Button, Container, Stack, Table } from "react-bootstrap";
 import { BsTrashFill } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { selectIsLoggedIn } from "../../redux/slice/authSlice";
@@ -102,28 +102,24 @@ const Cart = () => {
 									<h5>x{fd.quantity}</h5>
 								</td>
 								<td className="d-flex justify-content-around align-items-center flex-column">
-									<tr>
-										<Button variant="warning" className="fs-5 my-1 text-light" onClick={() => updateItemQuantity(fd.id, fd.quantity - 1)}>
+									<Stack className="d-flex flex-column justify-content-center align-items-center">
+										<Button variant="warning" className="fs-5 my-1 text-light text-nowrap w-100" onClick={() => updateItemQuantity(fd.id, fd.quantity - 1)}>
 											-
 										</Button>
-									</tr>
-									<tr>
-										<Button variant="warning" className="fs-5 my-1 text-light" onClick={() => updateItemQuantity(fd.id, fd.quantity + 1)}>
+										<Button variant="warning" className="fs-5 my-1 text-light text-nowrap w-100" onClick={() => updateItemQuantity(fd.id, fd.quantity + 1)}>
 											+
 										</Button>
-									</tr>
-									<tr>
 										<Button
 											variant="danger"
-											className="fs-5 my-1 text-light"
+											className="fs-5 my-1 text-light text-nowrap w-100"
 											onClick={() => {
 												removed();
 												removeItem(fd.id);
 											}}>
 											<BsTrashFill />
 										</Button>
+									</Stack>
 										<ToastContainer position="bottom-center" autoClose={1000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="colored" />
-									</tr>
 								</td>
 							</tr>
 						))}
@@ -138,7 +134,7 @@ const Cart = () => {
 								<h3 className="text-danger">x{totalItems} </h3>
 							</td>
 							<td className="d-flex justify-content-around align-items-center flex-column">
-								<Button variant="secondary" className="fs-5 my-1 text-light" onClick={checkout}>
+								<Button variant="secondary" className="fs-5 my-1 text-light text-nowrap w-100" onClick={checkout}>
 									Checkout
 								</Button>
 								<ToastContainer position="bottom-center" autoClose={1000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="colored" />

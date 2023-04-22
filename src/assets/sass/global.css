@@ -21642,6 +21642,10 @@ textarea.form-control-lg {
   font-family: "Poppins", sans-serif;
 }
 
+button {
+  word-wrap: break-word;
+}
+
 .object-fit {
   -o-object-fit: cover;
      object-fit: cover;
@@ -21673,10 +21677,6 @@ figure {
 }
 .react-confirm-alert-button-group button:nth-of-type(2) {
   background-color: #1e5128 !important;
-}
-
-tr button {
-  width: 120px;
 }
 
 td img {

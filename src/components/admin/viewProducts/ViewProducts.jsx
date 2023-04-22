@@ -11,7 +11,7 @@ import Notiflix from "notiflix";
 import { useDispatch, useSelector } from "react-redux";
 import { selectProducts, STORE_PRODUCTS } from "../../../redux/slice/productsSlice";
 import useFetchCollection from "../../../customHooks/useFetchCollection";
-import { FILTER, SET_CATEGORY, SET_SEARCH, SET_SORT, selectCategory, selectFilteredProducts, selectSearch, selectSort } from "../../../redux/slice/filterSlice";
+import { FILTER, SET_CATEGORY, SET_PRICE, SET_SEARCH, SET_SORT, SET_SPICY, SET_VEGETARIAN, selectCategory, selectFilteredProducts, selectSearch, selectSort } from "../../../redux/slice/filterSlice";
 import Search from "../../search/Search";
 import { Col, Pagination, Row } from "react-bootstrap";
 import PaginationComponent from "../../PaginationComponent";
@@ -21,12 +21,9 @@ const ViewProducts = () => {
 
 	const { data, isLoading } = useFetchCollection("products");
 	const search = useSelector(selectSearch);
-	console.log(search);
 
 	const products = useSelector(selectProducts);
-	console.log(products);
 	const filteredProducts = useSelector(selectFilteredProducts);
-	console.log(filteredProducts);
 
 	const productsCount = filteredProducts.length;
 	const [currentPage, setCurrentPage] = useState(1);
@@ -55,6 +52,9 @@ const ViewProducts = () => {
 		dispatch(SET_SORT("latest"));
 		dispatch(SET_CATEGORY("All"));
 		dispatch(SET_SEARCH(""));
+		dispatch(SET_VEGETARIAN(false));
+		dispatch(SET_SPICY(false));
+		dispatch(SET_PRICE(10000));
 	}, []);
 
 	useEffect(() => {
@@ -74,9 +74,7 @@ const ViewProducts = () => {
 			function okCb() {
 				deleteProduct(id, imageURL);
 			},
-			function cancelCb() {
-				console.log("Delete Canceled");
-			},
+			function cancelCb() {},
 			{
 				width: "320px",
 				borderRadius: "3px",
@@ -103,7 +101,7 @@ const ViewProducts = () => {
 		<>
 			{isLoading && <Loader />}
 			<div className={styles.table}>
-				<h2 className="text-center w-100 my-3">All Products</h2>
+				<h1 className="text-center w-100 my-3">All Products</h1>
 
 				<Row className="g-2 my-2">
 					<Col lg={6} sm={12}>

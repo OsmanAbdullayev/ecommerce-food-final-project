@@ -15,8 +15,8 @@ const ordersIcon = <FaCartArrowDown size={30} color="orangered" />;
 
 const Home = () => {
 	return (
-		<section>
-			<h1>Analytics</h1>
+		<section className="ps-1 pe-3 m-4">
+			<h1 className="my-3 text-center">Analytics</h1>
 			<Row className="g-2">
 				<Col lg={4} md={4} sm={12}>
 					<InfoBox title={"Earnings"} count="$5486" icon={earningIcon} />

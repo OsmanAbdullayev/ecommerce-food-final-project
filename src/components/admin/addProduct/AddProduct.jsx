@@ -1,7 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { Button, Card, Form } from "react-bootstrap";
-import styles from "./AddProduct.module.scss";
+import { Button, Col, Form, Row } from "react-bootstrap";
 import { db, storage } from "../../../firebase/config";
 import { deleteObject, getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { toast } from "react-toastify";
@@ -51,7 +50,6 @@ const AddProduct = () => {
 
 	const products = useSelector(selectProducts);
 	const productEdit = products.find((item) => item.id === id);
-	console.log(productEdit);
 
 	const [product, setproduct] = useState(() => {
 		const newState = detectForm(id, { ...initialState }, productEdit);
@@ -67,6 +65,34 @@ const AddProduct = () => {
 		const { name, value } = e.target;
 		setproduct({ ...product, [name]: value });
 	};
+
+	const handleVegetarianChange = (e) => {
+		const { name } = e.target;
+		setproduct({ ...product, [name]: !product.vegetarian });
+
+		console.log(product.vegetarian);
+	};
+	const handleSpicyChange = (e) => {
+		const { name } = e.target;
+		setproduct({ ...product, [name]: !product.spicy });
+		console.log(product.spicy);
+	};
+
+	let progress = "w-25";
+	if (Math.floor(uploadProgress) <= 25) {
+		progress = "w-25";
+	} else if (Math.floor(uploadProgress) <= 50 && Math.floor(uploadProgress) > 25) {
+		progress = "w-25";
+	} else if (Math.floor(uploadProgress) <= 75 && Math.floor(uploadProgress) > 50) {
+		progress = "w-50";
+	} else if (Math.floor(uploadProgress) <= 99 && Math.floor(uploadProgress) > 75) {
+		progress = "w-75";
+	} else if (Math.floor(uploadProgress) > 99) {
+		progress = "w-100";
+	} else {
+		progress = "w-25";
+	}
+
 	const handleImageChange = (e) => {
 		const file = e.target.files[0];
 		const storageRef = ref(storage, `eshop/${Date.now()}${file.name}`);
@@ -161,94 +187,105 @@ const AddProduct = () => {
 	return (
 		<>
 			{isLoading && <Loader />}
-			<div className={styles.product}>
-				<h2>{detectForm(id, "Add New Product", "Edit Product")}</h2>
-				<Card className={styles.card}>
-					<Form onSubmit={detectForm(id, addProduct, editProduct)}>
-						{/* name */}
+			<section>
+				<h1 className="text-center my-3">{detectForm(id, "Add New Product", "Edit Product")}</h1>
 
-						<Form.Group className="mb-3 px-3">
-							<Form.Label>Product Name:</Form.Label>
-							<Form.Control type="text" placeholder="Enter product name" required name="name" value={product.name} onChange={(e) => handleInputChange(e)} />
-						</Form.Group>
-
-						{/* category */}
-
-						<Form.Group className="mb-3 px-3">
-							<Form.Label>Product Category:</Form.Label>
-							<Form.Select required name="category" value={product.category} onChange={(e) => handleInputChange(e)}>
-								<option value="" disabled>
-									-- choose product category --
-								</option>
-								{categories.map((cat) => {
-									return (
-										<option key={cat.id} value={cat.name}>
-											{cat.name}
+				<Form onSubmit={detectForm(id, addProduct, editProduct)} className="p-3">
+					{/* name */}
+					<Row className="g-3">
+						<Col lg={6} sm={12} className="">
+							<div>
+								{" "}
+								{/* category */}
+								<Form.Group className="mb-3 ">
+									<Form.Label>Product Category:</Form.Label>
+									<Form.Select required name="category" value={product.category} onChange={(e) => handleInputChange(e)}>
+										<option value="" disabled>
+											-- choose product category --
 										</option>
-									);
-								})}
-							</Form.Select>
-						</Form.Group>
+										{categories.map((cat) => {
+											return (
+												<option key={cat.id} value={cat.name}>
+													{cat.name}
+												</option>
+											);
+										})}
+									</Form.Select>
+								</Form.Group>
+								{/* Product Name */}
+								<Form.Group className="mb-3 ">
+									<Form.Label>Product Name:</Form.Label>
+									<Form.Control type="text" placeholder="Enter product name" required name="name" value={product.name} onChange={(e) => handleInputChange(e)} />
+								</Form.Group>
+								{/* description */}
+								<Form.Group className="mb-3 ">
+									<Form.Label>Product Description:</Form.Label>
+									<Form.Control type="text" as="textarea" rows={5} placeholder="Describe your product" required name="description" value={product.description} onChange={(e) => handleInputChange(e)} />
+								</Form.Group>
+								<Row>
+									{/* vegetarian */}
+									<Col>
+										<Form.Group className="mb-3 ">
+											<Form.Check checked={product.vegetarian} label="Vegetarian" type="switch" name="vegetarian" onChange={(e) => handleVegetarianChange(e)} />
+										</Form.Group>
+									</Col>
+									{/* spicy */}
+									<Col>
+										<Form.Group className="mb-3 ">
+											<Form.Check checked={product.spicy} label="Spicy" type="switch" name="spicy" onChange={(e) => handleSpicyChange(e)} />
+										</Form.Group>
+									</Col>
+								</Row>
+							</div>
+						</Col>
+						<Col lg={6} sm={12} className="">
+							{/* price  */}
 
-						{/* imageURL */}
+							<div>
+								<Form.Group className="mb-3 ">
+									<Form.Label>Product Price:</Form.Label>
+									<Form.Control type="number" placeholder="Product Price" required name="price" value={product.price} onChange={(e) => handleInputChange(e)} />
+								</Form.Group>
 
-						<Form.Group className="mb-3 px-3">
-							<Form.Label>Product Image:</Form.Label>
-							<Card className={styles.group}>
-								{uploadProgress === 0 ? null : (
-									<div className={styles.progress}>
-										<div className={`${styles["progress-bar"]} w-${String(uploadProgress).substring(0, 2)} p-1 bg-primary text-white`}>{uploadProgress < 100 ? `Uploading ${uploadProgress}` : `Upload complete.`}</div>
-									</div>
-								)}
+								{/* discount */}
+								<Form.Group className="mb-3">
+									<Form.Label>Discount {product.discount}%</Form.Label>
+									<Form.Range className="my-2" min="0" max="100" step="1" placeholder="Product Discount" required name="discount" value={product.discount} onChange={(e) => handleInputChange(e)} />
+								</Form.Group>
 
-								<Form.Control type="file" placeholder="Product Image" accept="image/*" name="image" onChange={(e) => handleImageChange(e)} />
-								{product.imageURL === "" ? null : (
-									<Form.Control
-										type="text"
-										value={product.imageURL}
-										placeholder="Image URL"
-										// required
-										name="ImageURL"
-										disabled
-									/>
-								)}
-							</Card>
-						</Form.Group>
+								{/* image */}
+								<Form.Group className="mb-3 ">
+									<Form.Label>Product Image:</Form.Label>
 
-						{/* description */}
+									{uploadProgress === 0 ? null : (
+										<div className="my-2">
+											<div className={` ${progress} p-1 bg-primary text-white`}>{uploadProgress < 100 ? `Uploading ${Math.floor(uploadProgress)}` : `Upload complete.`}</div>
+										</div>
+									)}
 
-						<Form.Group className="mb-3 px-3">
-							<Form.Label>Product Description:</Form.Label>
-							<Form.Control type="text" placeholder="Describe your product" required name="description" value={product.description} onChange={(e) => handleInputChange(e)} />
-						</Form.Group>
+									<Form.Control type="file" placeholder="Product Image" accept="image/*" name="image" onChange={(e) => handleImageChange(e)} />
+									{product.imageURL === "" ? null : (
+										<Form.Control
+											className="my-2"
+											type="text"
+											value={product.imageURL}
+											placeholder="Image URL"
+											// required
+											name="ImageURL"
+											disabled
+										/>
+									)}
+								</Form.Group>
+							</div>
+						</Col>
 
-						{/* price  */}
+										<div className="text-center">
+						<Button type="submit" className="text-nowrap">{detectForm(id, "Save Product", "Save Changes")}</Button>
 
-						<Form.Group className="mb-3 px-3">
-							<Form.Label>Product Price:</Form.Label>
-							<Form.Control type="number" placeholder="Product Price" required name="price" value={product.price} onChange={(e) => handleInputChange(e)} />
-						</Form.Group>
-
-						{/* discount */}
-						<Form.Group className="mb-3 px-3">
-							<Form.Label>Discount {product.discount}%</Form.Label>
-							<Form.Range min="0" max="100" step="1" placeholder="Product Discount" required name="discount" value={product.discount} onChange={(e) => handleInputChange(e)} />
-						</Form.Group>
-
-						{/* vegetarian */}
-						<Form.Group className="mb-3 px-3">
-							<Form.Check label="Vegetarian" type="switch" name="vegetarian" value={product.vegetarian} onChange={(e) => handleInputChange(e)} />
-						</Form.Group>
-
-						{/* spicy */}
-						<Form.Group className="mb-3 px-3">
-							<Form.Check label="Spicy" type="switch" name="spicy" value={product.spicy} onChange={(e) => handleInputChange(e)} />
-						</Form.Group>
-
-						<Button type="submit">{detectForm(id, "Save Product", "Edit Product")}</Button>
-					</Form>
-				</Card>
-			</div>
+										</div>
+					</Row>
+				</Form>
+			</section>
 		</>
 	);
 };

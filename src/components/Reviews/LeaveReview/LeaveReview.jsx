@@ -15,7 +15,6 @@ const LeaveReview = (product, id) => {
 
 	const userName = useSelector(selectUserName);
 
-	console.log(id);
 
 	const submitReview = (e) => {
 		e.preventDefault();

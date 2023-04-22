@@ -24,12 +24,9 @@ const ProductList = ({ products }, props) => {
 	const dispatch = useDispatch(selectFilteredProducts);
 
 	const category = useSelector(selectCategory);
-	console.log(category);
 	const sort = useSelector(selectSort);
-	console.log(sort);
 
 	const search = useSelector(selectSearch);
-	console.log(search);
 
 	useEffect(() => {
 		dispatch(FILTER({ products }));

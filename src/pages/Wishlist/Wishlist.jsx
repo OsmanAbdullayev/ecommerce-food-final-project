@@ -14,7 +14,6 @@ const Wishlist = () => {
 	const wishlistItems = useSelector(selectWishlistItems);
 	const { items } = useCart();
 
-	console.log(wishlistItems);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
@@ -25,7 +24,6 @@ const Wishlist = () => {
 	const moveAllToCart = (products) => {
 		products.map((product) => {
 			if (items.some((item) => item.id === product.id)) {
-				console.log("wishlist already incldues this product");
 			} else {
 				addItem(product);
 				navigate("/cart");
@@ -35,7 +33,6 @@ const Wishlist = () => {
 
 	const moveToCart = (product) => {
 		if (items.some((item) => item.id === product.id)) {
-			console.log("wishlist already incldues this product");
 		} else {
 			addItem(product);
 		}
@@ -44,8 +41,6 @@ const Wishlist = () => {
 	const clearWishlist = () => {
 		dispatch(CLEAR_WISHLIST());
 	};
-
-	// wishlistItems.map((fd) => console.log(fd.id))
 
 	const removeFromWishlist = (wishlist) => {
 		dispatch(REMOVE_FROM_WISHLIST(wishlist));
@@ -105,25 +100,24 @@ const Wishlist = () => {
 									<Stack className="d-flex flex-column justify-content-center align-items-center">
 										<Button
 											variant="danger"
-											className="fs-5 my-1 text-light"
+											className="fs-5 my-1 text-light w-100"
 											onClick={() => {
 												removeFromWishlist(fd);
-												console.log(fd);
 											}}>
 											<BsTrashFill />
 										</Button>
-										<Button variant="secondary" className=" text-light text-nowrap p-1 py-2 my-1" onClick={() => moveToCart(fd)}>
+										<Button variant="secondary" className=" text-light text-nowrap w-100" onClick={() => moveToCart(fd)}>
 											Move to Cart
 										</Button>
 									</Stack>
 								</td>
 							</tr>
 						))}
-						<tr className="align-middle text-center">
+						<tr className="text-center">
 							<td colSpan={5}>
-								<Button variant="secondary" className=" text-light text-nowrap w-100 p-1 py-2 my-1" onClick={() => moveAllToCart(wishlistItems)}>
-									Move All to Cart
-								</Button>
+									<Button variant="secondary" className=" text-light text-nowrap " onClick={() => moveAllToCart(wishlistItems)}>
+										Move All to Cart
+									</Button>
 								<ToastContainer position="bottom-center" autoClose={1000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="colored" />
 							</td>
 						</tr>
