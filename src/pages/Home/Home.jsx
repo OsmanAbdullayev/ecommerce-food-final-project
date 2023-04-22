@@ -25,11 +25,11 @@ const Home = () => {
 
 	return (
 		<>
-			{/* <Hero /> */}
+			<Hero />
 			<ProductsSection />
-			<Product />
 			<BestDeals />
-			<Menu lg="3" md="6" sm="12" />
+
+			<Product />
 		</>
 	);
 };

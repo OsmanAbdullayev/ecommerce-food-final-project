@@ -4,10 +4,10 @@ const initialState = {
 	filteredProducts: [],
 	searchedProducts: [],
 
-	category: "all",
+	category: "All",
 	vegetarian: false,
 	spicy: false,
-	maxPriceFilter: 1,
+	maxPriceFilter: 10000,
 	sort: "latest",
 	search: "",
 	searchKeyword: "",
@@ -108,6 +108,7 @@ const filterSlice = createSlice({
 			tempProductsSearch = tempProductsSort.filter((product) => product.name.toLowerCase().includes(state.search.toLowerCase()) || product.category.toLowerCase().includes(state.search.toLowerCase()));
 
 			state.filteredProducts = tempProductsSearch;
+			console.log(state.filteredProducts);
 		},
 	},
 });

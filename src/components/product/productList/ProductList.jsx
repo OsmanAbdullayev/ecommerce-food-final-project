@@ -3,7 +3,7 @@ import { Button, Col, Form, Pagination, Row, Stack } from "react-bootstrap";
 import { BsFillGridFill } from "react-icons/bs";
 import { FaListAlt } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { FILTER, FILTER_BY_SEARCH, selectCategory, selectFilteredProducts, selectSearch, selectSort, SET_SEARCH, SET_SORT, SORT_PRODUCTS } from "../../../redux/slice/filterSlice";
+import { FILTER, FILTER_BY_SEARCH, selectCategory, selectFilteredProducts, selectSearch, selectSort, SET_CATEGORY, SET_SEARCH, SET_SORT, SORT_PRODUCTS } from "../../../redux/slice/filterSlice";
 import PaginationComponent from "../../PaginationComponent";
 import Search from "../../search/Search";
 import ProductItem from "../productItem/ProductItem";
@@ -23,16 +23,21 @@ const ProductList = ({ products }, props) => {
 	const dispatch = useDispatch(selectFilteredProducts);
 
 	const category = useSelector(selectCategory);
+	console.log(category);
 	const sort = useSelector(selectSort);
+	console.log(sort);
+
 	const search = useSelector(selectSearch);
+	console.log(search);
 
 	useEffect(() => {
 		dispatch(FILTER({ products }));
 	}, [dispatch, products, sort, search]);
 
 	useEffect(() => {
-		dispatch(SET_SORT("latest"));
-		// dispatch(SET_SEARCH(""));
+		dispatch(SET_SORT(sort));
+		dispatch(SET_CATEGORY(category));
+		dispatch(SET_SEARCH(search));
 	}, []);
 
 	return (
@@ -92,7 +97,7 @@ const ProductList = ({ products }, props) => {
 					<>
 						{currentProducts.map((product) => {
 							return (
-								<Col key={product.id} lg={grid ? 3 : 12} md={grid ? 4 : 12} sm={grid ? 6 : 12}>
+								<Col key={product.id} xxl={grid ? 3 : 12}  xl={grid ? 4 : 12}  lg={grid ? 6 : 12} md={grid ? 6 : 12} sm={grid ? 12 : 12}>
 									<ProductItem {...product} grid={grid} product={product} addProduct={product} />
 								</Col>
 							);

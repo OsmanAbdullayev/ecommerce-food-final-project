@@ -9,27 +9,26 @@ import Loader from "../../loader/Loader";
 import { deleteObject, ref } from "firebase/storage";
 import Notiflix from "notiflix";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  selectProducts,
-  STORE_PRODUCTS,
-} from "../../../redux/slice/productsSlice";
+import { selectProducts, STORE_PRODUCTS } from "../../../redux/slice/productsSlice";
 import useFetchCollection from "../../../customHooks/useFetchCollection";
-import {
-  FILTER_BY_SEARCH,
-  selectFilteredProducts,
-} from "../../../redux/slice/filterSlice";
+import { FILTER, SET_CATEGORY, SET_SEARCH, SET_SORT, selectCategory, selectFilteredProducts, selectSearch, selectSort } from "../../../redux/slice/filterSlice";
 import Search from "../../search/Search";
 import { Pagination } from "react-bootstrap";
 import PaginationComponent from "../../PaginationComponent";
 
-
 const ViewProducts = () => {
-  const [search, setSearch] = useState("");
-  const { data, isLoading } = useFetchCollection("products");
-  const products = useSelector(selectProducts);
-  const filteredProducts = useSelector(selectFilteredProducts);
+	const dispatch = useDispatch();
 
-  const productsCount = filteredProducts.length;
+	const { data, isLoading } = useFetchCollection("products");
+	const search = useSelector(selectSearch);
+	console.log(search);
+
+	const products = useSelector(selectProducts);
+	console.log(products);
+	const filteredProducts = useSelector(selectFilteredProducts);
+	console.log(filteredProducts);
+
+	const productsCount = filteredProducts.length;
 	const [currentPage, setCurrentPage] = useState(1);
 	const [productsPerPage, setProductsPerPage] = useState(8);
 
@@ -37,136 +36,137 @@ const ViewProducts = () => {
 	const firstProductIndex = lastProductNumber - productsPerPage;
 	const currentProducts = filteredProducts.slice(firstProductIndex, lastProductNumber);
 
-  // Pagination states
-  // const [currentPage, setCurrentPage] = useState(1);
-  // const [productsPerPage, setProductsPerPage] = useState(10);
-  // Get Current Products
-  // const indexOfLastProduct = currentPage * productsPerPage;
-  // const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  // const currentProducts = filteredProducts.slice(
-  //   indexOfFirstProduct,
-  //   indexOfLastProduct
-  // );
-  const dispatch = useDispatch();
-  console.log(currentProducts)
+	// Pagination states
+	// const [currentPage, setCurrentPage] = useState(1);
+	// const [productsPerPage, setProductsPerPage] = useState(10);
+	// Get Current Products
+	// const indexOfLastProduct = currentPage * productsPerPage;
+	// const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+	// const currentProducts = filteredProducts.slice(
+	//   indexOfFirstProduct,
+	//   indexOfLastProduct
+	// );
 
-  useEffect(() => {
-    dispatch(
-      STORE_PRODUCTS({
-        products: data,
-      })
-    );
-  }, [dispatch, data]);
+	useEffect(() => {
+		dispatch(FILTER({ products }));
+	}, [dispatch, products, search]);
 
-  useEffect(() => {
-    dispatch(FILTER_BY_SEARCH({ products, search }));
-  }, [dispatch, products, search]);
+	useEffect(() => {
+		dispatch(SET_SORT("latest"));
+		dispatch(SET_CATEGORY("All"));
+		dispatch(SET_SEARCH(""));
+	}, []);
 
-  const confirmDelete = (id, imageURL) => {
-    Notiflix.Confirm.show(
-      "Delete Product!!!",
-      "You are about to delete this product",
-      "Delete",
-      "Cancel",
-      function okCb() {
-        deleteProduct(id, imageURL);
-      },
-      function cancelCb() {
-        console.log("Delete Canceled");
-      },
-      {
-        width: "320px",
-        borderRadius: "3px",
-        titleColor: "orangered",
-        okButtonBackground: "orangered",
-        cssAnimationStyle: "zoom",
-      }
-    );
-  };
+	useEffect(() => {
+		dispatch(
+			STORE_PRODUCTS({
+				products: data,
+			})
+		);
+	}, [dispatch, data]);
 
-  const deleteProduct = async (id, imageURL) => {
-    try {
-      await deleteDoc(doc(db, "products", id));
+	const confirmDelete = (id, imageURL) => {
+		Notiflix.Confirm.show(
+			"Delete Product!!!",
+			"You are about to delete this product",
+			"Delete",
+			"Cancel",
+			function okCb() {
+				deleteProduct(id, imageURL);
+			},
+			function cancelCb() {
+				console.log("Delete Canceled");
+			},
+			{
+				width: "320px",
+				borderRadius: "3px",
+				titleColor: "orangered",
+				okButtonBackground: "orangered",
+				cssAnimationStyle: "zoom",
+			}
+		);
+	};
 
-      const storageRef = ref(storage, imageURL);
-      await deleteObject(storageRef);
-      toast.success("Product deleted successfully.");
-    } catch (error) {
-      toast.error(error.message);
-    }
-  };
+	const deleteProduct = async (id, imageURL) => {
+		try {
+			await deleteDoc(doc(db, "products", id));
 
-  return (
-    <>
-      {isLoading && <Loader />}
-      <div className={styles.table}>
-        <h2>All Products</h2>
+			const storageRef = ref(storage, imageURL);
+			await deleteObject(storageRef);
+			toast.success("Product deleted successfully.");
+		} catch (error) {
+			toast.error(error.message);
+		}
+	};
 
-        <div className={styles.search}>
-          <p>
-            <b>{filteredProducts.length}</b> products found
-          </p>
-          <Search value={search} onChange={(e) => setSearch(e.target.value)} />
-        </div>
+	return (
+		<>
+			{isLoading && <Loader />}
+			<div className={styles.table}>
+				<h2>All Products</h2>
 
-        {filteredProducts.length === 0 ? (
-          <p>No product found.</p>
-        ) : (
-          <table>
-            <thead>
-              <tr>
-                <th>s/n</th>
-                <th>Image</th>
-                <th>Name</th>
-                <th>Category</th>
-                <th>Price</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {currentProducts.map((product, index) => {
-                const { id, name, price, imageURL, category } = product;
-                return (
-                  <tr key={id}>
-                    <td>{index + 1}</td>
-                    <td>
-                      <img
-                        src={imageURL}
-                        alt={name}
-                        style={{ width: "100px" }}
-                      />
-                    </td>
-                    <td>{name}</td>
-                    <td>{category}</td>
-                    <td>{`$${price}`}</td>
-                    <td className={styles.icons}>
-                      <Link to={`/admin/add-product/${id}`}>
-                        <FaEdit size={20} color="green" />
-                      </Link>
-                      &nbsp;
-                      <FaTrashAlt
-                        size={18}
-                        color="red"
-                        onClick={() => confirmDelete(id, imageURL)}
-                      />
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        )}
-			<PaginationComponent itemsCount={productsCount} itemsPerPage={productsPerPage} currentPage={currentPage} setCurrentPage={setCurrentPage} alwaysShown={false} />
+				<div className={styles.search}>
+					<p>
+						<b>{filteredProducts.length}</b> products found
+					</p>
+					<Search
+						value={search}
+						onChange={(e) => {
+							dispatch(SET_SEARCH(e.target.value));
+						}}
+					/>
+				</div>
 
-        {/* <Pagination
+				{currentProducts.length === 0 ? (
+					<p>No product found.</p>
+				) : (
+					<table>
+						<thead>
+							<tr>
+								<th>s/n</th>
+								<th>Image</th>
+								<th>Name</th>
+								<th>Category</th>
+								<th>Price</th>
+								<th>Actions</th>
+							</tr>
+						</thead>
+						<tbody>
+							{currentProducts.map((product, index) => {
+								const { id, name, price, imageURL, category } = product;
+								return (
+									<tr key={id}>
+										<td>{index + 1}</td>
+										<td>
+											<img src={imageURL} alt={name} style={{ width: "100px" }} />
+										</td>
+										<td>{name}</td>
+										<td>{category}</td>
+										<td>{`$${price}`}</td>
+										<td className={styles.icons}>
+											<Link to={`/admin/add-product/${id}`}>
+												<FaEdit size={20} color="green" />
+											</Link>
+											&nbsp;
+											<FaTrashAlt size={18} color="red" onClick={() => confirmDelete(id, imageURL)} />
+										</td>
+									</tr>
+								);
+							})}
+						</tbody>
+					</table>
+				)}
+				<PaginationComponent itemsCount={productsCount} itemsPerPage={productsPerPage} currentPage={currentPage} setCurrentPage={setCurrentPage} alwaysShown={false} />
+
+				{/* <Pagination
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
           productsPerPage={productsPerPage}
           totalProducts={filteredProducts.length}
         /> */}
-      </div>
-    </>
-  );
+			</div>
+		</>
+	);
 };
 
 export default ViewProducts;

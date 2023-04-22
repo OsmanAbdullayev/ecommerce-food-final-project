@@ -5,9 +5,10 @@ import { useCart } from "react-use-cart";
 import { ColorModeContext } from "../../../routers/AppRouter";
 import { TOGGLE_WISHLIST, selectWishlistItems } from "../../../redux/slice/wishlistSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { BsFillHeartFill } from "react-icons/bs";
+import { BsFillHeartFill, BsFill0CircleFill } from "react-icons/bs";
 import { useState } from "react";
 import { useEffect } from "react";
+import { FaHeartBroken } from "react-icons/fa";
 
 // import styles from "./ProductItem.module.scss";
 
@@ -60,7 +61,7 @@ const ProductItem = ({ product, grid, id, name, price, description, vegetarian, 
 							Add to Cart
 						</Button>
 						<Button variant="primary" onClick={() => addToWishlist(addProduct)} className="text-white mt-3 text-nowrap">
-							<BsFillHeartFill className={checkWishlist(product) ? `text-secondary` : ``} />
+						{checkWishlist(product) ? <FaHeartBroken /> : <BsFillHeartFill />}
 						</Button>
 					</div>
 				</Card.Body>
@@ -77,24 +78,24 @@ const ProductItem = ({ product, grid, id, name, price, description, vegetarian, 
 					</Col>
 
 					<Col md={8} className="d-flex flex-column justify-content-center align-items-start">
-						<Card.Body className="d-flex flex-column justify-content-between align-items-start">
-							<Row>
+						<Card.Body className="d-flex flex-column justify-content-between align-items-start w-100">
+							<Row className="w-100">
 								<Card.Title>{name}</Card.Title>
 								<Card.Subtitle>
 									<h3 className="text-primary">
 										<b>{`$${price}`}</b>
 									</h3>
 								</Card.Subtitle>
-								<Card.Text>{shortenText(description, 300)}</Card.Text>
+								<Card.Text className="w-100">{shortenText(description, 300)}</Card.Text>
 							</Row>
 							<div className="d-flex justify-content-between align-items-center w-100">
-						<Button variant="primary" onClick={() => addItem(addProduct)} className="text-white mt-3 text-nowrap">
-							Add to Cart
-						</Button>
-						<Button variant="primary" onClick={() => addToWishlist(addProduct)} className="text-white mt-3 text-nowrap">
-							<BsFillHeartFill className={checkWishlist(product) ? `text-secondary` : ``} />
-						</Button>
-					</div>
+								<Button variant="primary" onClick={() => addItem(addProduct)} className="text-white mt-3 text-nowrap">
+									Add to Cart
+								</Button>
+								<Button variant="primary" onClick={() => addToWishlist(addProduct)} className="text-white mt-3 text-nowrap">
+									{checkWishlist(product) ? <FaHeartBroken /> : <BsFillHeartFill />}
+								</Button>
+							</div>
 						</Card.Body>
 					</Col>
 				</Row>

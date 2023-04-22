@@ -6,58 +6,68 @@ import VegetableSalad from "../../assets/img/menu/salad1-640x640.jpg";
 import NutellaCake from "../../assets/img/menu/dessert2-300x300.jpg";
 import CocaCola from "../../assets/img/menu/drinks1-300x300.jpg";
 import { NavLink } from "react-router-dom";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+import { useSelector } from "react-redux";
+import { selectProducts } from "../../redux/slice/productsSlice";
+import ProductItem from "../product/productItem/ProductItem";
 
 const BestDeals = () => {
+	const products = useSelector(selectProducts);
+
+	const responsive = {
+		superLargeDesktop: {
+			// the naming can be any, depends on you.
+			breakpoint: { max: 4000, min: 3000 },
+			items: 5,
+		},
+		desktop: {
+			breakpoint: { max: 3000, min: 1024 },
+			items: 3,
+		},
+		tablet: {
+			breakpoint: { max: 1024, min: 464 },
+			items: 2,
+		},
+		mobile: {
+			breakpoint: { max: 464, min: 0 },
+			items: 1,
+		},
+	};
+
 	return (
 		<Container>
-			<h1 className="text-center py-5">Current Offers</h1>
-			<Row>
-        <Col lg="4" sm="12">
-				<Nav.Link as={NavLink} to="/burgers/blackburger">
-					<Card className="p-3">
-            <Stack direction="horizontal">
-						<Card.Body>
-							<Card.Title className="fs-5 text-danger fw-3"><h3>
-              Save 30%</h3></Card.Title>
-							<Card.Subtitle><h1 className="p-0 m-0">Black Burger</h1></Card.Subtitle>
-							<Card.Text>Enjoy our Burgers at a slashed price</Card.Text>
-						</Card.Body>
-						<Card.Img className="w-50" src={BlackBurger} />
-            </Stack>
-					</Card>
-        </Nav.Link>
-				</Col>
-        <Col lg="4" sm="12">
-        <Nav.Link as={NavLink} to="/menu/pizza/pepperoni">
-					<Card className="p-3">
-            <Stack direction="horizontal">
-						<Card.Body>
-							<Card.Title className="fs-5 text-danger fw-3"><h3>
-              Save 20%</h3></Card.Title>
-							<Card.Subtitle><h1 className="p-0 m-0">Pepperoni Pizza</h1></Card.Subtitle>
-							<Card.Text>Enjoy our Pizza at a slashed price</Card.Text>
-						</Card.Body>
-						<Card.Img className="w-50" src={PepperoniPizza} />
-            </Stack>
-					</Card>
-        </Nav.Link>
-				</Col>
-        <Col lg="4" sm="12">
-        <Nav.Link as={NavLink} to="/menu/desserts/nutellacake">
-					<Card className="p-3">
-            <Stack direction="horizontal">
-						<Card.Body>
-							<Card.Title className="fs-5 text-danger fw-3"><h3>
-              Save 10%</h3></Card.Title>
-							<Card.Subtitle><h1 className="p-0 m-0">Nutella Cake</h1></Card.Subtitle>
-							<Card.Text>Enjoy our Desserts at a slashed price</Card.Text>
-						</Card.Body>
-						<Card.Img className="w-50" src={NutellaCake} />
-            </Stack>
-					</Card>
-        </Nav.Link>
-				</Col>
-			</Row>
+			<h1 className="text-center p-3 my-4">Current Offers</h1>
+
+			<Carousel responsive={responsive}>
+				{products.map((product) => {
+					if (product.discount) {
+						return (
+							<div key={product.id} className="h-100 p-3">
+								<Card className="p-3 h-100 shadow">
+									<Row className="g-0">
+										<Col md={6} className="d-flex flex-column justify-content-center align-items-start">
+											<Card.Body>
+												<Card.Title className="fs-5 text-danger fw-3">
+													<h1>Save {product.discount}%</h1>
+												</Card.Title>
+												<Card.Subtitle>
+													<h3 className="p-0 m-0">{product.name}</h3>
+												</Card.Subtitle>
+											</Card.Body>
+										</Col>
+										<Col md={6} className="overflow-hidden">
+											<Card.Img className="w-100" src={product.imageURL} alt={product.name} />
+										</Col>
+									</Row>
+								</Card>
+							</div>
+						);
+					}
+				})}
+			</Carousel>
+
+			
 		</Container>
 	);
 };

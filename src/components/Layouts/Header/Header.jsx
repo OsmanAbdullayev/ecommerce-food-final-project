@@ -34,6 +34,7 @@ function Header() {
 	const { totalItems } = useCart();
 	const [isHidden, setIsHidden] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
+	const [expanded, setExpanded] = useState(false);
 
 	const [displayName, setDisplayName] = useState("");
 	const dispatch = useDispatch();
@@ -52,10 +53,11 @@ function Header() {
 		dispatch(SEARCH_PRODUCT({ products, searchedKeyword }));
 	}, [dispatch, products]);
 
-	const handleSearch = () => {
+	const handleSearch = (e) => {
+		e.preventDefault();
 		navigate("/menu");
 		dispatch(SET_SEARCH(searchedKeyword));
-
+		dispatch(SET_CATEGORY("All"))
 		dispatch(SET_SEARCH_KEYWORD(""));
 	};
 
@@ -116,17 +118,17 @@ function Header() {
 	return (
 		<>
 			{isLoading && <Loader />}
-			<Navbar bg={colorMode} sticky="top" variant={colorMode} expand="lg">
-				<Container className="py-2">
-					<Navbar.Brand as={NavLink} to="/">
+			<Navbar expanded={expanded} bg={colorMode} sticky="top" variant={colorMode} expand="lg" className="p-0 py-2">
+				<Container>
+					<Navbar.Brand as={NavLink} to="/" onClick={() => setExpanded(false)}>
 						<h1 className={colorMode === `dark` ? `text-primary  pb-1 m-0 d-flex justify-content-between align-items-start` : `text-white pb-1 m-0 d-flex justify-content-between align-items-start`}>
 							<GiAlmond size="1.2em" className="me-2 " />
 							<span>Badam</span>
 						</h1>
 					</Navbar.Brand>
-					<Navbar.Toggle aria-controls="basic-navbar-nav" />
+					<Navbar.Toggle aria-controls="basic-navbar-nav" onClick={() => setExpanded(!expanded)} />
 					<Navbar.Collapse id="basic-navbar-nav">
-						<Nav className="d-flex align-items-start">
+						<Nav className="me-auto d-lg-flex align-items-lg-center">
 							{/* <Nav.Link as={NavLink} to="/">
 								Home
 							</Nav.Link>
@@ -137,16 +139,17 @@ function Header() {
 								Blog
 							</Nav.Link> */}
 
-							<Nav.Link as={NavLink} to="/contacts" className={colorMode === "dark" ? "" : "text-white"}>
+							<Nav.Link as={NavLink} to="/contacts" className={colorMode === "dark " ? "" : "text-white "} onClick={() => setExpanded(false)}>
 								Contacts
 							</Nav.Link>
 
-							<NavDropdown title={<span className={colorMode === "dark" ? "" : "text-white"}>Menu</span>} id="basic-nav-dropdown" menuVariant={colorMode === "dark" ? "dark" : "light"} className="me-2">
+							<NavDropdown title={<span className={colorMode === "dark" ? "text-white" : "text-white"}>Menu</span>} id="basic-nav-dropdown" menuVariant={colorMode === "dark" ? "dark" : "light"} className="me-2">
 								<NavDropdown.Item
 									as={Link}
 									to="/menu"
 									onClick={() => {
-										dispatch(SET_CATEGORY("Pizzas"));
+										dispatch(SET_CATEGORY("Pizza"));
+										setExpanded(false);
 									}}>
 									Pizza
 								</NavDropdown.Item>
@@ -155,6 +158,7 @@ function Header() {
 									to="/menu"
 									onClick={() => {
 										dispatch(SET_CATEGORY("Burger"));
+										setExpanded(false);
 									}}>
 									Burgers
 								</NavDropdown.Item>
@@ -163,6 +167,7 @@ function Header() {
 									to="/menu"
 									onClick={() => {
 										dispatch(SET_CATEGORY("Side & Salads"));
+										setExpanded(false);
 									}}>
 									Sides & Salads
 								</NavDropdown.Item>
@@ -171,6 +176,7 @@ function Header() {
 									to="/menu"
 									onClick={() => {
 										dispatch(SET_CATEGORY("Desserts"));
+										setExpanded(false);
 									}}>
 									Desserts
 								</NavDropdown.Item>
@@ -179,6 +185,7 @@ function Header() {
 									to="/menu"
 									onClick={() => {
 										dispatch(SET_CATEGORY("Drinks"));
+										setExpanded(false);
 									}}>
 									Drinks
 								</NavDropdown.Item>
@@ -188,12 +195,13 @@ function Header() {
 									to="/menu"
 									onClick={() => {
 										dispatch(SET_CATEGORY("All"));
+										setExpanded(false);
 									}}>
 									All
 								</NavDropdown.Item>
 							</NavDropdown>
 
-							<Form className="d-flex align-items-start">
+							<Form className="d-flex align-items-start mt-2 mb-1">
 								<Form.Control type="search" value={searchedKeyword} onChange={(e) => dispatch(SET_SEARCH_KEYWORD(e.target.value))} placeholder="Search" className="me-2" aria-label="Search" list="search" />
 								<datalist id="search">
 									{searchedProducts.map((item, key) => (
@@ -201,16 +209,18 @@ function Header() {
 									))}
 								</datalist>
 								<Button
+									type="submit"
 									variant="outline-light"
-									onClick={() => {
-										handleSearch();
+									onClick={(e) => {
+										handleSearch(e);
+										setExpanded(false);
 									}}>
 									<CiSearch />
 								</Button>
 							</Form>
 						</Nav>
 
-						<Nav className="ms-auto">
+						<Nav>
 							{/* <Stack className="ms-3">
 								<Stack direction="horizontal" gap={4}>
 									<p className={styles.p}>Call and Order in</p>
@@ -223,54 +233,74 @@ function Header() {
 								<h2 className={`${styles.number} text-start text-white`}>055 875 83 22</h2>
 							</Stack> */}
 
-							<Button as={NavLink} to="/wishlist" className={colorMode === "dark" ? "mx-1 text-nowrap" : "text-white mx-1 text-nowrap"} variant="transparent text-white">
-								<BsFillHeartFill /> <sup>{wishlistItems.length}</sup>
-							</Button>
+							<nav className="w-100 d-flex justify-content-between align-items-center my-1">
+								<Button onClick={() => setExpanded(false)} as={NavLink} to="/wishlist" className={colorMode === "dark" ? "m-1 text-nowrap" : "text-white m-1 text-nowrap"} variant="transparent text-white">
+									<BsFillHeartFill /> <sup>{wishlistItems.length}</sup>
+								</Button>
 
-							<Button as={NavLink} to="/cart" className={colorMode === "dark" ? "mx-1 text-nowrap" : "text-white mx-1 text-nowrap"} variant="transparent text-white">
-								<BsFillCartFill size="1.2em" />
-								<sup>{totalItems}</sup>
-							</Button>
+								<Button onClick={() => setExpanded(false)} as={NavLink} to="/cart" className={colorMode === "dark" ? "m-1 text-nowrap" : "text-white m-1 text-nowrap"} variant="transparent text-white">
+									<BsFillCartFill size="1.2em" />
+									<sup>{totalItems}</sup>
+								</Button>
 
-							<Dropdown>
-								<Dropdown.Toggle className={colorMode === "dark" ? "" : "text-white"} variant={colorMode === "dark" ? "outline-secondary " : "secondary "}>
-									<BsPerson size="1.4em" className="" />
-									{displayName.substring(0, 6)}
-								</Dropdown.Toggle>
+								<Dropdown as={Button} className="p-0 m-1">
+									<Dropdown.Toggle className={colorMode === "dark w-100" ? "" : "text-white w-100"} variant={colorMode === "dark" ? "outline-secondary " : "secondary "}>
+										<BsPerson size="1.4em" className="" />
+										{displayName.substring(0, 6)}
+									</Dropdown.Toggle>
 
-								<Dropdown.Menu>
-									<ShowOnLogOut>
-										<Dropdown.Item as={NavLink} to="/login" variant={colorMode === "dark" ? "outline-secondary " : "secondary "}>
-											Log In
-										</Dropdown.Item>
-									</ShowOnLogOut>
-
-									<ShowOnLogIn>
-										<AdminOnlyLink>
-											<Dropdown.Item as={NavLink} to="/admin/home" variant={colorMode === "dark" ? "outline-primary " : "dark "}>
-												Admin Panel
+									<Dropdown.Menu className="positi">
+										<ShowOnLogOut>
+											<Dropdown.Item onClick={() => setExpanded(false)} as={NavLink} to="/login" variant={colorMode === "dark" ? "outline-secondary " : "secondary "}>
+												Log In
 											</Dropdown.Item>
-										</AdminOnlyLink>
-									</ShowOnLogIn>
+										</ShowOnLogOut>
 
-									<ShowOnLogOut>
-										<Dropdown.Item as={NavLink} to="/signup" variant={colorMode === "dark" ? "outline-secondary " : "secondary "}>
-											Sign Up
-										</Dropdown.Item>
-									</ShowOnLogOut>
+										<ShowOnLogIn>
+											<AdminOnlyLink>
+												<Dropdown.Item onClick={() => setExpanded(false)} as={NavLink} to="/admin/home" variant={colorMode === "dark" ? "outline-primary " : "dark "}>
+													Admin Panel
+												</Dropdown.Item>
+											</AdminOnlyLink>
+										</ShowOnLogIn>
 
-									<ShowOnLogIn>
-										<Dropdown.Item onClick={logOut} variant={colorMode === "dark" ? "outline-primary " : "outline-light "}>
-											Log Out
-										</Dropdown.Item>
-									</ShowOnLogIn>
-								</Dropdown.Menu>
-							</Dropdown>
+										<ShowOnLogOut>
+											<Dropdown.Item onClick={() => setExpanded(false)} as={NavLink} to="/signup" variant={colorMode === "dark" ? "outline-secondary " : "secondary "}>
+												Sign Up
+											</Dropdown.Item>
+										</ShowOnLogOut>
 
-							<ReactSwitch onChange={toggleColorMode} checked={colorMode === "dark"} offColor="#FFF" onColor="#111" offHandleColor="#c00a27" uncheckedIcon={false} checkedIcon={false} className="px-2" />
-							<Button className={colorMode === "dark" ? "" : "text-white"} variant={colorMode === "dark" ? "outline-secondary " : "secondary "}>
-								EN
-							</Button>
+										<ShowOnLogIn>
+											<Dropdown.Item
+												onClick={() => {
+													logOut();
+													setExpanded(false);
+												}}
+												variant={colorMode === "dark" ? "outline-primary " : "outline-light "}>
+												Log Out
+											</Dropdown.Item>
+										</ShowOnLogIn>
+									</Dropdown.Menu>
+								</Dropdown>
+
+								<Button onClick={() => setExpanded(false)} className={colorMode === "dark" ? "text-nowrap m-1" : "text-white text-nowrap m-1"} variant={colorMode === "dark" ? "outline-secondary " : "secondary "}>
+									EN
+								</Button>
+								<div className="d-flex justify-content-center align-items-center">
+									<ReactSwitch
+										onChange={() => {
+											toggleColorMode();
+											setExpanded(false);
+										}}
+										checked={colorMode === "dark"}
+										offColor="#FFF"
+										onColor="#111"
+										offHandleColor="#c00a27"
+										uncheckedIcon={false}
+										checkedIcon={false}
+									/>
+								</div>
+							</nav>
 						</Nav>
 					</Navbar.Collapse>
 				</Container>

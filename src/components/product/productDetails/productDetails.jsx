@@ -9,15 +9,32 @@ import { useCart } from "react-use-cart";
 import LeaveReview from "../../Reviews/LeaveReview/LeaveReview";
 import Loader from "../../loader/Loader";
 import useFetchCollection from "../../../customHooks/useFetchCollection";
-import { Button, Card, Container } from "react-bootstrap";
+import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import StarsRating from "react-star-rate";
+import { TOGGLE_WISHLIST, selectWishlistItems } from "../../../redux/slice/wishlistSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { FaHeartBroken } from "react-icons/fa";
+import { BsFillHeartFill } from "react-icons/bs";
 
 const ProductDetails = () => {
 	const { id } = useParams();
+	const { addItem } = useCart();
+
+	const dispatch = useDispatch();
 	const [product, setProduct] = useState(null);
 	const { data } = useFetchCollection("reviews");
 
+	const wishlistItems = useSelector(selectWishlistItems);
+
 	const filteredReviews = data.filter((review) => review.productID === id);
+
+	const addToWishlist = (wishlist) => {
+		dispatch(TOGGLE_WISHLIST(wishlist));
+	};
+
+	const checkWishlist = (product) => {
+		return wishlistItems.some((item) => item.id === product.id);
+	};
 
 	useEffect(() => {
 		getProduct();
@@ -41,44 +58,49 @@ const ProductDetails = () => {
 		}
 	};
 
-	const { addItem } = useCart();
 
 	return (
 		<section>
 			<div className={`container ${styles.product}`}>
-				<h2>Product Details</h2>
+				<div className="d-flex justify-content-between align-items-center my-3">
+				<h1>Product Details</h1>
 				<div>
-					<Link to="/#products">&larr; Back To Products</Link>
+					<Link to="/menu">&larr; Back To Menu</Link>
+				</div>
 				</div>
 				{product === null ? (
 					<Loader />
 				) : (
 					<>
-						<div className={styles.details}>
-							<div className={styles.img}>
-								<img src={product.imageURL} alt={product.name} />
-							</div>
-							<div className={styles.content}>
-								<h3>{product.name}</h3>
-								<p className={styles.price}>{`$${product.price}`}</p>
-								<p>{product.description}</p>
+						<Card className=" overflow-hidden h-100 border-0">
+							<Row className="g-3 m-0 p-0">
+								<Col md={6} sm={12} lg={4} className="overflow-hidden border">
+									<Card.Img variant="top" className="object-fit-fit w-100" src={product.imageURL} alt={product.image} />
+								</Col>
 
-								<p>
-									<b>SKU: </b> {id}
-								</p>
-								<p>
-									<b>CATEGORY: </b> {product.category}
-								</p>
-								{/* <div className={styles.count}>
-									<button className="--btn">-</button>
-									<p>1</p>
-									<button className="--btn">+</button>
-								</div> */}
-								<Button variant="primary" onClick={() => addItem(product)}>
-									Add To Card
-								</Button>
-							</div>
-						</div>
+								<Col md={6} sm={12} lg={8} className="d-flex flex-column justify-content-center align-items-start">
+									<Card.Body className="d-flex flex-column justify-content-between align-items-start w-100 p-1 ps-3 pe-3">
+										<Row className="w-100">
+											<Card.Title><h1>{product.name}</h1></Card.Title>
+											<Card.Subtitle>
+												<h3 className="text-primary">
+													<b>{`$${product.price}`}</b>
+												</h3>
+											</Card.Subtitle>
+											<Card.Text className="w-100">{product.description}</Card.Text>
+										</Row>
+										<div className="d-flex justify-content-between align-items-center w-100">
+											<Button variant="primary" onClick={() => addItem(product)} className="text-white mt-3 text-nowrap">
+												Add to Cart
+											</Button>
+											<Button variant="primary" onClick={() => addToWishlist(product)} className="text-white mt-3 text-nowrap">
+												{checkWishlist(product) ? <FaHeartBroken /> : <BsFillHeartFill />}
+											</Button>
+										</div>
+									</Card.Body>
+								</Col>
+							</Row>
+						</Card>
 					</>
 				)}
 			</div>
@@ -93,13 +115,14 @@ const ProductDetails = () => {
 							const { rate, review, reviewDate, userName } = item;
 							return (
 								<Card key={index} className="my-2">
-									<Card.Header className="d-flex justify-content-between align-items-center"><b>{userName}</b> <StarsRating value={rate} /></Card.Header>
+									<Card.Header className="d-flex justify-content-between align-items-center">
+										<b>{userName}</b> <StarsRating value={rate} />
+									</Card.Header>
 									<Card.Body>
-										
 										<Card.Text>{review}</Card.Text>
-										<Card.Text><i>{reviewDate}</i></Card.Text>
-											
-										
+										<Card.Text>
+											<i>{reviewDate}</i>
+										</Card.Text>
 									</Card.Body>
 								</Card>
 							);

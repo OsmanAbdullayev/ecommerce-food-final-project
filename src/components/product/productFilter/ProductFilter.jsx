@@ -36,10 +36,7 @@ const ProductFilter = () => {
 	}, [dispatch, products, category, spicy, vegetarian, maxPriceFilter]);
 
 	useEffect(() => {
-		dispatch(SET_CATEGORY("All"));
 		dispatch(SET_PRICE(maxPrice ? maxPrice : 1));
-		dispatch(SET_VEGETARIAN(false));
-		dispatch(SET_SPICY(false));
 	}, [maxPrice]);
 
 	const clearFilters = () => {

@@ -27,12 +27,14 @@ const Product = () => {
 		);
 	}, [dispatch, data]);
 	return (
-		<Container>
+		<Container className="mb-3">
+			<h1 className="text-center mt-4">Menu</h1>
+			
 			<Row>
-				<Col lg={3} md={3} sm={12}>
+				<Col lg={3} md={4} sm={12}>
 					{isLoading ? null : <ProductFilter />}
 				</Col>
-				<Col lg={9} md={9} sm={12}>
+				<Col lg={9} md={8} sm={12}>
 					{isLoading ? <Loader /> : <ProductList products={products} />}
 				</Col>
 			</Row>
