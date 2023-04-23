@@ -227,7 +227,7 @@ function Header() {
 							</Form>
 						</Nav>
 
-						<Nav>
+						<Nav className="d-lg-flex align-items-lg-center">
 							{/* <Stack className="ms-3">
 								<Stack direction="horizontal" gap={4}>
 									<p className={styles.p}>Call and Order in</p>
@@ -240,6 +240,45 @@ function Header() {
 								<h2 className={`${styles.number} text-start text-white`}>055 875 83 22</h2>
 							</Stack> */}
 
+							<Dropdown className="p-0 my-1">
+								<Dropdown.Toggle className={colorMode === "dark w-100" ? "" : "text-white w-100"} variant={colorMode === "dark" ? "outline-secondary " : "secondary "}>
+									<BsPerson size="1.4em" className="" />
+									{displayName.substring(0, 10)}
+								</Dropdown.Toggle>
+
+								<Dropdown.Menu className="positi">
+									<ShowOnLogOut>
+										<Dropdown.Item onClick={() => setExpanded(false)} as={NavLink} to="/login" variant={colorMode === "dark" ? "outline-secondary " : "secondary "}>
+											{t(`login`)}
+										</Dropdown.Item>
+									</ShowOnLogOut>
+
+									<ShowOnLogIn>
+										<AdminOnlyLink>
+											<Dropdown.Item onClick={() => setExpanded(false)} as={NavLink} to="/admin/home" variant={colorMode === "dark" ? "outline-primary " : "dark "}>
+												Admin Panel
+											</Dropdown.Item>
+										</AdminOnlyLink>
+									</ShowOnLogIn>
+
+									<ShowOnLogOut>
+										<Dropdown.Item onClick={() => setExpanded(false)} as={NavLink} to="/signup" variant={colorMode === "dark" ? "outline-secondary " : "secondary "}>
+											{t(`signup`)}
+										</Dropdown.Item>
+									</ShowOnLogOut>
+
+									<ShowOnLogIn>
+										<Dropdown.Item
+											onClick={() => {
+												logOut();
+												setExpanded(false);
+											}}
+											variant={colorMode === "dark" ? "outline-primary " : "outline-light "}>
+											{t(`logout`)}
+										</Dropdown.Item>
+									</ShowOnLogIn>
+								</Dropdown.Menu>
+							</Dropdown>
 							<nav className="w-100 d-flex justify-content-between align-items-center my-1">
 								<Button onClick={() => setExpanded(false)} as={NavLink} to="/wishlist" className={colorMode === "dark" ? "m-1 text-nowrap" : "text-white m-1 text-nowrap"} variant="transparent text-white">
 									<BsFillHeartFill /> <sup>{wishlistItems.length}</sup>
@@ -249,61 +288,6 @@ function Header() {
 									<BsFillCartFill size="1.2em" />
 									<sup>{totalItems}</sup>
 								</Button>
-
-								<Dropdown className="p-0 m-1">
-									<Dropdown.Toggle className={colorMode === "dark w-100" ? "" : "text-white w-100"} variant={colorMode === "dark" ? "outline-secondary " : "secondary "}>
-										<BsPerson size="1.4em" className="" />
-										{displayName.substring(0, 10)}
-									</Dropdown.Toggle>
-
-									<Dropdown.Menu className="positi">
-										<ShowOnLogOut>
-											<Dropdown.Item onClick={() => setExpanded(false)} as={NavLink} to="/login" variant={colorMode === "dark" ? "outline-secondary " : "secondary "}>
-												{t(`login`)}
-											</Dropdown.Item>
-										</ShowOnLogOut>
-
-										<ShowOnLogIn>
-											<AdminOnlyLink>
-												<Dropdown.Item onClick={() => setExpanded(false)} as={NavLink} to="/admin/home" variant={colorMode === "dark" ? "outline-primary " : "dark "}>
-													Admin Panel
-												</Dropdown.Item>
-											</AdminOnlyLink>
-										</ShowOnLogIn>
-
-										<ShowOnLogOut>
-											<Dropdown.Item onClick={() => setExpanded(false)} as={NavLink} to="/signup" variant={colorMode === "dark" ? "outline-secondary " : "secondary "}>
-												{t(`signup`)}
-											</Dropdown.Item>
-										</ShowOnLogOut>
-
-										<ShowOnLogIn>
-											<Dropdown.Item
-												onClick={() => {
-													logOut();
-													setExpanded(false);
-												}}
-												variant={colorMode === "dark" ? "outline-primary " : "outline-light "}>
-												{t(`logout`)}
-											</Dropdown.Item>
-										</ShowOnLogIn>
-									</Dropdown.Menu>
-								</Dropdown>
-
-								<div as={Button} className="text-nowrap m-1  me-2 ">
-									<Form.Select
-										aria-label="Default select example"
-										defaultValue={currentLng}
-										className={colorMode === "dark" ? " bg-dark text-white " : "bg-secondary text-white"}
-										variant={colorMode === "dark" ? "outline-secondary " : "secondary "}
-										onChange={(e) => {
-											handleLngChange(e.target.value);
-											setExpanded(false);
-										}}>
-										<option value="en">EN</option>
-										<option value="az">AZ</option>
-									</Form.Select>
-								</div>
 
 								<div className="d-flex justify-content-center align-items-center">
 									<ReactSwitch
@@ -319,6 +303,20 @@ function Header() {
 										uncheckedIcon={false}
 										checkedIcon={false}
 									/>
+								</div>
+								<div className="text-nowrap m-1  mx-2 ">
+									<Form.Select
+										aria-label="Default select example"
+										defaultValue={currentLng}
+										className={colorMode === "dark" ? " bg-dark text-white " : "bg-secondary text-white"}
+										variant={colorMode === "dark" ? "outline-secondary " : "secondary "}
+										onChange={(e) => {
+											handleLngChange(e.target.value);
+											setExpanded(false);
+										}}>
+										<option value="en">EN</option>
+										<option value="az">AZ</option>
+									</Form.Select>
 								</div>
 							</nav>
 						</Nav>

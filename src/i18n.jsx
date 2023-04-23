@@ -55,7 +55,7 @@ i18next
 					search: `Axtar`,
 					login: `Daxil Ol`,
 					logout: `Hesabdan Çıx`,
-					signup: `Qeydiyayt`,
+					signup: `Qeydiyyat`,
 					sortby: `Sortlaşdır`,
 					latest: `Sonuncu`,
 					lowestprice: `Əvvəlcə Ucuz`,

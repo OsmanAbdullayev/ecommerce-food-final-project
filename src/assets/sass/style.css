@@ -10862,4 +10862,8 @@ figure {
 
 td img {
   width: 150px;
+}
+
+button {
+  word-break: break-all;
 }/*# sourceMappingURL=style.css.map */
