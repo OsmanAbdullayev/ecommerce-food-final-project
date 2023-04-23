@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { selectUserName } from "../../../redux/slice/authSlice";
-import styles from "./Navbar.module.scss";
+// import styles from "./Navbar.module.scss";
 import { CiUser } from "react-icons/ci";
 import { Button, ButtonGroup } from "react-bootstrap";
 

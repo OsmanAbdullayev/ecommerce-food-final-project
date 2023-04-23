@@ -29,7 +29,7 @@ const useFetchCollection = (collectionName) => {
 			}
 		};
 		getCollection();
-	}, []);
+	}, [collectionName]);
 
 	return { data, isLoading };
 };

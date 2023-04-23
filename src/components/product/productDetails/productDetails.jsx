@@ -55,7 +55,7 @@ const ProductDetails = () => {
 			}
 		};
 		getProduct();
-	}, []);
+	}, [id]);
 
 	return (
 		<section>

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router";
 import { Button, Container, Stack, Table } from "react-bootstrap";
 import { useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import { BsTrashFill } from "react-icons/bs";
 import { useCart } from "react-use-cart";
 

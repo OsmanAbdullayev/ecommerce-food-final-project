@@ -9,8 +9,8 @@ import Form from "react-bootstrap/Form";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 
-import {CiSearch } from "react-icons/ci";
-import {   BsFillCartFill, BsFillHeartFill, BsPerson } from "react-icons/bs";
+import { CiSearch } from "react-icons/ci";
+import { BsFillCartFill, BsFillHeartFill, BsPerson } from "react-icons/bs";
 import { GiAlmond } from "react-icons/gi";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../../../firebase/config";
@@ -24,14 +24,14 @@ import { ColorModeContext } from "../../../routers/AppRouter";
 import ReactSwitch from "react-switch";
 import { Dropdown } from "react-bootstrap";
 import { selectWishlistItems } from "../../../redux/slice/wishlistSlice";
-import { SEARCH_PRODUCT, SET_CATEGORY, SET_SEARCH, SET_SEARCH_KEYWORD, selectSearch, selectSearchKeyword, selectSearchedProducts } from "../../../redux/slice/filterSlice";
+import { SEARCH_PRODUCT, SET_CATEGORY, SET_SEARCH, SET_SEARCH_KEYWORD, selectSearchKeyword, selectSearchedProducts } from "../../../redux/slice/filterSlice";
 import { selectProducts } from "../../../redux/slice/productsSlice";
 import i18next from "i18next";
 import { t } from "i18next";
 
 function Header() {
 	const { totalItems } = useCart();
-	const [isHidden, setIsHidden] = useState(false);
+	// const [isHidden, setIsHidden] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const [expanded, setExpanded] = useState(false);
 
@@ -58,7 +58,6 @@ function Header() {
 	useEffect(() => {
 		dispatch(SEARCH_PRODUCT({ products, searchedKeyword }));
 	}, [dispatch, products, searchedKeyword]);
-
 
 	const handleSearch = (e) => {
 		e.preventDefault();
@@ -108,18 +107,18 @@ function Header() {
 			}
 		});
 
-		window.addEventListener("scroll", () => {
-			if (window.scrollY > 50) {
-				setIsHidden(true);
-				// console.log("activated");
-			} else {
-				setIsHidden(false);
-			}
+		// window.addEventListener("scroll", () => {
+		// 	if (window.scrollY > 50) {
+		// 		setIsHidden(true);
+		// 		// console.log("activated");
+		// 	} else {
+		// 		setIsHidden(false);
+		// 	}
 
-			return () => {
-				window.removeEventListener("scroll", () => {});
-			};
-		});
+		// 	return () => {
+		// 		window.removeEventListener("scroll", () => {});
+		// 	};
+		// });
 	}, [dispatch, displayName]);
 
 	return (
@@ -249,7 +248,7 @@ function Header() {
 									<sup>{totalItems}</sup>
 								</Button>
 
-								<Dropdown  className="p-0 m-1">
+								<Dropdown className="p-0 m-1">
 									<Dropdown.Toggle className={colorMode === "dark w-100" ? "" : "text-white w-100"} variant={colorMode === "dark" ? "outline-secondary " : "secondary "}>
 										<BsPerson size="1.4em" className="" />
 										{displayName.substring(0, 10)}
@@ -291,7 +290,6 @@ function Header() {
 
 								<div as={Button} className="text-nowrap m-1  me-2 ">
 									<Form.Select
-									
 										aria-label="Default select example"
 										defaultValue={currentLng}
 										className={colorMode === "dark" ? " bg-dark text-white " : "bg-secondary text-white"}
