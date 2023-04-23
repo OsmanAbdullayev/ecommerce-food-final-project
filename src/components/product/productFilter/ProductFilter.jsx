@@ -4,9 +4,11 @@ import { FILTER, SET_CATEGORY, SET_PRICE, SET_SPICY, SET_VEGETARIAN, selectCateg
 import { selectMaxPrice, selectMinPrice, selectProducts } from "../../../redux/slice/productsSlice";
 // import styles from "./ProductFilter.module.scss";
 import { Button, ButtonGroup, Form } from "react-bootstrap";
-import { t } from "i18next";
+
+import { useTranslation } from "react-i18next";
 
 const ProductFilter = () => {
+		const { t } = useTranslation();
 	const products = useSelector(selectProducts);
 	const minPrice = useSelector(selectMinPrice);
 	const maxPrice = useSelector(selectMaxPrice);

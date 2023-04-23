@@ -7,10 +7,11 @@ import { FILTER, selectCategory, selectFilteredProducts, selectSearch, selectSor
 import PaginationComponent from "../../PaginationComponent";
 import Search from "../../search/Search";
 import ProductItem from "../productItem/ProductItem";
+import { useTranslation } from "react-i18next";
 // import styles from "./ProductList.module.scss";
-import { t } from "i18next";
 
 const ProductList = ({ products }, props) => {
+	const { t } = useTranslation();
 	const [grid, setGrid] = useState(true);
 	const filteredProducts = useSelector(selectFilteredProducts);
 	const productsCount = filteredProducts.length;
@@ -44,7 +45,6 @@ const ProductList = ({ products }, props) => {
 				<Col className="my-1" lg={3} md={6} sm={6}>
 					<Search
 						value={search}
-						
 						onChange={(e) => {
 							dispatch(SET_SEARCH(e.target.value));
 						}}
@@ -96,7 +96,7 @@ const ProductList = ({ products }, props) => {
 					<>
 						{currentProducts.map((product) => {
 							return (
-								<Col key={product.id} xxl={grid ? 3 : 12}  xl={grid ? 4 : 12}  lg={grid ? 6 : 12} md={grid ? 6 : 12} sm={grid ? 12 : 12}>
+								<Col key={product.id} xxl={grid ? 3 : 12} xl={grid ? 4 : 12} lg={grid ? 6 : 12} md={grid ? 6 : 12} sm={grid ? 12 : 12}>
 									<ProductItem {...product} grid={grid} product={product} addProduct={product} />
 								</Col>
 							);

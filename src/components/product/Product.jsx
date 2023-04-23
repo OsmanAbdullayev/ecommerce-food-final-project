@@ -7,9 +7,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { GET_PRICE_RANGE, selectProducts, STORE_PRODUCTS } from "../../redux/slice/productsSlice";
 import Loader from "../loader/Loader";
 import { Col, Container, Row } from "react-bootstrap";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 
 const Product = () => {
+	const { t } = useTranslation();
 	const { data, isLoading } = useFetchCollection("products");
 	const products = useSelector(selectProducts);
 	const dispatch = useDispatch();

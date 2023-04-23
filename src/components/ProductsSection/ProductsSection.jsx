@@ -8,10 +8,12 @@ import NutellaCake from "../../assets/img/menu/dessert2-300x300.jpg";
 import CocaCola from "../../assets/img/menu/drinks1-300x300.jpg";
 import { SET_CATEGORY } from "../../redux/slice/filterSlice";
 import { useDispatch } from "react-redux";
-import { t } from "i18next";
+
 import { ColorModeContext } from "../../routers/AppRouter";
+import { useTranslation } from "react-i18next";
 
 const ProductsSection = () => {
+	const { t } = useTranslation();
 	const { colorMode } = useContext(ColorModeContext);
 
 	const dispatch = useDispatch();

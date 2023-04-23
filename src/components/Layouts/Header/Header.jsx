@@ -7,7 +7,7 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import { useContext, useEffect, useState, useTransition } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import { CiSearch } from "react-icons/ci";
 import { BsFillCartFill, BsFillHeartFill, BsPerson } from "react-icons/bs";

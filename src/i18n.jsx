@@ -8,7 +8,7 @@ i18next
 	.init({
 		lng: localStorage.getItem("lng") || "en",
 		fallbackLng: "en",
-		debug: true,
+		// debug: true,
 
 		resources: {
 			en: {

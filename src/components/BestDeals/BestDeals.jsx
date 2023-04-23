@@ -5,10 +5,12 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { useSelector } from "react-redux";
 import { selectProducts } from "../../redux/slice/productsSlice";
-import { t } from "i18next";
+
 import { ColorModeContext } from "../../routers/AppRouter";
+import { useTranslation } from "react-i18next";
 
 const BestDeals = () => {
+	const { t } = useTranslation();
 	const products = useSelector(selectProducts);
 
 	const { colorMode } = useContext(ColorModeContext);
