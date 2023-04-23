@@ -7,7 +7,7 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useTransition } from "react";
 
 import { CiSearch } from "react-icons/ci";
 import { BsFillCartFill, BsFillHeartFill, BsPerson } from "react-icons/bs";
@@ -26,10 +26,12 @@ import { Dropdown } from "react-bootstrap";
 import { selectWishlistItems } from "../../../redux/slice/wishlistSlice";
 import { SEARCH_PRODUCT, SET_CATEGORY, SET_SEARCH, SET_SEARCH_KEYWORD, selectSearchKeyword, selectSearchedProducts } from "../../../redux/slice/filterSlice";
 import { selectProducts } from "../../../redux/slice/productsSlice";
-import i18next from "i18next";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
+// import i18next from "i18next";
 
 function Header() {
+	const { t, i18n } = useTranslation();
+
 	const { totalItems } = useCart();
 	// const [isHidden, setIsHidden] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
@@ -50,9 +52,9 @@ function Header() {
 
 	const navigate = useNavigate();
 
-	const changeLanguage = (e) => {
-		i18next.changeLanguage(e);
-		localStorage.setItem("lng", e);
+	const handleLngChange = (language) => {
+		i18n.changeLanguage(language);
+		localStorage.setItem("lng", language);
 	};
 
 	useEffect(() => {
@@ -295,7 +297,7 @@ function Header() {
 										className={colorMode === "dark" ? " bg-dark text-white " : "bg-secondary text-white"}
 										variant={colorMode === "dark" ? "outline-secondary " : "secondary "}
 										onChange={(e) => {
-											changeLanguage(e.target.value);
+											handleLngChange(e.target.value);
 											setExpanded(false);
 										}}>
 										<option value="en">EN</option>
@@ -305,13 +307,14 @@ function Header() {
 
 								<div className="d-flex justify-content-center align-items-center">
 									<ReactSwitch
+										className="bg-secondary"
 										onChange={() => {
 											toggleColorMode();
 											setExpanded(false);
 										}}
 										checked={colorMode === "dark"}
 										offColor="#FFF"
-										onColor="#111"
+										onColor="#444"
 										offHandleColor="#c00a27"
 										uncheckedIcon={false}
 										checkedIcon={false}
