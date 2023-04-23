@@ -1,5 +1,5 @@
-// import "../assets/css/style.css";
-import "../assets/css/_customBootstrap.css";
+import "../assets/sass/style.scss";
+// import "../assets/sass/_customBootstrap.scss";
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Footer from "../components/Layouts/Footer/Footer";
