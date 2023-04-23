@@ -37,36 +37,34 @@ const ProductDetails = () => {
 	};
 
 	useEffect(() => {
+		const getProduct = async () => {
+			const docRef = doc(db, "products", id);
+			const docSnap = await getDoc(docRef);
+
+			if (docSnap.exists()) {
+				// console.log("Document data:", docSnap.data());
+				const obj = {
+					...docSnap.data(),
+					id,
+				};
+				setProduct(obj);
+			} else {
+				// docSnap.data() will be undefined in this case
+				// console.log("No such document!");
+				toast.error("Product not found.");
+			}
+		};
 		getProduct();
 	}, []);
-
-	const getProduct = async () => {
-		const docRef = doc(db, "products", id);
-		const docSnap = await getDoc(docRef);
-
-		if (docSnap.exists()) {
-			// console.log("Document data:", docSnap.data());
-			const obj = {
-				...docSnap.data(),
-				id,
-			};
-			setProduct(obj);
-		} else {
-			// docSnap.data() will be undefined in this case
-			// console.log("No such document!");
-			toast.error("Product not found.");
-		}
-	};
-
 
 	return (
 		<section>
 			<div className={`container ${styles.product}`}>
 				<div className="d-flex justify-content-between align-items-center my-3">
-				<h1>Product Details</h1>
-				<div>
-					<Link to="/menu">&larr; Back To Menu</Link>
-				</div>
+					<h1>Product Details</h1>
+					<div>
+						<Link to="/menu">&larr; Back To Menu</Link>
+					</div>
 				</div>
 				{product === null ? (
 					<Loader />
@@ -81,7 +79,9 @@ const ProductDetails = () => {
 								<Col md={6} sm={12} lg={8} className="d-flex flex-column justify-content-center align-items-start">
 									<Card.Body className="d-flex flex-column justify-content-between align-items-start w-100 p-1 ps-3 pe-3">
 										<Row className="w-100">
-											<Card.Title><h1>{product.name}</h1></Card.Title>
+											<Card.Title>
+												<h1>{product.name}</h1>
+											</Card.Title>
 											<Card.Subtitle>
 												<h3 className="text-primary">
 													<b>{`$${product.price}`}</b>

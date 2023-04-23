@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import useFetchCollection from "../../customHooks/useFetchCollection";
 import ProductFilter from "./productFilter/ProductFilter";
 import ProductList from "./productList/ProductList";
-import styles from "./Product.module.scss";
+// import styles from "./Product.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { GET_PRICE_RANGE, selectProducts, STORE_PRODUCTS } from "../../redux/slice/productsSlice";
 import Loader from "../loader/Loader";

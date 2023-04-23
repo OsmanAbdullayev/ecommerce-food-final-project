@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Form, Button, Container } from "react-bootstrap";
 import { useState } from "react";
 import { sendPasswordResetEmail } from "firebase/auth";

@@ -2,9 +2,8 @@ import React from "react";
 import BestDeals from "../../components/BestDeals/BestDeals";
 import Hero from "../../components/Hero/Hero";
 import ProductsSection from "../../components/ProductsSection/ProductsSection";
-import Menu from "../../components/MenuComponents/AllProductsComponent";
 import Product from "../../components/product/Product";
-import Loader from "../../components/loader/Loader";
+// import Loader from "../../components/loader/Loader";
 
 const Home = () => {
 	// const url = window.location.href;

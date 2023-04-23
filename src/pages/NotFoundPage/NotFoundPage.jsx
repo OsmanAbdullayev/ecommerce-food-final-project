@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import styles from "./NotFoundPage.module.scss";
+// import styles from "./NotFoundPage.module.scss";
 import { Button, Card, Col, Container, Row } from "react-bootstrap";
 
 const NotFoundPage = () => {

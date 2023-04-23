@@ -6,7 +6,7 @@ import ViewProducts from "../../components/admin/viewProducts/ViewProducts";
 import AddProduct from "../../components/admin/addProduct/AddProduct";
 import Orders from "../../components/admin/orders/Orders";
 
-import styles from "./Admin.module.scss";
+// import styles from "./Admin.module.scss";
 import OrderDetails from "../../components/admin/oderDetails/OrderDetails";
 import { Col, Container, Row } from "react-bootstrap";
 

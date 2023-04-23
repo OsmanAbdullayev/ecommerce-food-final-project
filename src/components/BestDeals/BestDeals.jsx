@@ -1,16 +1,10 @@
 import React, { useContext } from "react";
-import { Button, Card, Col, Container, Nav, Row, Stack } from "react-bootstrap";
-import BlackBurger from "../../assets/img/menu/burgers-1-300x300.png";
-import PepperoniPizza from "../../assets/img/menu/pizza-1-300x300.png";
-import VegetableSalad from "../../assets/img/menu/salad1-640x640.jpg";
-import NutellaCake from "../../assets/img/menu/dessert2-300x300.jpg";
-import CocaCola from "../../assets/img/menu/drinks1-300x300.jpg";
-import { NavLink } from "react-router-dom";
+import { Card, Col, Container, Row } from "react-bootstrap";
+
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { useSelector } from "react-redux";
 import { selectProducts } from "../../redux/slice/productsSlice";
-import ProductItem from "../product/productItem/ProductItem";
 import { t } from "i18next";
 import { ColorModeContext } from "../../routers/AppRouter";
 
@@ -53,7 +47,9 @@ const BestDeals = () => {
 										<Col md={6} className="d-flex flex-column justify-content-center align-items-start">
 											<Card.Body>
 												<Card.Title className="fs-5 text-danger fw-3">
-													<h1>{t(`save`)} {product.discount}%</h1>
+													<h1>
+														{t(`save`)} {product.discount}%
+													</h1>
 												</Card.Title>
 												<Card.Subtitle>
 													<h3 className="p-0 m-0">{product.name}</h3>
@@ -67,11 +63,11 @@ const BestDeals = () => {
 								</Card>
 							</div>
 						);
+					} else {
+						return null;
 					}
 				})}
 			</Carousel>
-
-			
 		</Container>
 	);
 };

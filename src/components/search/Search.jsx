@@ -1,8 +1,8 @@
 import React from "react";
-import styles from "./Search.module.scss";
-import { BiSearch } from "react-icons/bi";
-import { Button, Form } from "react-bootstrap";
-import { CiSearch } from "react-icons/ci";
+// import styles from "./Search.module.scss";
+
+import {  Form } from "react-bootstrap";
+
 import { t } from "i18next";
 
 const Search = ({ value, onChange }) => {

@@ -1,12 +1,11 @@
 import React from "react";
-import { ADD_TO_WISHLIST, CALCULATE_TOTAL_QUANTITY, CLEAR_WISHLIST, REMOVE_FROM_WISHLIST, selectWishlistItems } from "../../redux/slice/wishlistSlice";
+import { CALCULATE_TOTAL_QUANTITY, CLEAR_WISHLIST, REMOVE_FROM_WISHLIST, selectWishlistItems } from "../../redux/slice/wishlistSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { Button, Container, Stack, Table } from "react-bootstrap";
 import { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
-import { removeListener } from "@reduxjs/toolkit";
 import { BsTrashFill } from "react-icons/bs";
 import { useCart } from "react-use-cart";
 
@@ -19,10 +18,10 @@ const Wishlist = () => {
 
 	const { addItem } = useCart();
 
-	const removed = () => toast("Item removed successfully!");
+	// const removed = () => toast("Item removed successfully!");
 
 	const moveAllToCart = (products) => {
-		products.map((product) => {
+		products.forEach((product) => {
 			if (items.some((item) => item.id === product.id)) {
 			} else {
 				addItem(product);
@@ -115,9 +114,9 @@ const Wishlist = () => {
 						))}
 						<tr className="text-center">
 							<td colSpan={5}>
-									<Button variant="secondary" className=" text-light text-nowrap " onClick={() => moveAllToCart(wishlistItems)}>
-										Move All to Cart
-									</Button>
+								<Button variant="secondary" className=" text-light text-nowrap " onClick={() => moveAllToCart(wishlistItems)}>
+									Move All to Cart
+								</Button>
 								<ToastContainer position="bottom-center" autoClose={1000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="colored" />
 							</td>
 						</tr>

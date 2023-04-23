@@ -1,10 +1,9 @@
-import { useRef } from "react";
-import Card from "../../components/Card/Card";
-import styles from "./Contacts.module.scss";
+
+// import styles from "./Contacts.module.scss";
 import { FaPhoneAlt, FaEnvelope, FaTwitter } from "react-icons/fa";
 import { GoLocation } from "react-icons/go";
-import { toast } from "react-toastify";
-import { Col, Container, Row, Form, Button, Stack } from "react-bootstrap";
+// import { toast } from "react-toastify";
+import { Col, Container, Row, Form, Button } from "react-bootstrap";
 
 const Contacts = () => {
 	return (

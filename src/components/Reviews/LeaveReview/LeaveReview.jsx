@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { selectProducts } from "../../../redux/slice/productsSlice";
-import { useParams } from "react-router";
-import { selectUserID, selectUserName } from "../../../redux/slice/authSlice";
+import {  selectUserName } from "../../../redux/slice/authSlice";
 import { Col, Row, Form, Container, Card, Button } from "react-bootstrap";
 import StarsRating from "react-star-rate";
 import { db } from "../../../firebase/config";

@@ -1,9 +1,6 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
 import { useNavigate } from "react-router-dom";
-import useFetchCollection from "../../../customHooks/useFetchCollection";
 
-import Loader from "../../loader/Loader";
 import styles from "./Orders.module.scss";
 
 const Orders = () => {

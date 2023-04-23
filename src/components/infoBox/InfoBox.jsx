@@ -1,6 +1,6 @@
 import React from "react";
 
-import styles from "./InfoBox.module.scss";
+// import styles from "./InfoBox.module.scss";
 import { Card } from "react-bootstrap";
 
 const InfoBox = ({ cardClass, title, count, icon }) => {

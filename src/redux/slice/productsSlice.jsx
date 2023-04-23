@@ -1,5 +1,4 @@
-import { createSlice, nanoid } from "@reduxjs/toolkit";
-import menu from "../../data/menu";
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
 	products: [],

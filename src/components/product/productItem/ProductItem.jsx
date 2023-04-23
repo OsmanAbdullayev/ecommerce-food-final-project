@@ -5,9 +5,8 @@ import { useCart } from "react-use-cart";
 import { ColorModeContext } from "../../../routers/AppRouter";
 import { TOGGLE_WISHLIST, selectWishlistItems } from "../../../redux/slice/wishlistSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { BsFillHeartFill, BsFill0CircleFill } from "react-icons/bs";
-import { useState } from "react";
-import { useEffect } from "react";
+import { BsFillHeartFill } from "react-icons/bs";
+
 import { FaHeartBroken } from "react-icons/fa";
 
 // import styles from "./ProductItem.module.scss";
@@ -33,7 +32,7 @@ const ProductItem = ({ product, grid, id, name, price, description, vegetarian, 
 		dispatch(TOGGLE_WISHLIST(wishlist));
 	};
 
-	const { colorMode, toggleColorMode } = useContext(ColorModeContext);
+	const colorMode = useContext(ColorModeContext);
 
 	const { addItem } = useCart();
 
@@ -61,7 +60,7 @@ const ProductItem = ({ product, grid, id, name, price, description, vegetarian, 
 							Add to Cart
 						</Button>
 						<Button variant="primary" onClick={() => addToWishlist(addProduct)} className="text-white mt-3 text-nowrap">
-						{checkWishlist(product) ? <FaHeartBroken /> : <BsFillHeartFill />}
+							{checkWishlist(product) ? <FaHeartBroken /> : <BsFillHeartFill />}
 						</Button>
 					</div>
 				</Card.Body>

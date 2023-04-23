@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import { selectAllProducts } from "../../redux/slice/productsSlice";
-import { Col, Container, Row } from "react-bootstrap";
-import Item from "../Item/Item";
-// import products from "../../data/menu";
-import PaginationComponent from "../PaginationComponent";
-import AddProductForm from "./AddProductForm";
-import { nanoid } from "@reduxjs/toolkit";
+// import React, { useState } from "react";
+// import { useSelector } from "react-redux";
+// import { selectAllProducts } from "../../redux/slice/productsSlice";
+// import { Col, Container, Row } from "react-bootstrap";
+// import Item from "../Item/Item";
+// // import products from "../../data/menu";
+// import PaginationComponent from "../PaginationComponent";
+// import AddProductForm from "./AddProductForm";
+// import { nanoid } from "@reduxjs/toolkit";
 
 const AllProductsComponent = (props) => {
 	// const products = useSelector(selectAllProducts);

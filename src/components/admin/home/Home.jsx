@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import InfoBox from "../../infoBox/InfoBox";
-import styles from "./Home.module.scss";
+// import styles from "./Home.module.scss";
 import { AiFillDollarCircle } from "react-icons/ai";
 import { BsCart4 } from "react-icons/bs";
 import { FaCartArrowDown } from "react-icons/fa";

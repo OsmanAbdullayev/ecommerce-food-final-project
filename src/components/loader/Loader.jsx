@@ -1,6 +1,6 @@
 import {React} from "react";
 import ReactDOM from "react-dom";
-import loaderImg from "../../assets/loader.gif";
+// import loaderImg from "../../assets/loader.gif";
 
 import styles from "./loader.module.scss"
 import { HashLoader } from "react-spinners";

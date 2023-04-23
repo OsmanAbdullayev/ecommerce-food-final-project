@@ -11,9 +11,9 @@ import Notiflix from "notiflix";
 import { useDispatch, useSelector } from "react-redux";
 import { selectProducts, STORE_PRODUCTS } from "../../../redux/slice/productsSlice";
 import useFetchCollection from "../../../customHooks/useFetchCollection";
-import { FILTER, SET_CATEGORY, SET_PRICE, SET_SEARCH, SET_SORT, SET_SPICY, SET_VEGETARIAN, selectCategory, selectFilteredProducts, selectSearch, selectSort } from "../../../redux/slice/filterSlice";
+import { FILTER, SET_CATEGORY, SET_PRICE, SET_SEARCH, SET_SORT, SET_SPICY, SET_VEGETARIAN, selectFilteredProducts, selectSearch } from "../../../redux/slice/filterSlice";
 import Search from "../../search/Search";
-import { Col, Pagination, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import PaginationComponent from "../../PaginationComponent";
 
 const ViewProducts = () => {
@@ -27,7 +27,7 @@ const ViewProducts = () => {
 
 	const productsCount = filteredProducts.length;
 	const [currentPage, setCurrentPage] = useState(1);
-	const [productsPerPage, setProductsPerPage] = useState(8);
+	const productsPerPage = 8;
 
 	const lastProductNumber = currentPage * productsPerPage;
 	const firstProductIndex = lastProductNumber - productsPerPage;
@@ -55,7 +55,7 @@ const ViewProducts = () => {
 		dispatch(SET_VEGETARIAN(false));
 		dispatch(SET_SPICY(false));
 		dispatch(SET_PRICE(10000));
-	}, []);
+	}, [dispatch]);
 
 	useEffect(() => {
 		dispatch(

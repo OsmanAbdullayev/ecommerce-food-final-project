@@ -25,12 +25,11 @@ import CheckoutDetails from "../pages/Checkout/CheckoutDetails";
 import Checkout from "../pages/Checkout/Checkout";
 import { createContext, useState } from "react";
 import Wishlist from "../pages/Wishlist/Wishlist";
-import { useTranslation } from "react-i18next";
+// import { useTranslation } from "react-i18next";
 
 export const ColorModeContext = createContext();
 
 function App() {
-	const { t } = useTranslation();
 
 	const [colorMode, setColorMode] = useState("primary");
 

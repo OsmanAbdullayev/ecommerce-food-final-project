@@ -1,18 +1,16 @@
 import { useCart } from "react-use-cart";
-import styles from "./header.module.scss";
+// import styles from "./header.module.scss";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Button from "react-bootstrap/Button";
-import Stack from "react-bootstrap/Stack";
 import Form from "react-bootstrap/Form";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import { useContext, createContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
-import { CiPizza, CiBurger, CiFries, CiSearch } from "react-icons/ci";
-import { BiCake } from "react-icons/bi";
-import { BsCart2, BsCircleHalf, BsCupStraw, BsFillBrushFill, BsFillCartFill, BsFillHeartFill, BsGlobe, BsPerson } from "react-icons/bs";
+import {CiSearch } from "react-icons/ci";
+import {   BsFillCartFill, BsFillHeartFill, BsPerson } from "react-icons/bs";
 import { GiAlmond } from "react-icons/gi";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../../../firebase/config";
@@ -23,16 +21,13 @@ import { REMOVE_ACTIVE_USER, SET_ACTIVE_USER } from "../../../redux/slice/authSl
 import ShowOnLogIn, { ShowOnLogOut } from "../../hiddenLink/HiddenLink";
 import { AdminOnlyLink } from "../../adminOnlyRoute/AdminOnlyRoute";
 import { ColorModeContext } from "../../../routers/AppRouter";
-import Switch from "react-switch";
 import ReactSwitch from "react-switch";
 import { Dropdown } from "react-bootstrap";
 import { selectWishlistItems } from "../../../redux/slice/wishlistSlice";
-import { FILTER, SEARCH_PRODUCT, SET_CATEGORY, SET_SEARCH, SET_SEARCH_KEYWORD, selectSearch, selectSearchKeyword, selectSearchedProducts } from "../../../redux/slice/filterSlice";
+import { SEARCH_PRODUCT, SET_CATEGORY, SET_SEARCH, SET_SEARCH_KEYWORD, selectSearch, selectSearchKeyword, selectSearchedProducts } from "../../../redux/slice/filterSlice";
 import { selectProducts } from "../../../redux/slice/productsSlice";
 import i18next from "i18next";
-import detectBrowserLanguage from "detect-browser-language";
 import { t } from "i18next";
-import { FaUserAlt } from "react-icons/fa";
 
 function Header() {
 	const { totalItems } = useCart();
@@ -46,7 +41,7 @@ function Header() {
 	const dispatch = useDispatch();
 
 	const wishlistItems = useSelector(selectWishlistItems);
-	const search = useSelector(selectSearch);
+	// const search = useSelector(selectSearch);
 	const searchedProducts = useSelector(selectSearchedProducts);
 	const products = useSelector(selectProducts);
 	const searchedKeyword = useSelector(selectSearchKeyword);
@@ -62,7 +57,7 @@ function Header() {
 
 	useEffect(() => {
 		dispatch(SEARCH_PRODUCT({ products, searchedKeyword }));
-	}, [dispatch, products]);
+	}, [dispatch, products, searchedKeyword]);
 
 
 	const handleSearch = (e) => {

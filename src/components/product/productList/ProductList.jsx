@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Button, Col, Form, Pagination, Row, Stack } from "react-bootstrap";
+import { Button, Col, Form, Row } from "react-bootstrap";
 import { BsFillGridFill } from "react-icons/bs";
 import { FaListAlt } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { FILTER, FILTER_BY_SEARCH, selectCategory, selectFilteredProducts, selectSearch, selectSort, SET_CATEGORY, SET_SEARCH, SET_SORT, SORT_PRODUCTS } from "../../../redux/slice/filterSlice";
+import { FILTER, selectCategory, selectFilteredProducts, selectSearch, selectSort, SET_CATEGORY, SET_SEARCH, SET_SORT } from "../../../redux/slice/filterSlice";
 import PaginationComponent from "../../PaginationComponent";
 import Search from "../../search/Search";
 import ProductItem from "../productItem/ProductItem";
-import styles from "./ProductList.module.scss";
+// import styles from "./ProductList.module.scss";
 import { t } from "i18next";
 
 const ProductList = ({ products }, props) => {
@@ -36,7 +36,7 @@ const ProductList = ({ products }, props) => {
 		dispatch(SET_SORT(sort));
 		dispatch(SET_CATEGORY(category));
 		dispatch(SET_SEARCH(search));
-	}, []);
+	}, [dispatch, sort, category, search]);
 
 	return (
 		<div id="product">

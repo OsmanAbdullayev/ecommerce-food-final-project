@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { nanoid } from "@reduxjs/toolkit";
-import { productAdded } from "../../redux/slice/productsSlice";
+// import React, { useState } from "react";
+// import { useDispatch } from "react-redux";
+// import { nanoid } from "@reduxjs/toolkit";
+// import { productAdded } from "../../redux/slice/productsSlice";
 
 const AddProductForm = () => {
 	// const dispatch = useDispatch();

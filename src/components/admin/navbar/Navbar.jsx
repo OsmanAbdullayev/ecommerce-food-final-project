@@ -6,7 +6,7 @@ import styles from "./Navbar.module.scss";
 import { CiUser } from "react-icons/ci";
 import { Button, ButtonGroup } from "react-bootstrap";
 
-const activeLink = ({ isActive }) => (isActive ? `${styles.active}` : "");
+
 
 const Navbar = () => {
 	const userName = useSelector(selectUserName);

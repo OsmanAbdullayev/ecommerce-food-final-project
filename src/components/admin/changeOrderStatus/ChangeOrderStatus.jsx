@@ -1,12 +1,12 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import Card from "../../Card/Card";
 import styles from "./ChangeOrderStatus.module.scss";
 import { Button, Form } from "react-bootstrap";
 
 const ChangeOrderStatus = () => {
 
-	const navigate = useNavigate();
+	
 
   const editOrder = (e) => {
     e.preventDefault();

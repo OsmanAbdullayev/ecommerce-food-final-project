@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { FILTER, SET_CATEGORY, SET_PRICE, SET_SPICY, SET_VEGETARIAN, selectCategory, selectFilteredProducts, selectMaxPriceFilter, selectSpicy, selectVegetarian } from "../../../redux/slice/filterSlice";
+import { FILTER, SET_CATEGORY, SET_PRICE, SET_SPICY, SET_VEGETARIAN, selectCategory, selectMaxPriceFilter, selectSpicy, selectVegetarian } from "../../../redux/slice/filterSlice";
 import { selectMaxPrice, selectMinPrice, selectProducts } from "../../../redux/slice/productsSlice";
-import styles from "./ProductFilter.module.scss";
+// import styles from "./ProductFilter.module.scss";
 import { Button, ButtonGroup, Form } from "react-bootstrap";
 import { t } from "i18next";
 
@@ -41,7 +41,7 @@ const ProductFilter = () => {
 		// dispatch(SET_VEGETARIAN(false));
 		// dispatch(SET_SPICY(false));
 		dispatch(SET_PRICE(maxPrice ? maxPrice : 10000));
-	}, [maxPrice]);
+	}, [dispatch, category, maxPrice]);
 
 	const clearFilters = () => {
 		dispatch(SET_CATEGORY("All"));

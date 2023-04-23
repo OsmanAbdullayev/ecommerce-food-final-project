@@ -2,9 +2,7 @@ import React from "react";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from "chart.js";
 import { Bar } from "react-chartjs-2";
 
-import styles from "./Chart.module.scss";
-import { useSelector } from "react-redux";
-import { Card } from "react-bootstrap";
+
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -24,7 +22,7 @@ export const options = {
 const Chart = () => {
 	// Create a new array of order status
 
-	const [q1, q2, q3, q4] = ["Order Placed...", "Processing...", "Shipped...", "Delivered"];
+
 
 	const data = {
 		labels: ["Placed Orders", "Processing", "Shipped", "Delivered"],

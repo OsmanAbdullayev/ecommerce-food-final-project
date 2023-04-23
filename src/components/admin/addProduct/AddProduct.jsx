@@ -120,6 +120,7 @@ const AddProduct = () => {
 		e.preventDefault();
 		setIsLoading(true);
 		try {
+			// eslint-disable-next-line no-unused-vars
 			const docRef = addDoc(collection(db, "products"), {
 				name: product.name,
 				imageURL: product.imageURL,
@@ -279,10 +280,11 @@ const AddProduct = () => {
 							</div>
 						</Col>
 
-										<div className="text-center">
-						<Button type="submit" className="text-nowrap">{detectForm(id, "Save Product", "Save Changes")}</Button>
-
-										</div>
+						<div className="text-center">
+							<Button type="submit" className="text-nowrap">
+								{detectForm(id, "Save Product", "Save Changes")}
+							</Button>
+						</div>
 					</Row>
 				</Form>
 			</section>
