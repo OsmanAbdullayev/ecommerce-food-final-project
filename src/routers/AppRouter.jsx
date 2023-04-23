@@ -1,5 +1,7 @@
+// import "../assets/css/style.css";
+import "../assets/css/_customBootstrap.css";
+
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import "../assets/sass/style.scss";
 import Footer from "../components/Layouts/Footer/Footer";
 import Header from "../components/Layouts/Header/Header";
 import Home from "../pages/Home/Home";

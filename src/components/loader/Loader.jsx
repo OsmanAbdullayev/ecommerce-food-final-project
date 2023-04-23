@@ -13,7 +13,8 @@ const Loader = () => {
 		<div className={styles.wrapper}>
 			<div className={styles.loader}>
 			<HashLoader
-        color="#c00a27"
+			className="text-primary"
+        // color="#c00a27"
         loading="true"
         cssOverride=""
         size={150}
