@@ -68,7 +68,11 @@ const ProductList = ({ products }, props) => {
 				</Col>
 
 				<Col className="my-1 d-flex justify-content-end align-items-center" lg={3} md={6} sm={6}>
-					<Button className="me-2">
+					<Button
+						className="me-2"
+						onClick={() => {
+							setGrid(true);
+						}}>
 						<BsFillGridFill
 							size={22}
 							onClick={() => {
@@ -76,7 +80,10 @@ const ProductList = ({ products }, props) => {
 							}}
 						/>
 					</Button>
-					<Button>
+					<Button
+						onClick={() => {
+							setGrid(false);
+						}}>
 						<FaListAlt
 							size={24}
 							onClick={() => {
