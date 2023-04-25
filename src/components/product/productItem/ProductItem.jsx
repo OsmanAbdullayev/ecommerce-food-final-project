@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { Button, Card, Col, Row } from "react-bootstrap";
+import React, { useContext, useState } from "react";
+import { Button, Card, Col, Row, Spinner } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useCart } from "react-use-cart";
 import { ColorModeContext } from "../../../routers/AppRouter";
@@ -8,11 +8,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { BsFillHeartFill } from "react-icons/bs";
 
 import { FaHeartBroken } from "react-icons/fa";
+import Loader from "../../loader/Loader";
 
 // import styles from "./ProductItem.module.scss";
 
 const ProductItem = ({ product, grid, id, name, price, description, vegetarian, spicy, imageURL, discount, addProduct }) => {
 	const wishlistItems = useSelector(selectWishlistItems);
+	const [loaded, setLoaded] = useState(false);
 
 	const checkWishlist = (product) => {
 		return wishlistItems.some((item) => item.id === product.id);
@@ -41,7 +43,23 @@ const ProductItem = ({ product, grid, id, name, price, description, vegetarian, 
 			// <Card cardclass={grid ? `${styles.grid}` : ` ${styles.list}`}>
 			<Card className={colorMode === "dark" ? "shadow overflow-hidden h-100 bg-dark" : "shadow overflow-hidden h-100"}>
 				<Link to={`/product-details/${id}`} className="overflow-hidden">
-					<Card.Img variant="top" className="object-fit-cover " src={imageURL} alt={name} />
+					{loaded ? null : (
+						<div className="spinnerBootstrapContainer d-flex justify-content-center align-items-center position-relative">
+							<div className="position-absolute spinnerBootstrapDiv">
+								<Spinner as={Card.Img} animation="border" variant="primary" />
+							</div>
+						</div>
+					)}
+					<Card.Img
+						style={loaded ? {} : { display: "none" }}
+						variant="top"
+						onLoad={() => {
+							setLoaded(true);
+						}}
+						className="object-fit-cover"
+						src={imageURL}
+						alt={name}
+					/>
 				</Link>
 
 				<Card.Body className="d-flex flex-column justify-content-between">

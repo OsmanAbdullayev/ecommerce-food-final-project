@@ -103,7 +103,7 @@ const ProductList = ({ products }, props) => {
 					<>
 						{currentProducts.map((product) => {
 							return (
-								<Col key={product.id} xxl={grid ? 3 : 12} xl={grid ? 4 : 12} lg={grid ? 6 : 12} md={grid ? 6 : 12} sm={grid ? 12 : 12}>
+								<Col key={product.id} xxl={grid ? 3 : 12} xl={grid ? 4 : 12} lg={grid ? 6 : 12} md={grid ? 6 : 12} sm={grid ? 6 : 12} xs={grid ? 6 : 12}>
 									<ProductItem {...product} grid={grid} product={product} addProduct={product} />
 								</Col>
 							);

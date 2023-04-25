@@ -10866,4 +10866,23 @@ td img {
 
 button {
   word-break: break-all;
-}/*# sourceMappingURL=style.css.map */
+}
+
+.spinnerBootstrapContainer {
+  width: 100%;
+  padding-top: 100%;
+  background-color: rgba(0, 13, 3, 0.327);
+}
+
+.spinnerBootstrapDiv {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@media only screen and (max-width: 576px) {
+  html {
+    font-size: 12px;
+  }
+}
+/* Large devices (laptops/desktops, 992px and up) -- This would display the text at 10.0rem on laptops and larger screens *//*# sourceMappingURL=style.css.map */
