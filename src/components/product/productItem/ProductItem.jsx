@@ -12,6 +12,10 @@ import { FaHeartBroken } from "react-icons/fa";
 // import styles from "./ProductItem.module.scss";
 
 const ProductItem = ({ product, grid, id, name, price, description, vegetarian, spicy, imageURL, discount, addProduct }) => {
+	const dispatch = useDispatch();
+	const {colorMode} = useContext(ColorModeContext);
+
+
 	const wishlistItems = useSelector(selectWishlistItems);
 	const [loaded, setLoaded] = useState(false);
 
@@ -27,20 +31,16 @@ const ProductItem = ({ product, grid, id, name, price, description, vegetarian, 
 		return text;
 	};
 
-	const dispatch = useDispatch();
-
 	const addToWishlist = (wishlist) => {
 		dispatch(TOGGLE_WISHLIST(wishlist));
 	};
-
-	const colorMode = useContext(ColorModeContext);
 
 	const { addItem } = useCart();
 
 	if (grid) {
 		return (
 			// <Card cardclass={grid ? `${styles.grid}` : ` ${styles.list}`}>
-			<Card className={colorMode === "dark" ? "shadow overflow-hidden h-100 bg-dark" : "shadow overflow-hidden h-100"}>
+			<Card className={colorMode === `dark` ? `p-1 h-100 shadow bg-dark ` : `p-1 h-100 shadow`}>
 				<Link to={`/product-details/${id}`} className="overflow-hidden">
 					{loaded ? null : (
 						<div className="spinnerBootstrapContainer d-flex justify-content-center align-items-center position-relative">
@@ -85,7 +85,7 @@ const ProductItem = ({ product, grid, id, name, price, description, vegetarian, 
 		);
 	} else {
 		return (
-			<Card className="shadow overflow-hidden h-100">
+			<Card className={colorMode === `dark` ? `p-3 h-100 shadow bg-dark overflow-hidden ` : `p-3 h-100 shadow overflow-hidden `}> 
 				<Row className="g-0">
 					<Col md={4} className="overflow-hidden">
 						<Link to={`/product-details/${id}`} className="overflow-hidden w-100">

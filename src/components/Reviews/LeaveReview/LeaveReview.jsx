@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useSelector } from "react-redux";
 import {  selectUserName } from "../../../redux/slice/authSlice";
 import { Col, Row, Form, Container, Card, Button } from "react-bootstrap";
@@ -6,8 +6,10 @@ import StarsRating from "react-star-rate";
 import { db } from "../../../firebase/config";
 import { addDoc, collection, Timestamp } from "firebase/firestore";
 import { toast } from "react-toastify";
+import { ColorModeContext } from "../../../routers/AppRouter";
 
 const LeaveReview = (product, id) => {
+	const {colorMode} = useContext(ColorModeContext)
 	const [rate, setRate] = useState(0);
 	const [review, setReview] = useState("");
 
@@ -42,7 +44,7 @@ const LeaveReview = (product, id) => {
 			<Container className="my-3">
 				<Row>
 					<Col lg={12}>
-						<Card>
+						<Card className={colorMode === `dark` ? `bg-dark  ` : ``}>
 							<Card.Header>
 								<b>Rate This Product</b>
 							</Card.Header>
@@ -61,7 +63,7 @@ const LeaveReview = (product, id) => {
 
 										<Form.Group>
 											<Form.Label>Review:</Form.Label>
-											<Form.Control as="textarea" rows={4} type="text" value={review} required onChange={(e) => setReview(e.target.value)} />
+											<Form.Control as="textarea" rows={4} type="text" value={review} required onChange={(e) => setReview(e.target.value)} className={colorMode === `dark` ? `bg-dark  ` : ``}/>
 										</Form.Group>
 									</Form.Group>
 									<Button type="submit" variant="primary" className="mt-3">

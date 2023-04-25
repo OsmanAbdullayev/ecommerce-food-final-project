@@ -1,0 +1,9 @@
+.pagination li a {
+  background-color: transparent;
+}
+.pagination li span {
+  background-color: transparent !important;
+}
+.pagination li > * {
+  color: red !important;
+}/*# sourceMappingURL=PaginationComponent.module.css.map */

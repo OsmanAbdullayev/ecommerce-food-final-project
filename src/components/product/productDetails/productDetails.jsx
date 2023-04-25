@@ -1,6 +1,6 @@
-import styles from "./ProductDetails.module.scss";
+
 import { doc, getDoc } from "firebase/firestore";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { toast } from "react-toastify";
 import { db } from "../../../firebase/config";
@@ -15,10 +15,12 @@ import { TOGGLE_WISHLIST, selectWishlistItems } from "../../../redux/slice/wishl
 import { useDispatch, useSelector } from "react-redux";
 import { FaHeartBroken } from "react-icons/fa";
 import { BsFillHeartFill } from "react-icons/bs";
+import { ColorModeContext } from "../../../routers/AppRouter";
 
 const ProductDetails = () => {
 	const { id } = useParams();
 	const { addItem } = useCart();
+	const {colorMode}= useContext(ColorModeContext)
 
 	const dispatch = useDispatch();
 	const [product, setProduct] = useState(null);
@@ -59,9 +61,9 @@ const ProductDetails = () => {
 
 	return (
 		<section>
-			<div className={`container ${styles.product}`}>
+			<Container >
 				<div className="d-flex justify-content-between align-items-center my-3">
-					<h1>Product Details</h1>
+					<h1  className="my-2">Product Details</h1>
 					<div>
 						<Link to="/menu">&larr; Back To Menu</Link>
 					</div>
@@ -70,9 +72,9 @@ const ProductDetails = () => {
 					<Loader />
 				) : (
 					<>
-						<Card className=" overflow-hidden h-100 border-0">
+						<Card className={colorMode === `dark` ? `p-3 h-100 shadow bg-dark overflow-hidden border-0` : `p-3 h-100 shadow overflow-hiddenborder-0`}>  
 							<Row className="g-3 m-0 p-0">
-								<Col md={6} sm={12} lg={4} className="overflow-hidden border">
+								<Col md={6} sm={12} lg={4} className="overflow-hidden">
 									<Card.Img variant="top" className="object-fit-fit w-100" src={product.imageURL} alt={product.image} />
 								</Col>
 
@@ -103,7 +105,7 @@ const ProductDetails = () => {
 						</Card>
 					</>
 				)}
-			</div>
+			</Container>
 			<LeaveReview id={id} product={product} />
 			<Container className="my-3">
 				<h3>Product Reviews</h3>
@@ -114,7 +116,7 @@ const ProductDetails = () => {
 						{filteredReviews.map((item, index) => {
 							const { rate, review, reviewDate, userName } = item;
 							return (
-								<Card key={index} className="my-2">
+								<Card key={index} className={colorMode === `dark` ? `bg-dark my-2 ` : `my-2`}> 
 									<Card.Header className="d-flex justify-content-between align-items-center">
 										<b>{userName}</b> <StarsRating value={rate} />
 									</Card.Header>

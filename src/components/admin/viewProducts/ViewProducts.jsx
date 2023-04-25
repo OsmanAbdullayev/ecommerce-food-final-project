@@ -1,5 +1,5 @@
 import { deleteDoc, doc } from "firebase/firestore";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { db, storage } from "../../../firebase/config";
@@ -13,11 +13,13 @@ import { selectProducts, STORE_PRODUCTS } from "../../../redux/slice/productsSli
 import useFetchCollection from "../../../customHooks/useFetchCollection";
 import { FILTER, SET_CATEGORY, SET_PRICE, SET_SEARCH, SET_SORT, SET_SPICY, SET_VEGETARIAN, selectFilteredProducts, selectSearch } from "../../../redux/slice/filterSlice";
 import Search from "../../search/Search";
-import { Col, Row } from "react-bootstrap";
-import PaginationComponent from "../../PaginationComponent";
+import { Col, Row, Table } from "react-bootstrap";
+import PaginationComponent from "../../pagination/PaginationComponent";
+import { ColorModeContext } from "../../../routers/AppRouter";
 
 const ViewProducts = () => {
 	const dispatch = useDispatch();
+	const { colorMode } = useContext(ColorModeContext);
 
 	const { data, isLoading } = useFetchCollection("products");
 	const search = useSelector(selectSearch);
@@ -122,7 +124,7 @@ const ViewProducts = () => {
 				{currentProducts.length === 0 ? (
 					<p>No product found.</p>
 				) : (
-					<table>
+					<Table striped bordered hover variant={colorMode === `dark` ? `dark` : ``}>
 						<thead>
 							<tr>
 								<th>s/n</th>
@@ -156,7 +158,7 @@ const ViewProducts = () => {
 								);
 							})}
 						</tbody>
-					</table>
+					</Table>
 				)}
 				<PaginationComponent itemsCount={productsCount} itemsPerPage={productsPerPage} currentPage={currentPage} setCurrentPage={setCurrentPage} alwaysShown={false} />
 

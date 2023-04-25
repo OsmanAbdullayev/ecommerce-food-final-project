@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 import styles from "./Orders.module.scss";
+import { Table } from "react-bootstrap";
+import { ColorModeContext } from "../../../routers/AppRouter";
 
 const Orders = () => {
+	const {colorMode} = useContext(ColorModeContext)
 	const navigate = useNavigate();
 
 	const handleClick = () => {
@@ -20,7 +23,7 @@ const Orders = () => {
 				<br />
 				<>
 					<div className={styles.table}>
-						<table>
+					<Table striped bordered hover variant={colorMode === `dark` ? `dark` : ``}>	
 							<thead>
 								<tr>
 									<th>s/n</th>
@@ -104,7 +107,7 @@ const Orders = () => {
 									</td>
 								</tr>
 							</tbody>
-						</table>
+						</Table>
 					</div>
 				</>
 			</div>

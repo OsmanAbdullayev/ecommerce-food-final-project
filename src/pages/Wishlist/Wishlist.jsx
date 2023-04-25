@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { CALCULATE_TOTAL_QUANTITY, CLEAR_WISHLIST, REMOVE_FROM_WISHLIST, selectWishlistItems } from "../../redux/slice/wishlistSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
@@ -9,8 +9,10 @@ import { ToastContainer } from "react-toastify";
 import { BsTrashFill } from "react-icons/bs";
 import { FaCartPlus } from "react-icons/fa";
 import { useCart } from "react-use-cart";
+import { ColorModeContext } from "../../routers/AppRouter";
 
 const Wishlist = () => {
+	const { colorMode } = useContext(ColorModeContext);
 	const wishlistItems = useSelector(selectWishlistItems);
 	const { items } = useCart();
 
@@ -70,7 +72,7 @@ const Wishlist = () => {
 				</Button>
 			</section>
 			<div className="table-responsive-sm">
-				<Table>
+				<Table striped bordered hover variant={colorMode === `dark` ? `dark` : ``}>
 					<thead>
 						<tr className="align-middle text-center">
 							<th scope="col">#</th>
@@ -87,7 +89,7 @@ const Wishlist = () => {
 									{i + 1}
 								</th>
 								<td>
-									<img src={fd.imageURL} alt="error" className="shadow"></img>
+									<img src={fd.imageURL} alt="error"></img>
 								</td>
 								<td>
 									<h5 className="text-primary">{fd.name}</h5>

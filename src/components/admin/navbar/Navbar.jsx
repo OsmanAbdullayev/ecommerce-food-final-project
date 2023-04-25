@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { selectUserName } from "../../../redux/slice/authSlice";
 // import styles from "./Navbar.module.scss";
 import { CiUser } from "react-icons/ci";
 import { Button, ButtonGroup } from "react-bootstrap";
+import { ColorModeContext } from "../../../routers/AppRouter";
 
 
 
 const Navbar = () => {
+	const {colorMode} = useContext(ColorModeContext)
 	const userName = useSelector(selectUserName);
 	return (
 		<>
@@ -17,17 +19,19 @@ const Navbar = () => {
 				<h4 className="text-white mt-2">{userName}</h4>
 			</div>
 			<nav>
-				<ButtonGroup vertical className="w-100">
-					<Button as={NavLink} to="/admin/home" variant="light">
+
+				
+				<ButtonGroup vertical className="w-100" >
+					<Button as={NavLink} to="/admin/home" variant={colorMode === `dark` ? `dark` : `light`}>
 						&#8250; Home
 					</Button>
-					<Button as={NavLink} to="/admin/all-products" variant="light">
+					<Button as={NavLink} to="/admin/all-products" variant={colorMode === `dark` ? `dark` : `light`}>
 						&#8250; All Products
 					</Button>
-					<Button as={NavLink} to="/admin/add-product/ADD" variant="light">
+					<Button as={NavLink} to="/admin/add-product/ADD" variant={colorMode === `dark` ? `dark` : `light`}>
 						&#8250; Add Products
 					</Button>
-					<Button as={NavLink} to="/admin/orders" variant="light">
+					<Button as={NavLink} to="/admin/orders" variant={colorMode === `dark` ? `dark` : `light`}>
 						&#8250; Orders
 					</Button>
 				</ButtonGroup>

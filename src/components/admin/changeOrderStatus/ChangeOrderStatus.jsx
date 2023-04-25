@@ -1,16 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 // import { useNavigate } from "react-router-dom";
 
 import { Button, Card, Form } from "react-bootstrap";
+import { ColorModeContext } from "../../../routers/AppRouter";
 
 const ChangeOrderStatus = () => {
+	const { colorMode } = useContext(ColorModeContext);
+
 	const editOrder = (e) => {
 		e.preventDefault();
 		console.log("Form Submitted.");
 	};
 
 	return (
-		<Card className="shadow my-4">
+		<Card className={colorMode === `dark` ? `shadow my-4 bg-dark` : `shadow my-4 `}>
 			<Card.Body>
 				<Form onSubmit={(e) => editOrder(e)}>
 					<Form.Group>

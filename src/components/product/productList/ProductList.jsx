@@ -1,17 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { BsFillGridFill } from "react-icons/bs";
 import { FaListAlt } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { FILTER, selectCategory, selectFilteredProducts, selectSearch, selectSort, SET_CATEGORY, SET_SEARCH, SET_SORT } from "../../../redux/slice/filterSlice";
-import PaginationComponent from "../../PaginationComponent";
+import PaginationComponent from "../../pagination/PaginationComponent";
 import Search from "../../search/Search";
 import ProductItem from "../productItem/ProductItem";
 import { useTranslation } from "react-i18next";
+import { ColorModeContext } from "../../../routers/AppRouter";
 // import styles from "./ProductList.module.scss";
 
 const ProductList = ({ products }, props) => {
 	const { t } = useTranslation();
+	const { colorMode } = useContext(ColorModeContext);
 	const [grid, setGrid] = useState(true);
 	const filteredProducts = useSelector(selectFilteredProducts);
 	const productsCount = filteredProducts.length;
@@ -52,7 +54,7 @@ const ProductList = ({ products }, props) => {
 				</Col>
 
 				<Col className="my-1" lg={3} md={6} sm={6}>
-					<Form.Select onChange={(e) => dispatch(SET_SORT(e.target.value))}>
+					<Form.Select className={colorMode === `dark` ? `bg-dark text-white` : ``} onChange={(e) => dispatch(SET_SORT(e.target.value))}>
 						<option value="latest">{t(`sortby`)}</option>
 						<option value="latest">{t(`latest`)}</option>
 						<option value="lowest-price">{t(`lowestprice`)}</option>
@@ -69,7 +71,7 @@ const ProductList = ({ products }, props) => {
 
 				<Col className="my-1 d-flex justify-content-end align-items-center" lg={3} md={6} sm={6}>
 					<Button
-						className="me-2"
+						className={colorMode === `dark` ? `bg-dark text-white me-2` : `me-2`}
 						onClick={() => {
 							setGrid(true);
 						}}>
@@ -81,6 +83,7 @@ const ProductList = ({ products }, props) => {
 						/>
 					</Button>
 					<Button
+						className={colorMode === `dark` ? `bg-dark text-white ` : ``}
 						onClick={() => {
 							setGrid(false);
 						}}>

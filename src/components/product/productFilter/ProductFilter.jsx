@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { FILTER, SET_CATEGORY, SET_PRICE, SET_SPICY, SET_VEGETARIAN, selectCategory, selectMaxPriceFilter, selectSpicy, selectVegetarian } from "../../../redux/slice/filterSlice";
 import { selectMaxPrice, selectMinPrice, selectProducts } from "../../../redux/slice/productsSlice";
@@ -6,9 +6,11 @@ import { selectMaxPrice, selectMinPrice, selectProducts } from "../../../redux/s
 import { Button, ButtonGroup, Col, Form, Row } from "react-bootstrap";
 
 import { useTranslation } from "react-i18next";
+import { ColorModeContext } from "../../../routers/AppRouter";
 
 const ProductFilter = () => {
 	const { t } = useTranslation();
+	const { colorMode } = useContext(ColorModeContext);
 	const products = useSelector(selectProducts);
 	const minPrice = useSelector(selectMinPrice);
 	const maxPrice = useSelector(selectMaxPrice);
@@ -57,11 +59,10 @@ const ProductFilter = () => {
 			<div className="shadow p-2">
 				<Row>
 					<Col lg={12} md={12} xs={6} sm={12}>
-
 						<ButtonGroup vertical className="w-100">
 							{allCategories.map((cat, index) => {
 								return (
-									<Button variant="light" key={index} className={`${category}` === cat ? `active text-dark` : `text-dark`} onClick={() => dispatch(SET_CATEGORY(cat))}>
+									<Button variant={colorMode === `dark` ? `dark` : `light`} key={index} className={`${category}` === cat ? `active` : ``} onClick={() => dispatch(SET_CATEGORY(cat))}>
 										&#8250; {cat}
 									</Button>
 								);

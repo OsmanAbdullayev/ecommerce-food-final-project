@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { useCart } from "react-use-cart";
 import { NavLink, useNavigate } from "react-router-dom";
 import { confirmAlert } from "react-confirm-alert"; // Import
@@ -10,7 +10,9 @@ import { BsTrashFill } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { selectIsLoggedIn } from "../../redux/slice/authSlice";
 import { SAVE_URL } from "../../redux/slice/cartSlice";
+import { ColorModeContext } from "../../routers/AppRouter";
 const Cart = () => {
+	const {colorMode} = useContext(ColorModeContext)
 	const { isEmpty, totalUniqueItems, items, updateItemQuantity, removeItem, emptyCart, totalItems, cartTotal } = useCart();
 	const removed = () => toast("Item removed successfully!");
 
@@ -72,7 +74,7 @@ const Cart = () => {
 				</Button>
 			</section>
 			<div className="table-responsive-sm">
-				<Table>
+				<Table striped bordered hover variant={colorMode === `dark` ? `dark` : ``}>
 					<thead>
 						<tr className="align-middle text-center">
 							<th scope="col">#</th>
@@ -90,7 +92,7 @@ const Cart = () => {
 									{i + 1}
 								</th>
 								<td>
-									<img src={fd.imageURL} alt="error" className="shadow"></img>
+									<img src={fd.imageURL} alt="error"></img>
 								</td>
 								<td>
 									<h5 className="text-primary">{fd.name}</h5>

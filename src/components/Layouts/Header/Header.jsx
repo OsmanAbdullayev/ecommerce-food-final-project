@@ -208,8 +208,8 @@ function Header() {
 								</NavDropdown.Item>
 							</NavDropdown>
 
-							<Form className="d-flex align-items-start mt-2 mb-1">
-								<Form.Control type="search" value={searchedKeyword} onChange={(e) => dispatch(SET_SEARCH_KEYWORD(e.target.value))} placeholder={t(`search`)} className="me-2" aria-label="Search" list="search" />
+							<Form className="d-flex align-items-start  me-2 py-2 mx-1">
+								<Form.Control type="search" value={searchedKeyword} onChange={(e) => dispatch(SET_SEARCH_KEYWORD(e.target.value))} placeholder={t(`search`)} className={colorMode === `dark` ? `bg-dark me-2 ` : `me-2`} aria-label="Search" list="search" />
 								<datalist id="search">
 									{searchedProducts.map((item, key) => (
 										<option key={key} value={item.name} />
@@ -240,7 +240,7 @@ function Header() {
 								<h2 className={`${styles.number} text-start text-white`}>055 875 83 22</h2>
 							</Stack> */}
 
-							<Dropdown className="p-0 my-1">
+							<Dropdown className="p-0 my-1 py-2 mx-1">
 								<Dropdown.Toggle className={colorMode === "dark w-100" ? "" : "text-white w-100"} variant={colorMode === "dark" ? "outline-secondary " : "secondary "}>
 									<BsPerson size="1.4em" className="" />
 									{displayName.substring(0, 10)}
@@ -279,7 +279,7 @@ function Header() {
 									</ShowOnLogIn>
 								</Dropdown.Menu>
 							</Dropdown>
-							<nav className="w-100 d-flex justify-content-between align-items-center my-1">
+							<nav className="w-100 d-flex justify-content-between align-items-center my-1 py-2 mx-1">
 								<Button onClick={() => setExpanded(false)} as={NavLink} to="/wishlist" className={colorMode === "dark" ? "m-1 text-nowrap" : "text-white m-1 text-nowrap"} variant="transparent text-white">
 									<BsFillHeartFill /> <sup>{wishlistItems.length}</sup>
 								</Button>

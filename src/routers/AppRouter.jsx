@@ -25,7 +25,7 @@ import AdminOnlyRoute from "../components/adminOnlyRoute/AdminOnlyRoute";
 import ProductDetails from "../components/product/productDetails/productDetails";
 import CheckoutDetails from "../pages/Checkout/CheckoutDetails";
 import Checkout from "../pages/Checkout/Checkout";
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import Wishlist from "../pages/Wishlist/Wishlist";
 // import { useTranslation } from "react-i18next";
 
@@ -34,8 +34,24 @@ export const ColorModeContext = createContext();
 function App() {
 	const [colorMode, setColorMode] = useState("primary");
 
+	useEffect(() => {
+		const existingColorMode = localStorage.getItem("colorMode");
+		if (existingColorMode) {
+			existingColorMode === "dark" ? setColorMode("dark") : setColorMode("primary");
+		} else {
+			setColorMode("primary");
+			localStorage.setItem("colorMode", `primary`);
+		}
+	}, [setColorMode]);
+
 	const toggleColorMode = () => {
-		colorMode === "dark" ? setColorMode("primary") : setColorMode("dark");
+		if (colorMode === "dark") {
+			setColorMode("primary");
+			localStorage.setItem("colorMode", "primary");
+		} else {
+			setColorMode("dark");
+			localStorage.setItem("colorMode", "dark");
+		}
 	};
 
 	return (

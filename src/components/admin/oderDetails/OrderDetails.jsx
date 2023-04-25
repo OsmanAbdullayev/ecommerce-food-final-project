@@ -1,14 +1,16 @@
-import React from "react";
-import styles from "./OrderDetails.module.scss";
+import React, { useContext } from "react";
+
 import { Link } from "react-router-dom";
 import image from "../../../assets/img/menu/burgers-2-300x300.png";
 import ChangeOrderStatus from "../changeOrderStatus/ChangeOrderStatus";
-import { Col, Row } from "react-bootstrap";
+import { Col, Row, Table } from "react-bootstrap";
+import { ColorModeContext } from "../../../routers/AppRouter";
 
 const OrderDetails = () => {
+	const { colorMode } = useContext(ColorModeContext);
 	return (
 		<>
-			<div className={styles.table}>
+			<div  className="p-3">
 				<Row className="g-3">
 					<Col lg={6}>
 						<h2 className="my-2">Order Details</h2>
@@ -19,7 +21,7 @@ const OrderDetails = () => {
 						</div>
 					</Col>
 				</Row>
-				<Row>
+				<Row className="g-3">
 					<Col lg={6}>
 						<div className="mt-3">
 							<p className="m-0">
@@ -47,7 +49,7 @@ const OrderDetails = () => {
 						<ChangeOrderStatus className="p-0 m-0" />
 					</Col>
 					<Col lg={6}>
-						<table>
+					<Table striped bordered hover variant={colorMode === `dark` ? `dark` : ``}>
 							<thead>
 								<tr>
 									<th>s/n</th>
@@ -73,7 +75,7 @@ const OrderDetails = () => {
 									<td>190</td>
 								</tr>
 							</tbody>
-						</table>
+						</Table>
 					</Col>
 				</Row>
 			</div>

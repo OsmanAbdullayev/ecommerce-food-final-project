@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import Pagination from "react-bootstrap/Pagination";
 import PropTypes from "prop-types";
+import style from "./PaginationComponent.module.scss"
 // import { scrollToTop } from "../helpers/scroll";
 
 const PaginationComponent = ({ itemsCount, itemsPerPage, currentPage, setCurrentPage, alwaysShown = true }) => {
@@ -71,8 +72,9 @@ const PaginationComponent = ({ itemsCount, itemsPerPage, currentPage, setCurrent
 	return (
 		<>
 			{isPaginationShown && (
-				<Pagination className="justify-content-center my-3">
+				<Pagination className={`${style.pagination} justify-content-center my-3`}>
 					<Pagination.First
+		
 						onClick={() => {
 							setCurrentPage(1);
 						}}
