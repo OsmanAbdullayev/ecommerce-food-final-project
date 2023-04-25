@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { BsFillHeartFill } from "react-icons/bs";
 
 import { FaHeartBroken } from "react-icons/fa";
-import Loader from "../../loader/Loader";
 
 // import styles from "./ProductItem.module.scss";
 
