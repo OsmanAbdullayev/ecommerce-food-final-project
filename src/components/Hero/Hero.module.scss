@@ -1,0 +1,19 @@
+.captionBox {
+	background-color: rgba(0, 0, 0, 0.508);
+	left: 0px;
+	bottom: 0px;
+}
+
+@media only screen and (max-width: 768px) {
+	.image {
+		height: 25vh;
+		object-fit: cover;
+	}
+}
+
+@media only screen and (min-width: 768px) {
+	.image {
+		height: 45vh;
+		object-fit: cover;
+	}
+}

@@ -8,6 +8,7 @@ import { selectProducts } from "../../redux/slice/productsSlice";
 
 import { ColorModeContext } from "../../routers/AppRouter";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 const BestDeals = () => {
 	const { t } = useTranslation();
@@ -43,23 +44,25 @@ const BestDeals = () => {
 				{products.map((product) => {
 					if (product.discount) {
 						return (
-							<div key={product.id} className="h-100 p-3">
+							<div key={product.id} className="h-100 px-2 py-3">
 								<Card className={colorMode === "dark" ? `p-3 h-100 shadow bg-dark text-primary` : `p-3 h-100 shadow`}>
 									<Row className="g-0">
 										<Col md={6} className="d-flex flex-column justify-content-center align-items-start">
 											<Card.Body>
-												<Card.Title className="fs-5 text-danger fw-3">
+												<Card.Title className="fs-5 text-danger py-1 fw-3 text-center">
 													<h1>
-														{t(`save`)} {product.discount}%
+														{t(`save`)} <b>{product.discount}%</b>
 													</h1>
 												</Card.Title>
-												<Card.Subtitle>
-													<h3 className="p-0 m-0">{product.name}</h3>
+												<Card.Subtitle className="text-center py-1">
+													<h5 className="p-0 m-0">{product.name}</h5>
 												</Card.Subtitle>
 											</Card.Body>
 										</Col>
 										<Col md={6} className="overflow-hidden">
-											<Card.Img className="w-100" src={product.imageURL} alt={product.name} />
+											<Link to={`/product-details/${product.id}`}>
+												<Card.Img className="w-100" src={product.imageURL} alt={product.name} />
+											</Link>
 										</Col>
 									</Row>
 								</Card>

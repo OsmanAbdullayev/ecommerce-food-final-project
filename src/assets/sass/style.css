@@ -10865,7 +10865,8 @@ td img {
 }
 
 button {
-  word-break: break-all;
+  word-break: break-word;
+  white-space: nowrap;
 }
 
 .spinnerBootstrapContainer {
@@ -10883,6 +10884,21 @@ button {
 @media only screen and (max-width: 576px) {
   html {
     font-size: 12px;
+  }
+}
+@media only screen and (max-width: 769px) {
+  table {
+    font-size: 10px !important;
+  }
+  table button {
+    font-size: 8px !important;
+  }
+  table img {
+    width: 50px !important;
+    height: 50px !important;
+  }
+  table h5, table .h5 {
+    font-size: 12px !important;
   }
 }
 /* Large devices (laptops/desktops, 992px and up) -- This would display the text at 10.0rem on laptops and larger screens *//*# sourceMappingURL=style.css.map */

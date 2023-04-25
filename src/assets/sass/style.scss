@@ -69,7 +69,8 @@ td {
 }
 
 button {
-	word-break: break-all;
+	word-break: break-word;
+	white-space: nowrap;
 }
 // .card {
 // 	width: 300px;
@@ -90,6 +91,23 @@ button {
 @media only screen and (max-width: 576px) {
 	html {
 		font-size: 12px;
+	}
+}
+
+@media only screen and (max-width: 769px) {
+	table {
+		font-size: 10px !important;
+		button {
+			font-size: 8px !important;
+		}
+		img {
+			width: 50px !important;
+			height: 50px !important;
+		}
+
+		h5 {
+			font-size: 12px !important;
+		}
 	}
 }
 

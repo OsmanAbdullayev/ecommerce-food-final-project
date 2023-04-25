@@ -54,10 +54,10 @@ const ProductFilter = () => {
 
 	return (
 		<aside>
-			<h4 className="mt-4 mb-3 text-center">{t(`categories`)}</h4>
 			<div className="shadow p-2">
 				<Row>
 					<Col lg={12} md={12} xs={6} sm={12}>
+
 						<ButtonGroup vertical className="w-100">
 							{allCategories.map((cat, index) => {
 								return (

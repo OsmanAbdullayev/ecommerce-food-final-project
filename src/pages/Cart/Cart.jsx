@@ -93,7 +93,7 @@ const Cart = () => {
 									<img src={fd.imageURL} alt="error" className="shadow"></img>
 								</td>
 								<td>
-									<h3 className="text-primary">{fd.name}</h3>
+									<h5 className="text-primary">{fd.name}</h5>
 								</td>
 								<td className="align-middle">
 									<h5>${fd.price * fd.quantity}</h5>
