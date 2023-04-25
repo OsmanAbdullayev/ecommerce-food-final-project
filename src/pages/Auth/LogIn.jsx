@@ -14,16 +14,16 @@ const LogIn = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
-	
-  const previousURL = useSelector(selectPreviousURL);
-  const navigate = useNavigate();
 
-  const redirectUser = () => {
-    if (previousURL.includes("cart")) {
-      return navigate("/cart");
-    }
-    navigate("/");
-  };
+	const previousURL = useSelector(selectPreviousURL);
+	const navigate = useNavigate();
+
+	const redirectUser = () => {
+		if (previousURL.includes("cart")) {
+			return navigate("/cart");
+		}
+		navigate("/");
+	};
 
 	const logIn = (e) => {
 		e.preventDefault();
@@ -45,9 +45,9 @@ const LogIn = () => {
 		<div>
 			{isLoading && <Loader />}
 			<Container className="gradient">
-				<Row className="py-5">
+				<Row className="py-5 px-2">
 					<Col lg="6" sm="12" className="mb-5">
-						<div className="d-flex flex-column ms-5">
+						<div className="d-flex flex-column">
 							<div className="text-center">
 								<h4 className="mt-1 mb-5 pb-1">Welcome to Badam!</h4>
 							</div>

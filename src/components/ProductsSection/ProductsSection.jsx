@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
 import { Card, Col, Container, Nav, Row } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
-import BlackBurger from "../../assets/img/menu/burgers-1-300x300.png";
+import Burger from "../../assets/img/menu/burgers-2-300x300.png";
 import PepperoniPizza from "../../assets/img/menu/pizza-1-300x300.png";
-import VegetableSalad from "../../assets/img/menu/salad1-640x640.jpg";
-import NutellaCake from "../../assets/img/menu/dessert2-300x300.jpg";
-import CocaCola from "../../assets/img/menu/drinks1-300x300.jpg";
+import VegetableSalad from "../../assets/img/menu/salad1-640x640.png";
+import NutellaCake from "../../assets/img/menu/dessert2-300x300.png";
+import CocaCola from "../../assets/img/menu/drinks1-300x300.png";
 import { SET_CATEGORY } from "../../redux/slice/filterSlice";
 import { useDispatch } from "react-redux";
 
@@ -30,7 +30,7 @@ const ProductsSection = () => {
 							dispatch(SET_CATEGORY("Burger"));
 						}}>
 						<Card className={colorMode === "dark" ? `h-100 overflow-hidden shadow text-primary bg-dark` : `h-100 overflow-hidden shadow`}>
-							<Card.Img variant="top" src={BlackBurger} className="bg-light" />
+							<Card.Img variant="top" src={Burger}  />
 							<Card.Body>
 								<Card.Title className="text-center">{t(`burgers`)}</Card.Title>
 							</Card.Body>
@@ -46,7 +46,7 @@ const ProductsSection = () => {
 							dispatch(SET_CATEGORY("Pizza"));
 						}}>
 						<Card className={colorMode === "dark" ? `h-100 overflow-hidden shadow text-primary bg-dark` : `h-100 overflow-hidden shadow`}>
-							<Card.Img variant="top" src={PepperoniPizza} className="bg-light" />
+							<Card.Img variant="top" src={PepperoniPizza}  />
 							<Card.Body>
 								<Card.Title className="text-center">{t(`pizza`)}</Card.Title>
 							</Card.Body>

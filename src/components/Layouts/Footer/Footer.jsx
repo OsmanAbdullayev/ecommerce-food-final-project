@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./footer.module.scss"
+import styles from "./footer.module.scss";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { Container, Nav, Stack } from "react-bootstrap";
@@ -9,9 +9,8 @@ import { faFacebook, faInstagram, faTiktok, faYoutube } from "@fortawesome/free-
 import { NavLink } from "react-router-dom";
 
 const Footer = () => {
-
 	const date = new Date();
-	const year = date.getFullYear()
+	const year = date.getFullYear();
 	return (
 		<div className={styles.footer}>
 			<Container fluid className={styles.container}>
@@ -27,9 +26,9 @@ const Footer = () => {
 								<Nav.Link as={NavLink} to="/aboutus">
 									<p>About Us</p>
 								</Nav.Link>
-								<Nav.Link as={NavLink} to="/blog">
+								{/* <Nav.Link as={NavLink} to="/blog">
 									<p>Blog</p>
-								</Nav.Link>
+								</Nav.Link> */}
 								<Nav.Link as={NavLink} to="/contacts">
 									<p>Contacts</p>
 								</Nav.Link>
@@ -68,15 +67,14 @@ const Footer = () => {
 									<FontAwesomeIcon icon={faPhone} /> +994 55 875 83 22
 								</p>
 								<p>
-									<FontAwesomeIcon icon={faEnvelope} /> pizzario@gmail.com
+									<FontAwesomeIcon icon={faEnvelope} /> info@badam.az
 								</p>
 							</Stack>
 						</Col>
 
 						<Col sm={12} lg={3}>
-								<h3>Follow Us On</h3>
+							<h3>Follow Us On</h3>
 							<Stack direction="horizontal">
-
 								<h2 className="mx-2">
 									<FontAwesomeIcon icon={faFacebook} />
 								</h2>
@@ -96,15 +94,13 @@ const Footer = () => {
 				</div>
 				<Row className="px-5 py-2 bg-black text-white">
 					<Col sm={12} lg={6} className="text-start">
-					Designed by Osman Abdullayev
+						Developed by Osman Abdullayev
 					</Col>
 
 					<Col sm={12} lg={6} className="text-end">
-				Copyright &copy; {year} All rights reserved.
-					
+						Copyright &copy; {year} All rights reserved.
 					</Col>
 				</Row>
-				
 			</Container>
 		</div>
 	);
