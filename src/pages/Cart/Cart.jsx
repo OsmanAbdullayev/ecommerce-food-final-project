@@ -119,7 +119,7 @@ const Cart = () => {
 											<BsTrashFill />
 										</Button>
 									</Stack>
-										<ToastContainer position="bottom-center" autoClose={1000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="colored" />
+									<ToastContainer position="bottom-center" autoClose={1000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="colored" />
 								</td>
 							</tr>
 						))}
@@ -133,15 +133,16 @@ const Cart = () => {
 							<td>
 								<h3 className="text-danger">x{totalItems} </h3>
 							</td>
-							<td className="d-flex justify-content-around align-items-center flex-column">
-								<Button variant="secondary" className="fs-5 my-1 text-light text-nowrap w-100" onClick={checkout}>
-									Checkout
-								</Button>
-								<ToastContainer position="bottom-center" autoClose={1000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="colored" />
-							</td>
+							<td className="d-flex justify-content-around align-items-center flex-column"></td>
 						</tr>
 					</tbody>
 				</Table>
+				<div className="text-center">
+					<Button variant="secondary" className="my-3 text-light text-nowrap" onClick={checkout}>
+						Checkout
+					</Button>
+					<ToastContainer position="bottom-center" autoClose={1000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="colored" />
+				</div>
 			</div>
 		</Container>
 	);

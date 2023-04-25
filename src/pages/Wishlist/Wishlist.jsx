@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { BsTrashFill } from "react-icons/bs";
+import { FaCartPlus } from "react-icons/fa";
 import { useCart } from "react-use-cart";
 
 const Wishlist = () => {
@@ -89,7 +90,7 @@ const Wishlist = () => {
 									<img src={fd.imageURL} alt="error" className="shadow"></img>
 								</td>
 								<td>
-									<h3 className="text-primary">{fd.name}</h3>
+									<h5 className="text-primary">{fd.name}</h5>
 								</td>
 								<td className="align-middle">
 									<h5>${fd.price}</h5>
@@ -105,8 +106,8 @@ const Wishlist = () => {
 											}}>
 											<BsTrashFill />
 										</Button>
-										<Button variant="secondary" className=" text-light text-nowrap w-100" onClick={() => moveToCart(fd)}>
-											Move to Cart
+										<Button variant="secondary" className="fs-5 my-1 text-light text-nowrap w-100" onClick={() => moveToCart(fd)}>
+											<FaCartPlus />
 										</Button>
 									</Stack>
 								</td>
@@ -114,7 +115,7 @@ const Wishlist = () => {
 						))}
 						<tr className="text-center">
 							<td colSpan={5}>
-								<Button variant="secondary" className=" text-light text-nowrap " onClick={() => moveAllToCart(wishlistItems)}>
+								<Button variant="secondary" className="my-3 text-light text-nowrap " onClick={() => moveAllToCart(wishlistItems)}>
 									Move All to Cart
 								</Button>
 								<ToastContainer position="bottom-center" autoClose={1000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="colored" />

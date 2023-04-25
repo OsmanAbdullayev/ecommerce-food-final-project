@@ -10889,9 +10889,18 @@ button {
 @media only screen and (max-width: 769px) {
   table {
     font-size: 10px !important;
+    border-spacing: 0px !important;
+  }
+  table th,
+  table td {
+    padding: 0.5em !important;
   }
   table button {
-    font-size: 8px !important;
+    font-size: 10px !important;
+  }
+  table button svg {
+    height: 0.5em !important;
+    width: 0.5em !important;
   }
   table img {
     width: 50px !important;
