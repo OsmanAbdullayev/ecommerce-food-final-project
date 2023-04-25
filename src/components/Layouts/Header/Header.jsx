@@ -27,6 +27,7 @@ import { selectWishlistItems } from "../../../redux/slice/wishlistSlice";
 import { SEARCH_PRODUCT, SET_CATEGORY, SET_SEARCH, SET_SEARCH_KEYWORD, selectSearchKeyword, selectSearchedProducts } from "../../../redux/slice/filterSlice";
 import { selectProducts } from "../../../redux/slice/productsSlice";
 import { useTranslation } from "react-i18next";
+import { Spin as Hamburger } from "hamburger-react";
 // import i18next from "i18next";
 
 function Header() {
@@ -126,7 +127,7 @@ function Header() {
 	return (
 		<>
 			{isLoading && <Loader />}
-			<Navbar expanded={expanded} bg={colorMode} sticky="top" variant={colorMode} expand="lg" className="p-0 py-2">
+			<Navbar expanded={expanded} bg={colorMode} sticky="top" variant={colorMode} expand="lg" className="p-0 py-2" id="header">
 				<Container>
 					<Navbar.Brand as={NavLink} to="/" onClick={() => setExpanded(false)}>
 						<h1 className={colorMode === `dark` ? `text-primary  pb-1 m-0 d-flex justify-content-between align-items-start` : `text-white pb-1 m-0 d-flex justify-content-between align-items-start`}>
@@ -134,7 +135,17 @@ function Header() {
 							<span>Badam</span>
 						</h1>
 					</Navbar.Brand>
-					<Navbar.Toggle aria-controls="basic-navbar-nav" onClick={() => setExpanded(!expanded)} />
+					<Navbar.Toggle aria-controls="basic-navbar-nav" onClick={() => setExpanded(!expanded)}>
+						<Hamburger
+							size={20}
+							color="white"
+							hideOutline={true}
+							toggled={expanded}
+							toggle={(expanded) => {
+								setExpanded(!expanded);
+							}}
+						/>{" "}
+					</Navbar.Toggle>
 					<Navbar.Collapse id="basic-navbar-nav">
 						<Nav className="me-auto d-lg-flex align-items-lg-center">
 							{/* <Nav.Link as={NavLink} to="/">
@@ -209,7 +220,7 @@ function Header() {
 							</NavDropdown>
 
 							<Form className="d-flex align-items-start  me-2 py-2 mx-1">
-								<Form.Control type="search" value={searchedKeyword} onChange={(e) => dispatch(SET_SEARCH_KEYWORD(e.target.value))} placeholder={t(`search`)} className={colorMode === `dark` ? `bg-dark me-2 ` : `me-2`} aria-label="Search" list="search" />
+								<Form.Control type="search" value={searchedKeyword} onChange={(e) => dispatch(SET_SEARCH_KEYWORD(e.target.value))} placeholder={t(`search`)} className={colorMode === `dark` ? `bg-dark me-2 text-white ` : `me-2`} aria-label="Search" list="search" />
 								<datalist id="search">
 									{searchedProducts.map((item, key) => (
 										<option key={key} value={item.name} />
