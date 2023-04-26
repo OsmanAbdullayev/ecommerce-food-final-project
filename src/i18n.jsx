@@ -45,6 +45,7 @@ i18next
 					save: `Save`,
 					categories: `Categories`,
 					all: `All`,
+					addToCart: `Add To Cart`,
 				},
 			},
 			az: {
@@ -81,6 +82,8 @@ i18next
 					save: `Endirim:`,
 					categories: `Kateqoriyalar`,
 					all: `Hamısı`,
+					addToCart: `Səbətə Əlavə Et`,
+
 				},
 			},
 		},

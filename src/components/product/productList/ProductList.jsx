@@ -99,7 +99,7 @@ const ProductList = ({ products }, props) => {
 
 			{/* <div className={grid ? `${styles.grid}` : `${styles.list}`}> */}
 
-			<Row className="g-3 my-1">
+			<Row className="g-2 my-1">
 				{products.length === 0 ? (
 					<p>No product found.</p>
 				) : (

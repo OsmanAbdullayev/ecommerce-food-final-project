@@ -265,32 +265,32 @@ function Header() {
 
 								<Dropdown.Menu className={colorMode === `dark` ? `bg-dark` : ``}>
 									<ShowOnLogOut>
-										<Dropdown.Item  className={colorMode === `dark` ? `text-white` : ``} onClick={() => setExpanded(false)} as={NavLink} to="/login" >
+										<Dropdown.Item className={colorMode === `dark` ? `text-white` : ``} onClick={() => setExpanded(false)} as={NavLink} to="/login">
 											{t(`login`)}
 										</Dropdown.Item>
 									</ShowOnLogOut>
 
 									<ShowOnLogIn>
 										<AdminOnlyLink>
-											<Dropdown.Item  className={colorMode === `dark` ? `text-white` : ``} onClick={() => setExpanded(false)} as={NavLink} to="/admin/home" >
+											<Dropdown.Item className={colorMode === `dark` ? `text-white` : ``} onClick={() => setExpanded(false)} as={NavLink} to="/admin/home">
 												Admin Panel
 											</Dropdown.Item>
 										</AdminOnlyLink>
 									</ShowOnLogIn>
 
 									<ShowOnLogOut>
-										<Dropdown.Item  className={colorMode === `dark` ? `text-white` : ``} onClick={() => setExpanded(false)} as={NavLink} to="/signup" >
+										<Dropdown.Item className={colorMode === `dark` ? `text-white` : ``} onClick={() => setExpanded(false)} as={NavLink} to="/signup">
 											{t(`signup`)}
 										</Dropdown.Item>
 									</ShowOnLogOut>
 
 									<ShowOnLogIn>
 										<Dropdown.Item
+											className={colorMode === `dark` ? `text-white` : ``}
 											onClick={() => {
 												logOut();
 												setExpanded(false);
-											}}
-											variant={colorMode === "dark" ? "outline-primary " : "outline-light "}>
+											}}>
 											{t(`logout`)}
 										</Dropdown.Item>
 									</ShowOnLogIn>
@@ -321,9 +321,9 @@ function Header() {
 										checkedIcon={false}
 									/>
 								</div>
-								<div className="text-nowrap m-1  mx-2 ">
-									<Form.Select
-										aria-label="Default select example"
+								<div className="p-1 mx-2 ">
+									{/* <Form.Select
+										aria-label="Select Language"
 										defaultValue={currentLng}
 										className={colorMode === "dark" ? " bg-dark text-white " : "bg-secondary text-white"}
 										variant={colorMode === "dark" ? "outline-secondary " : "secondary "}
@@ -333,7 +333,30 @@ function Header() {
 										}}>
 										<option value="en">EN</option>
 										<option value="az">AZ</option>
-									</Form.Select>
+									</Form.Select> */}
+
+									<Dropdown>
+										<Dropdown.Toggle id="select-language" variant={colorMode === "dark" ? "dark text-white" : "secondary text-white"}>
+											{currentLng === `az` ? `AZ` : `EN`}
+										</Dropdown.Toggle>
+
+										<Dropdown.Menu align="start" variant={colorMode === `dark` ? `dark ` : `primary`} className="position-absolute">
+											<Dropdown.Item
+												onClick={() => {
+													handleLngChange("az");
+													setExpanded(false);
+												}}>
+												AZ
+											</Dropdown.Item>
+											<Dropdown.Item
+												onClick={() => {
+													handleLngChange("en");
+													setExpanded(false);
+												}}>
+												EN
+											</Dropdown.Item>
+										</Dropdown.Menu>
+									</Dropdown>
 								</div>
 							</nav>
 						</Nav>

@@ -88,7 +88,11 @@ button {
 	transform: translate(-50%, -50%);
 }
 
-@media only screen and (max-width: 576px) {
+.dropdown-menu {
+	min-width: 20px !important;
+}
+
+@media only screen and (max-width: 992px) {
 	html {
 		font-size: 12px;
 	}

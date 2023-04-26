@@ -6,6 +6,7 @@ import { ColorModeContext } from "../../../routers/AppRouter";
 import { TOGGLE_WISHLIST, selectWishlistItems } from "../../../redux/slice/wishlistSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { BsFillHeartFill } from "react-icons/bs";
+import { useTranslation } from "react-i18next";
 
 import { FaHeartBroken } from "react-icons/fa";
 
@@ -14,6 +15,7 @@ import { FaHeartBroken } from "react-icons/fa";
 const ProductItem = ({ product, grid, id, name, price, description, vegetarian, spicy, imageURL, discount, addProduct }) => {
 	const dispatch = useDispatch();
 	const { colorMode } = useContext(ColorModeContext);
+	const { t } = useTranslation();
 
 	const wishlistItems = useSelector(selectWishlistItems);
 	const [loaded, setLoaded] = useState(false);
@@ -39,7 +41,7 @@ const ProductItem = ({ product, grid, id, name, price, description, vegetarian, 
 	if (grid) {
 		return (
 			// <Card cardclass={grid ? `${styles.grid}` : ` ${styles.list}`}>
-			<Card className={colorMode === `dark` ? `p-1 h-100 shadow bg-dark ` : `p-1 h-100 shadow`}>
+			<Card className={colorMode === `dark` ? `p-0 h-100 shadow bg-dark ` : `p-0 h-100 shadow`}>
 				<Link to={`/product-details/${id}`} className="overflow-hidden">
 					{loaded ? null : (
 						<div className="spinnerBootstrapContainer d-flex justify-content-center align-items-center position-relative">
@@ -73,7 +75,7 @@ const ProductItem = ({ product, grid, id, name, price, description, vegetarian, 
 
 					<div className="d-flex justify-content-between align-items-center">
 						<Button variant="primary" onClick={() => addItem(addProduct)} className="text-white mt-3 text-nowrap">
-							Add to Cart
+							{t(`addToCart`)}
 						</Button>
 						<Button variant="primary" onClick={() => addToWishlist(addProduct)} className="text-white mt-3 text-nowrap">
 							{checkWishlist(product) ? <FaHeartBroken /> : <BsFillHeartFill />}
@@ -121,7 +123,7 @@ const ProductItem = ({ product, grid, id, name, price, description, vegetarian, 
 							</Row>
 							<div className="d-flex justify-content-between align-items-center w-100">
 								<Button variant="primary" onClick={() => addItem(addProduct)} className="text-white mt-3 text-nowrap">
-									Add to Cart
+									{t(`addToCart`)}
 								</Button>
 								<Button variant="primary" onClick={() => addToWishlist(addProduct)} className="text-white mt-3 text-nowrap">
 									{checkWishlist(product) ? <FaHeartBroken /> : <BsFillHeartFill />}
