@@ -168,6 +168,7 @@ i18next
 					followUsOn: `Follow us on`,
 					developedByOsmanAbdullayev: `Developed by Osman Abdullayev`,
 					allRightsReserved: `All Rights Reserved`,
+					removeFromCart: `Remove from Cart`
 				},
 			},
 			az: {
@@ -204,7 +205,7 @@ i18next
 					save: `Endirim:`,
 					categories: `Kateqoriyalar`,
 					all: `Hamısı`,
-					addToCart: `Səbətə Əlavə Et`,
+					addToCart: `Səbətə At`,
 					productDetails: `Məhsul haqqda məlumat`,
 					productCategory: `Məhsulun Kateqoriyası:`,
 					backToMenu: `Menyuya qayıt`,
@@ -327,6 +328,8 @@ i18next
 					followUsOn: `Bizi izləyin`,
 					developedByOsmanAbdullayev: `Bu veb-sayt Osman Abdullayev tərəfindən hazırlanıb`,
 					allRightsReserved: `Bütün hüquqlar qorunur`,
+					removeFromCart: `Səbətdan Çıxar`
+
 				},
 			},
 		},

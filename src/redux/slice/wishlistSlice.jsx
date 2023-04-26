@@ -19,18 +19,11 @@ const wishlistSlice = createSlice({
 				const newWishlistItem = state.wishlistItems.filter((item) => item.id !== action.payload.id);
 
 				state.wishlistItems = newWishlistItem;
-				console.log();
-				toast.success(`${action.payload.name} removed from wishlist`, {
-					position: "top-left",
-				});
 			} else {
 				// Item doesn't exists in the wishlist
 				// Add item to the wishlist
 				const tempProduct = { ...action.payload, wishlistQuantity: 1 };
 				state.wishlistItems.push(tempProduct);
-				toast.success(`${action.payload.name} added to wishlist`, {
-					position: "top-left",
-				});
 			}
 			// save wishlist to LS
 			localStorage.setItem("wishlistItems", JSON.stringify(state.wishlistItems));
@@ -47,8 +40,6 @@ const wishlistSlice = createSlice({
 
 			localStorage.setItem("wishlistItems", JSON.stringify(state.wishlistItems));
 		},
-
-	
 
 		CALCULATE_TOTAL_QUANTITY(state, action) {
 			const array = [];

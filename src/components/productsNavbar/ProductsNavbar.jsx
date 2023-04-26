@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Container, Nav } from "react-bootstrap";
-import { CiBurger, CiFries, CiGlass, CiPizza, CiWheat } from "react-icons/ci";
+import { CiBurger, CiCompass1, CiFries, CiGlass, CiPizza } from "react-icons/ci";
 import styles from "./ProductsNavbar.module.scss";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,55 +17,55 @@ const ProductsNavbar = () => {
 	return (
 		<Container fluid className={colorMode === `dark` ? `${styles.hidden} bg-dark` : `${styles.hidden} bg-primary`}>
 			<Container className={`${styles.productsNavbar}`}>
-				<div className={`${styles.row} py-2 d-flex justify-content-between`}>
+				<div className={`${styles.row} py-3 d-flex justify-content-between`}>
 					<Nav.Link
-						className={category === "Pizza" ? `${styles.active}  text-white` : ` ${styles.categories} text-white`}
+						className={category === "Pizza" ? `${styles.active}  text-white` : ` ${styles.categories} text-white d-flex justify-content-center align-items-center`}
 						as={Link}
 						onClick={() => {
 							dispatch(SET_CATEGORY("Pizza"));
 						}}
 						to="/menu">
-						<CiPizza size="3.5em" className={`${styles.icon}`} /> {t(`pizza`)}
+						<CiPizza size="4em" className={`${styles.icon} ${styles.productName}`} /> {t(`pizza`)}
 					</Nav.Link>
 
 					<Nav.Link
-						className={category === "Burger" ? `${styles.active}  text-white` : ` ${styles.categories} text-white`}
+						className={category === "Burger" ? `${styles.active}  text-white` : ` ${styles.categories} text-white d-flex justify-content-center align-items-center`}
 						as={Link}
 						onClick={() => {
 							dispatch(SET_CATEGORY("Burger"));
 						}}
 						to="/menu">
-						<CiBurger size="3.5em" className={`${styles.icon}`} /> 	{t(`burgers`)}
+						<CiBurger size="4em" className={`${styles.icon} ${styles.productName}`} /> {t(`burgers`)}
 					</Nav.Link>
 
 					<Nav.Link
-						className={category === "Side & Salads" ? `${styles.active}  text-white` : ` ${styles.categories} text-white`}
+						className={category === "Side & Salads" ? `${styles.active}  text-white` : ` ${styles.categories} text-white d-flex justify-content-center align-items-center`}
 						as={Link}
 						onClick={() => {
 							dispatch(SET_CATEGORY("Side & Salads"));
 						}}
 						to="/menu">
-						<CiFries size="3.5em" className={`${styles.icon}`} /> 	{t(`sidesandsalads`)}
+						<CiFries size="4em" className={`${styles.icon} ${styles.productName}`} /> {t(`sidesandsalads`)}
 					</Nav.Link>
 
 					<Nav.Link
-						className={category === "Desserts" ? `${styles.active}  text-white` : ` ${styles.categories} text-white`}
+						className={category === "Desserts" ? `${styles.active}  text-white` : ` ${styles.categories} text-white d-flex justify-content-center align-items-center`}
 						as={Link}
 						onClick={() => {
 							dispatch(SET_CATEGORY("Desserts"));
 						}}
 						to="/menu">
-						<CiWheat size="3.5em" className={`${styles.icon}`} /> 	{t(`desserts`)}
+						<CiCompass1 size="4em" className={`${styles.icon} ${styles.productName}`} /> {t(`desserts`)}
 					</Nav.Link>
 
 					<Nav.Link
-						className={category === "Drinks" ? `${styles.active}  text-white` : ` ${styles.categories} text-white`}
+						className={category === "Drinks" ? `${styles.active}  text-white` : ` ${styles.categories} text-white d-flex justify-content-center align-items-center`}
 						as={Link}
 						onClick={() => {
 							dispatch(SET_CATEGORY("Drinks"));
 						}}
 						to="/menu">
-						<CiGlass size="3.5em" className={`${styles.icon}`} /> 		{t(`drinks`)}
+						<CiGlass size="4em" className={`${styles.icon} ${styles.productName}`} /> {t(`drinks`)}
 					</Nav.Link>
 				</div>
 			</Container>

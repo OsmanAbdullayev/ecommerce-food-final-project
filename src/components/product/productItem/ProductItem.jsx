@@ -5,7 +5,7 @@ import { useCart } from "react-use-cart";
 import { ColorModeContext } from "../../../routers/AppRouter";
 import { TOGGLE_WISHLIST, selectWishlistItems } from "../../../redux/slice/wishlistSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { BsFillHeartFill } from "react-icons/bs";
+import { BsFillCartDashFill, BsFillHeartFill, BsHeart } from "react-icons/bs";
 import { useTranslation } from "react-i18next";
 
 import { FaHeartBroken } from "react-icons/fa";
@@ -14,6 +14,8 @@ import { FaHeartBroken } from "react-icons/fa";
 
 const ProductItem = ({ product, grid, id, name, price, description, vegetarian, spicy, imageURL, discount, addProduct }) => {
 	const dispatch = useDispatch();
+	const { addItem, removeItem, items } = useCart();
+
 	const { colorMode } = useContext(ColorModeContext);
 	const { t } = useTranslation();
 
@@ -22,6 +24,10 @@ const ProductItem = ({ product, grid, id, name, price, description, vegetarian, 
 
 	const checkWishlist = (product) => {
 		return wishlistItems.some((item) => item.id === product.id);
+	};
+
+	const checkCart = (product) => {
+		return items.some((item) => item.id === product.id);
 	};
 
 	const shortenText = (text, n) => {
@@ -35,8 +41,6 @@ const ProductItem = ({ product, grid, id, name, price, description, vegetarian, 
 	const addToWishlist = (wishlist) => {
 		dispatch(TOGGLE_WISHLIST(wishlist));
 	};
-
-	const { addItem } = useCart();
 
 	if (grid) {
 		return (
@@ -74,12 +78,25 @@ const ProductItem = ({ product, grid, id, name, price, description, vegetarian, 
 					</Row>
 
 					<div className="d-flex justify-content-between align-items-center">
-						<Button variant="primary" onClick={() => addItem(addProduct)} className="text-white mt-3 text-nowrap">
-							{t(`addToCart`)}
-						</Button>
-						<Button variant="primary" onClick={() => addToWishlist(addProduct)} className="text-white mt-3 text-nowrap">
-							{checkWishlist(product) ? <FaHeartBroken /> : <BsFillHeartFill />}
-						</Button>
+						{checkCart(product) ? (
+							<Button variant="primary" onClick={() => removeItem(id)} className="text-white mt-3 text-nowrap">
+								<BsFillCartDashFill size="1.3em" />
+							</Button>
+						) : (
+							<Button variant="primary" onClick={() => addItem(product)} className="text-white mt-3 text-nowrap">
+								{t(`addToCart`)}
+							</Button>
+						)}
+
+						{checkWishlist(product) ? (
+							<Button variant="primary" onClick={() => addToWishlist(product)} className="text-white mt-3 text-nowrap">
+								<BsFillHeartFill />
+							</Button>
+						) : (
+							<Button variant="primary" onClick={() => addToWishlist(product)} className="text-white mt-3 text-nowrap">
+								<BsHeart />
+							</Button>
+						)}
 					</div>
 				</Card.Body>
 			</Card>
@@ -122,12 +139,25 @@ const ProductItem = ({ product, grid, id, name, price, description, vegetarian, 
 								<Card.Text className="w-100">{shortenText(description, 300)}</Card.Text>
 							</Row>
 							<div className="d-flex justify-content-between align-items-center w-100">
-								<Button variant="primary" onClick={() => addItem(addProduct)} className="text-white mt-3 text-nowrap">
-									{t(`addToCart`)}
-								</Button>
-								<Button variant="primary" onClick={() => addToWishlist(addProduct)} className="text-white mt-3 text-nowrap">
-									{checkWishlist(product) ? <FaHeartBroken /> : <BsFillHeartFill />}
-								</Button>
+								{checkCart(product) ? (
+									<Button variant="primary" onClick={() => removeItem(id)} className="text-white mt-3 text-nowrap">
+										<BsFillCartDashFill size="1.3em" />
+									</Button>
+								) : (
+									<Button variant="primary" onClick={() => addItem(product)} className="text-white mt-3 text-nowrap">
+										{t(`addToCart`)}
+									</Button>
+								)}
+
+								{checkWishlist(product) ? (
+									<Button variant="primary" onClick={() => addToWishlist(product)} className="text-white mt-3 text-nowrap">
+										<BsFillHeartFill />
+									</Button>
+								) : (
+									<Button variant="primary" onClick={() => addToWishlist(product)} className="text-white mt-3 text-nowrap">
+										<BsHeart />
+									</Button>
+								)}
 							</div>
 						</Card.Body>
 					</Col>

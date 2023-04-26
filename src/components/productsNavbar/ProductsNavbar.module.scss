@@ -6,7 +6,7 @@
 		}
 
 		.categories {
-			opacity: 0.6;
+			opacity: 0.8;
 			transition: 0.2s;
 		
 			&:hover {
@@ -24,4 +24,11 @@
 	.hidden {
 		display: none;
 	}
+}
+
+
+.productName {
+	font-size: 0.8em;
+	margin-bottom: 0;
+	padding: 0;
 }
