@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { Card, Col, Container, Nav, Row } from "react-bootstrap";
+import React, { useContext, useState } from "react";
+import { Card, Col, Container, Nav, Row, Spinner } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import Burger from "../../assets/img/menu/burgers-2-300x300.png";
 import PepperoniPizza from "../../assets/img/menu/pizza-1-300x300.png";
@@ -15,6 +15,7 @@ import { useTranslation } from "react-i18next";
 const ProductsSection = () => {
 	const { t } = useTranslation();
 	const { colorMode } = useContext(ColorModeContext);
+	const [loaded, setLoaded] = useState(false);
 
 	const dispatch = useDispatch();
 	return (
@@ -30,7 +31,21 @@ const ProductsSection = () => {
 							dispatch(SET_CATEGORY("Burger"));
 						}}>
 						<Card className={colorMode === "dark" ? `h-100 overflow-hidden shadow text-primary bg-dark` : `h-100 overflow-hidden shadow`}>
-							<Card.Img variant="top" src={Burger}  />
+							{loaded ? null : (
+								<div className="spinnerBootstrapContainer d-flex justify-content-center align-items-center position-relative">
+									<div className="position-absolute spinnerBootstrapDiv">
+										<Spinner as={Card.Img} animation="border" variant="primary" />
+									</div>
+								</div>
+							)}
+							<Card.Img
+								style={loaded ? {} : { display: "none" }}
+								onLoad={() => {
+									setLoaded(true);
+								}}
+								variant="top"
+								src={Burger}
+							/>
 							<Card.Body>
 								<Card.Title className="text-center">{t(`burgers`)}</Card.Title>
 							</Card.Body>
@@ -46,7 +61,7 @@ const ProductsSection = () => {
 							dispatch(SET_CATEGORY("Pizza"));
 						}}>
 						<Card className={colorMode === "dark" ? `h-100 overflow-hidden shadow text-primary bg-dark` : `h-100 overflow-hidden shadow`}>
-							<Card.Img variant="top" src={PepperoniPizza}  />
+							<Card.Img variant="top" src={PepperoniPizza} />
 							<Card.Body>
 								<Card.Title className="text-center">{t(`pizza`)}</Card.Title>
 							</Card.Body>

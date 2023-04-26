@@ -1,4 +1,3 @@
-
 import { doc, getDoc } from "firebase/firestore";
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
@@ -9,7 +8,7 @@ import { useCart } from "react-use-cart";
 import LeaveReview from "../../Reviews/LeaveReview/LeaveReview";
 import Loader from "../../loader/Loader";
 import useFetchCollection from "../../../customHooks/useFetchCollection";
-import { Button, Card, Col, Container, Row } from "react-bootstrap";
+import { Button, Card, Col, Container, Row, Spinner } from "react-bootstrap";
 import StarsRating from "react-star-rate";
 import { TOGGLE_WISHLIST, selectWishlistItems } from "../../../redux/slice/wishlistSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,7 +19,8 @@ import { ColorModeContext } from "../../../routers/AppRouter";
 const ProductDetails = () => {
 	const { id } = useParams();
 	const { addItem } = useCart();
-	const {colorMode}= useContext(ColorModeContext)
+	const { colorMode } = useContext(ColorModeContext);
+	const [loaded, setLoaded] = useState(false);
 
 	const dispatch = useDispatch();
 	const [product, setProduct] = useState(null);
@@ -61,9 +61,9 @@ const ProductDetails = () => {
 
 	return (
 		<section>
-			<Container >
+			<Container>
 				<div className="d-flex justify-content-between align-items-center my-3">
-					<h1  className="my-2">Product Details</h1>
+					<h1 className="my-2">Product Details</h1>
 					<div>
 						<Link to="/menu">&larr; Back To Menu</Link>
 					</div>
@@ -72,10 +72,26 @@ const ProductDetails = () => {
 					<Loader />
 				) : (
 					<>
-						<Card className={colorMode === `dark` ? `p-3 h-100 shadow bg-dark overflow-hidden border-0` : `p-3 h-100 shadow overflow-hiddenborder-0`}>  
+						<Card className={colorMode === `dark` ? `p-3 h-100 shadow bg-dark overflow-hidden border-0` : `p-3 h-100 shadow overflow-hiddenborder-0`}>
 							<Row className="g-3 m-0 p-0">
 								<Col md={6} sm={12} lg={4} className="overflow-hidden">
-									<Card.Img variant="top" className="object-fit-fit w-100" src={product.imageURL} alt={product.image} />
+									{loaded ? null : (
+										<div className="spinnerBootstrapContainer d-flex justify-content-center align-items-center position-relative">
+											<div className="position-absolute spinnerBootstrapDiv">
+												<Spinner as={Card.Img} animation="border" variant="primary" />
+											</div>
+										</div>
+									)}
+									<Card.Img
+										style={loaded ? {} : { display: "none" }}
+										onLoad={() => {
+											setLoaded(true);
+										}}
+										variant="top"
+										className="object-fit-fit w-100"
+										src={product.imageURL}
+										alt={product.image}
+									/>
 								</Col>
 
 								<Col md={6} sm={12} lg={8} className="d-flex flex-column justify-content-center align-items-start">
@@ -116,7 +132,7 @@ const ProductDetails = () => {
 						{filteredReviews.map((item, index) => {
 							const { rate, review, reviewDate, userName } = item;
 							return (
-								<Card key={index} className={colorMode === `dark` ? `bg-dark my-2 ` : `my-2`}> 
+								<Card key={index} className={colorMode === `dark` ? `bg-dark my-2 ` : `my-2`}>
 									<Card.Header className="d-flex justify-content-between align-items-center">
 										<b>{userName}</b> <StarsRating value={rate} />
 									</Card.Header>

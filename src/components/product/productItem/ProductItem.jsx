@@ -13,8 +13,7 @@ import { FaHeartBroken } from "react-icons/fa";
 
 const ProductItem = ({ product, grid, id, name, price, description, vegetarian, spicy, imageURL, discount, addProduct }) => {
 	const dispatch = useDispatch();
-	const {colorMode} = useContext(ColorModeContext);
-
+	const { colorMode } = useContext(ColorModeContext);
 
 	const wishlistItems = useSelector(selectWishlistItems);
 	const [loaded, setLoaded] = useState(false);
@@ -85,11 +84,27 @@ const ProductItem = ({ product, grid, id, name, price, description, vegetarian, 
 		);
 	} else {
 		return (
-			<Card className={colorMode === `dark` ? `p-3 h-100 shadow bg-dark overflow-hidden ` : `p-3 h-100 shadow overflow-hidden `}> 
+			<Card className={colorMode === `dark` ? `p-3 h-100 shadow bg-dark overflow-hidden ` : `p-3 h-100 shadow overflow-hidden `}>
 				<Row className="g-0">
 					<Col md={4} className="overflow-hidden">
 						<Link to={`/product-details/${id}`} className="overflow-hidden w-100">
-							<Card.Img variant="top" className="object-fit-fit w-100 p-3 " src={imageURL} alt={name} />
+							{loaded ? null : (
+								<div className="spinnerBootstrapContainer d-flex justify-content-center align-items-center position-relative">
+									<div className="position-absolute spinnerBootstrapDiv">
+										<Spinner as={Card.Img} animation="border" variant="primary" />
+									</div>
+								</div>
+							)}
+							<Card.Img
+								style={loaded ? {} : { display: "none" }}
+								onLoad={() => {
+									setLoaded(true);
+								}}
+								variant="top"
+								className="object-fit-fit w-100 p-3 "
+								src={imageURL}
+								alt={name}
+							/>
 						</Link>
 					</Col>
 

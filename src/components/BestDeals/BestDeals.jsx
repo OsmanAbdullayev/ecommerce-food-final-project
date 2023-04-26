@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { Card, Col, Container, Row } from "react-bootstrap";
+import React, { useContext, useState } from "react";
+import { Card, Col, Container, Row, Spinner } from "react-bootstrap";
 
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 const BestDeals = () => {
 	const { t } = useTranslation();
 	const products = useSelector(selectProducts);
+	const [loaded, setLoaded] = useState(false);
 
 	const { colorMode } = useContext(ColorModeContext);
 
@@ -61,7 +62,22 @@ const BestDeals = () => {
 										</Col>
 										<Col md={6} className="overflow-hidden">
 											<Link to={`/product-details/${product.id}`}>
-												<Card.Img className="w-100" src={product.imageURL} alt={product.name} />
+												{loaded ? null : (
+													<div className="spinnerBootstrapContainer d-flex justify-content-center align-items-center position-relative">
+														<div className="position-absolute spinnerBootstrapDiv">
+															<Spinner as={Card.Img} animation="border" variant="primary" />
+														</div>
+													</div>
+												)}
+												<Card.Img
+													style={loaded ? {} : { display: "none" }}
+													onLoad={() => {
+														setLoaded(true);
+													}}
+													className="w-100"
+													src={product.imageURL}
+													alt={product.name}
+												/>
 											</Link>
 										</Col>
 									</Row>
