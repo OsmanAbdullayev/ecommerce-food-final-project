@@ -56,7 +56,7 @@ const ProductFilter = () => {
 
 	return (
 		<aside>
-			<div className="shadow p-2">
+			<div className="shadow p-2 my-3">
 				<Row>
 					<Col lg={12} md={12} xs={6} sm={12}>
 						<ButtonGroup vertical className="w-100">
