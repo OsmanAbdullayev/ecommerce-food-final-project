@@ -10,8 +10,10 @@ import { BsTrashFill } from "react-icons/bs";
 import { FaCartPlus } from "react-icons/fa";
 import { useCart } from "react-use-cart";
 import { ColorModeContext } from "../../routers/AppRouter";
+import { useTranslation } from "react-i18next";
 
 const Wishlist = () => {
+	const { t } = useTranslation();
 	const { colorMode } = useContext(ColorModeContext);
 	const wishlistItems = useSelector(selectWishlistItems);
 	const { items } = useCart();
@@ -54,21 +56,24 @@ const Wishlist = () => {
 
 	if (wishlistItems.length === 0)
 		return (
-			<h2 className="text-primary text-center p-5 mt-3">
+			<h2 className=" text-center p-5 mt-3">
 				{" "}
-				Your wishlist is empty. Please, visit{" "}
+				{t(`yourWishlistIsEmptyPleaseVisit`)}{" "}
 				<NavLink to="/menu" className="text-secondary">
-					Menu
+					{t(`menu`)}
 				</NavLink>{" "}
-				to choose products.
+				{t(`toChooseProducts`)}
 			</h2>
 		);
 	return (
 		<Container>
 			<section className="d-flex justify-content-center align-items-center mt-3 p-3">
-				<h2 className="text-primary text-center m-0">Total Wished Products: {wishlistItems.length}</h2>
+				<h2 className=" text-center m-0">
+					{t(`totalWishedProducts`)}
+					{wishlistItems.length}
+				</h2>
 				<Button variant="danger" className="fs-5 text-light mx-4" onClick={clearWishlist}>
-					Remove All Items
+					{t(`removeAllItems`)}
 				</Button>
 			</section>
 			<div className="table-responsive-sm">
@@ -76,10 +81,10 @@ const Wishlist = () => {
 					<thead>
 						<tr className="align-middle text-center">
 							<th scope="col">#</th>
-							<th scope="col">Product Photo</th>
-							<th scope="col">Product Name</th>
-							<th scope="col">Price</th>
-							<th scope="col">Action</th>
+							<th scope="col">{t(`productPhoto`)}</th>
+							<th scope="col">{t(`productName`)}</th>
+							<th scope="col">{t(`price`)}</th>
+							<th scope="col">{t(`actions`)}</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -92,7 +97,7 @@ const Wishlist = () => {
 									<img src={fd.imageURL} alt="error"></img>
 								</td>
 								<td>
-									<h5 className="text-primary">{fd.name}</h5>
+									<h5 className="">{fd.name}</h5>
 								</td>
 								<td className="align-middle">
 									<h5>${fd.price}</h5>
@@ -118,7 +123,7 @@ const Wishlist = () => {
 						<tr className="text-center">
 							<td colSpan={5}>
 								<Button variant="secondary" className="my-3 text-light text-nowrap " onClick={() => moveAllToCart(wishlistItems)}>
-									Move All to Cart
+									{t(`moveAllToCart`)}
 								</Button>
 								<ToastContainer position="bottom-center" autoClose={1000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="colored" />
 							</td>

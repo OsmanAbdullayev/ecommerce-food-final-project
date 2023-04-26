@@ -16,8 +16,10 @@ import Search from "../../search/Search";
 import { Col, Row, Table } from "react-bootstrap";
 import PaginationComponent from "../../pagination/PaginationComponent";
 import { ColorModeContext } from "../../../routers/AppRouter";
+import { useTranslation } from "react-i18next";
 
 const ViewProducts = () => {
+	const { t } = useTranslation();
 	const dispatch = useDispatch();
 	const { colorMode } = useContext(ColorModeContext);
 
@@ -69,10 +71,10 @@ const ViewProducts = () => {
 
 	const confirmDelete = (id, imageURL) => {
 		Notiflix.Confirm.show(
-			"Delete Product!!!",
-			"You are about to delete this product",
-			"Delete",
-			"Cancel",
+			t(`deleteProduct`),
+			t(`youAreAboutToDeleteThisProduct`),
+			t(`delete`),
+			t(`cancel`),
 			function okCb() {
 				deleteProduct(id, imageURL);
 			},
@@ -103,7 +105,7 @@ const ViewProducts = () => {
 		<>
 			{isLoading && <Loader />}
 			<div className={styles.table}>
-				<h1 className="text-center w-100 my-3">All Products</h1>
+				<h1 className="text-center w-100 my-3">{t(`allProducts`)}</h1>
 
 				<Row className="g-2 my-2">
 					<Col lg={6} sm={12}>
@@ -116,23 +118,23 @@ const ViewProducts = () => {
 					</Col>
 					<Col lg={6} sm={12} className="text-center">
 						<p>
-							<b>{filteredProducts.length}</b> products found
+							<b>{filteredProducts.length}</b> {t(`productsFound`)}
 						</p>
 					</Col>
 				</Row>
 
 				{currentProducts.length === 0 ? (
-					<p>No product found.</p>
+					<p>{t(`noProductFound`)}.</p>
 				) : (
 					<Table striped bordered hover variant={colorMode === `dark` ? `dark` : ``}>
 						<thead>
 							<tr>
 								<th>s/n</th>
-								<th>Image</th>
-								<th>Name</th>
-								<th>Category</th>
-								<th>Price</th>
-								<th>Actions</th>
+								<th>{t(`image`)}</th>
+								<th>{t(`name`)}</th>
+								<th>{t(`category`)}</th>
+								<th>{t(`price`)}</th>
+								<th>{t(`actions`)}</th>
 							</tr>
 						</thead>
 						<tbody>

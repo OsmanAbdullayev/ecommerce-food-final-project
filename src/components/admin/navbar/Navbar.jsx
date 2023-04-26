@@ -6,8 +6,10 @@ import { selectUserName } from "../../../redux/slice/authSlice";
 import { CiUser } from "react-icons/ci";
 import { Button, ButtonGroup } from "react-bootstrap";
 import { ColorModeContext } from "../../../routers/AppRouter";
+import { useTranslation } from "react-i18next";
 
 const Navbar = () => {
+	const { t } = useTranslation();
 	const { colorMode } = useContext(ColorModeContext);
 	const userName = useSelector(selectUserName);
 	return (
@@ -19,16 +21,16 @@ const Navbar = () => {
 			<nav>
 				<ButtonGroup vertical className="w-100">
 					<Button as={NavLink} to="/admin/home" variant={colorMode === `dark` ? `dark` : `light`}>
-						&#8250; Home
+						&#8250; {t(`home`)}
 					</Button>
 					<Button as={NavLink} to="/admin/all-products" variant={colorMode === `dark` ? `dark` : `light`}>
-						&#8250; All Products
+						&#8250; {t(`allProducts`)}
 					</Button>
 					<Button as={NavLink} to="/admin/add-product/ADD" variant={colorMode === `dark` ? `dark` : `light`}>
-						&#8250; Add Products
+						&#8250; {t(`addProducts`)}
 					</Button>
 					<Button as={NavLink} to="/admin/orders" variant={colorMode === `dark` ? `dark` : `light`}>
-						&#8250; Orders
+						&#8250; {t(`orders`)}
 					</Button>
 				</ButtonGroup>
 			</nav>

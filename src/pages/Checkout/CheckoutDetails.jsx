@@ -6,6 +6,7 @@ import { SAVE_BILLING_ADDRESS, SAVE_SHIPPING_ADDRESS } from "../../redux/slice/c
 import { Button, Col, Container, Form, Row, Stack } from "react-bootstrap";
 import CheckoutSummary from "../../components/CheckoutSummary/CheckoutSummary.jsx";
 import { useCart } from "react-use-cart";
+import { useTranslation } from "react-i18next";
 
 const initialAddressState = {
 	name: "",
@@ -19,6 +20,7 @@ const initialAddressState = {
 };
 
 const CheckoutDetails = () => {
+	const { t } = useTranslation();
 	const [shippingAddress, setShippingAddress] = useState({
 		...initialAddressState,
 	});
@@ -58,7 +60,7 @@ const CheckoutDetails = () => {
 	return (
 		<section>
 			<Container>
-				<h1 className="my-4 text-center">Checkout Details</h1>
+				<h1 className="my-4 text-center">{t(`checkoutDetails`)}</h1>
 				<Form onSubmit={handleSubmit} className="m-3">
 					<Row>
 						<Col lg={8} md={8} sm={12}>
@@ -66,37 +68,37 @@ const CheckoutDetails = () => {
 								<Col lg={6} md={12} sm={12}>
 									{/* Shipping  */}
 
-									<h3>Shipping Address</h3>
+									<h3>{t(`shippingAddress`)}</h3>
 
 									<Form.Group className="my-3">
-										<Form.Label>Recipient Name</Form.Label>
+										<Form.Label>{t(`recipientName`)}</Form.Label>
 										<Form.Control type="text" placeholder="Recipient Name" name="name" value={shippingAddress.name} onChange={(e) => handleShipping(e)} />
 									</Form.Group>
 
 									<Form.Group className="my-3">
-										<Form.Label>Address line 1</Form.Label>
+										<Form.Label>{t(`addressLine`)} 1</Form.Label>
 										<Form.Control type="text" placeholder="Address line 1" name="line1" value={shippingAddress.line1} onChange={(e) => handleShipping(e)} />
 									</Form.Group>
 									<Form.Group className="my-3">
-										<Form.Label>Address line 2</Form.Label>
+										<Form.Label>{t(`addressLine`)} 2</Form.Label>
 										<Form.Control type="text" placeholder="Address line 2" name="line2" value={shippingAddress.line2} onChange={(e) => handleShipping(e)} />
 									</Form.Group>
 									<Form.Group className="my-3">
-										<Form.Label>City</Form.Label>
+										<Form.Label>{t(`city`)}</Form.Label>
 										<Form.Control type="text" placeholder="City" name="city" value={shippingAddress.city} onChange={(e) => handleShipping(e)} />
 									</Form.Group>
 									<Form.Group className="my-3">
-										<Form.Label>State</Form.Label>
+										<Form.Label>{t(`state`)}</Form.Label>
 										<Form.Control type="text" placeholder="State" name="state" value={shippingAddress.state} onChange={(e) => handleShipping(e)} />
 									</Form.Group>
 									<Form.Group className="my-3">
-										<Form.Label>Postal code</Form.Label>
+										<Form.Label>{t(`zip`)}</Form.Label>
 										<Form.Control type="text" placeholder="Postal code" name="postal_code" value={shippingAddress.postal_code} onChange={(e) => handleShipping(e)} />
 									</Form.Group>
 									{/* COUNTRY INPUT */}
 									<Form.Group className="my-3">
 										<Stack>
-											<Form.Label>Country</Form.Label>
+											<Form.Label>{t(`Country`)}</Form.Label>
 											<CountryDropdown
 												valueType="short"
 												value={shippingAddress.country}
@@ -112,8 +114,8 @@ const CheckoutDetails = () => {
 										</Stack>
 									</Form.Group>
 									<Form.Group className="my-3">
-										<Form.Label>Phone</Form.Label>
-										<Form.Control type="text" placeholder="Phone" name="phone" value={shippingAddress.phone} onChange={(e) => handleShipping(e)} />
+										<Form.Label>{t(`phone`)}</Form.Label>
+										<Form.Control type="text" placeholder={t(`phone`)} name="phone" value={shippingAddress.phone} onChange={(e) => handleShipping(e)} />
 									</Form.Group>
 								</Col>
 
@@ -121,36 +123,36 @@ const CheckoutDetails = () => {
 									{/* BILLING ADDRESS */}
 
 									<div>
-										<h3>Billing Address</h3>
+										<h3>{t(`billingAddress`)}</h3>
 										<Form.Group className="my-3">
-											<Form.Label>Recipient Name</Form.Label>
+											<Form.Label>{t(`recipientName`)}</Form.Label>
 											<Form.Control type="text" placeholder="Name" name="name" value={billingAddress.name} onChange={(e) => handleBilling(e)} />
 										</Form.Group>
 										<Form.Group className="my-3">
-											<Form.Label>Address line 1</Form.Label>
+											<Form.Label>{t(`addressLine`)} 1</Form.Label>
 											<Form.Control type="text" placeholder="Address line 1" name="line1" value={billingAddress.line1} onChange={(e) => handleBilling(e)} />
 										</Form.Group>
 										<Form.Group className="my-3">
-											<Form.Label>Address line 2</Form.Label>
+											<Form.Label>{t(`addressLine`)} 2</Form.Label>
 											<Form.Control type="text" placeholder="Address line 2" name="line2" value={billingAddress.line2} onChange={(e) => handleBilling(e)} />
 										</Form.Group>
 										<Form.Group className="my-3">
-											<Form.Label>City</Form.Label>
+											<Form.Label>{t(`city`)}</Form.Label>
 											<Form.Control type="text" placeholder="City" name="city" value={billingAddress.city} onChange={(e) => handleBilling(e)} />
 										</Form.Group>
 										<Form.Group className="my-3">
-											<Form.Label>State</Form.Label>
+											<Form.Label>{t(`state`)}</Form.Label>
 											<Form.Control type="text" placeholder="State" name="state" value={billingAddress.state} onChange={(e) => handleBilling(e)} />
 										</Form.Group>
 										<Form.Group className="my-3">
-											<Form.Label>Postal code</Form.Label>
+											<Form.Label>{t(`zip`)}</Form.Label>
 											<Form.Control type="text" placeholder="Postal code" name="postal_code" value={billingAddress.postal_code} onChange={(e) => handleBilling(e)} />
 										</Form.Group>
 									</div>
 									{/* COUNTRY INPUT */}
 									<Form.Group className="my-3">
 										<Stack>
-											<Form.Label>Country</Form.Label>
+											<Form.Label>{t(`country`)}</Form.Label>
 											<CountryDropdown
 												valueType="short"
 												value={billingAddress.country}
@@ -166,14 +168,14 @@ const CheckoutDetails = () => {
 										</Stack>
 									</Form.Group>
 									<Form.Group className="my-3">
-										<Form.Label>Phone</Form.Label>
-										<Form.Control type="text" placeholder="Phone" name="phone" value={billingAddress.phone} onChange={(e) => handleBilling(e)} />
+										<Form.Label>{t(`phone`)}</Form.Label>
+										<Form.Control type="text" placeholder={t(`phone`)} name="phone" value={billingAddress.phone} onChange={(e) => handleBilling(e)} />
 									</Form.Group>
 								</Col>
 								<Col lg={12}>
 									<div className="text-center">
 										<Button type="submit" variant="primary" className="text-nowrap ">
-											Proceed To Checkout
+											{t(`proceedToCheckout`)}
 										</Button>
 									</div>
 								</Col>

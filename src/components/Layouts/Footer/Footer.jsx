@@ -7,8 +7,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock, faEnvelope, faLocationDot, faPhone } from "@fortawesome/free-solid-svg-icons";
 import { faFacebook, faInstagram, faTiktok, faYoutube } from "@fortawesome/free-brands-svg-icons";
 import { NavLink } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const Footer = () => {
+	const { t } = useTranslation();
 	const date = new Date();
 	const year = date.getFullYear();
 	return (
@@ -18,50 +20,50 @@ const Footer = () => {
 					<Row className="text-white">
 						<Col sm={12} lg={3}>
 							<Stack>
-								<h3>Information</h3>
+								<h3> {t(`information`)} </h3>
 
 								<Nav.Link as={NavLink} to="/">
-									<p>Home</p>
+									<p> {t(`home`)} </p>
 								</Nav.Link>
 								<Nav.Link as={NavLink} to="/aboutus">
-									<p>About Us</p>
+									<p>{t(`aboutUs`)}</p>
 								</Nav.Link>
 								{/* <Nav.Link as={NavLink} to="/blog">
-									<p>Blog</p>
+									<p> {t(`blog`)} </p>
 								</Nav.Link> */}
 								<Nav.Link as={NavLink} to="/contacts">
-									<p>Contacts</p>
+									<p> {t(`contacts`)} </p>
 								</Nav.Link>
 								<Nav.Link as={NavLink} to="/menu">
-									<p>Menu</p>
+									<p>{t(`menu`)}</p>
 								</Nav.Link>
 							</Stack>
 						</Col>
 
 						<Col sm={12} lg={3}>
 							<Stack>
-								<h3>Extras</h3>
+								<h3>{t(`extras`)} </h3>
 
 								<Nav.Link as={NavLink} to="/">
-									<p>Business Inquiries</p>
+									<p>{t(`businessInquiries`)}</p>
 								</Nav.Link>
 								<Nav.Link as={NavLink} to="/">
-									<p>Privacy Policy</p>
+									<p>{t(`privacyPolicy`)}</p>
 								</Nav.Link>
 								<Nav.Link as={NavLink} to="/">
-									<p>Terms and Conditions</p>
+									<p>{t(`termsAndConditions`)}</p>
 								</Nav.Link>
 							</Stack>
 						</Col>
 
 						<Col sm={12} lg={3}>
 							<Stack>
-								<h3>Get In Touch</h3>
+								<h3>{t(`getInTouch`)}</h3>
 								<p>
-									<FontAwesomeIcon icon={faClock} /> Mon.-Sun. 10:00-23:00
+									<FontAwesomeIcon icon={faClock} /> {t(`mon`)}.-{t(`sun`)}. 10:00-23:00
 								</p>
 								<p>
-									<FontAwesomeIcon icon={faLocationDot} /> Azadliq avenue, 37
+									<FontAwesomeIcon icon={faLocationDot} /> {t(`azadliq`)} {t(`avenue`)}, 37
 								</p>
 								<p>
 									<FontAwesomeIcon icon={faPhone} /> +994 55 875 83 22
@@ -73,7 +75,7 @@ const Footer = () => {
 						</Col>
 
 						<Col sm={12} lg={3}>
-							<h3>Follow Us On</h3>
+							<h3>{t(`followUsOn`)}</h3>
 							<Stack direction="horizontal">
 								<h2 className="mx-2">
 									<FontAwesomeIcon icon={faFacebook} />
@@ -94,11 +96,11 @@ const Footer = () => {
 				</div>
 				<Row className="px-5 py-2 bg-black text-white">
 					<Col sm={12} lg={6} className="text-start">
-						Developed by Osman Abdullayev
+						{t(`developedByOsmanAbdullayev`)}.
 					</Col>
 
 					<Col sm={12} lg={6} className="text-end">
-						Copyright &copy; {year} All rights reserved.
+						Copyright &copy; {year} {t(`allRightsReserved`)}.
 					</Col>
 				</Row>
 			</Container>

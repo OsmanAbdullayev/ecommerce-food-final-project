@@ -15,8 +15,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { FaHeartBroken } from "react-icons/fa";
 import { BsFillHeartFill } from "react-icons/bs";
 import { ColorModeContext } from "../../../routers/AppRouter";
+import { useTranslation } from "react-i18next";
 
 const ProductDetails = () => {
+	const { t } = useTranslation();
+
 	const { id } = useParams();
 	const { addItem } = useCart();
 	const { colorMode } = useContext(ColorModeContext);
@@ -63,9 +66,9 @@ const ProductDetails = () => {
 		<section>
 			<Container>
 				<div className="d-flex justify-content-between align-items-center my-3">
-					<h1 className="my-2">Product Details</h1>
+					<h1 className="my-2">{t(`productDetails`)}</h1>
 					<div>
-						<Link to="/menu">&larr; Back To Menu</Link>
+						<Link to="/menu">&larr; {t(`backToMenu`)}</Link>
 					</div>
 				</div>
 				{product === null ? (
@@ -109,7 +112,7 @@ const ProductDetails = () => {
 										</Row>
 										<div className="d-flex justify-content-between align-items-center w-100">
 											<Button variant="primary" onClick={() => addItem(product)} className="text-white mt-3 text-nowrap">
-												Add to Cart
+												{t(`addToCart`)}
 											</Button>
 											<Button variant="primary" onClick={() => addToWishlist(product)} className="text-white mt-3 text-nowrap">
 												{checkWishlist(product) ? <FaHeartBroken /> : <BsFillHeartFill />}
@@ -124,7 +127,7 @@ const ProductDetails = () => {
 			</Container>
 			<LeaveReview id={id} product={product} />
 			<Container className="my-3">
-				<h3>Product Reviews</h3>
+				<h3>{t(`productReviews`)}</h3>
 				{filteredReviews.length === 0 ? (
 					<p>There are no reviews for this product yet. </p>
 				) : (

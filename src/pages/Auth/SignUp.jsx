@@ -6,8 +6,10 @@ import { toast } from "react-toastify";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase/config";
 import Loader from "../../components/loader/Loader";
+import { useTranslation } from "react-i18next";
 
 const SignUp = () => {
+	const { t } = useTranslation();
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [cPassword, setCPassword] = useState("");
@@ -18,7 +20,7 @@ const SignUp = () => {
 	const signUpUser = (e) => {
 		e.preventDefault();
 		if (password !== cPassword) {
-			toast.error("Passwords do not match.");
+			toast.error(t(`passwordsDoNotMatch`));
 		} else {
 			setIsLoading(true);
 			createUserWithEmailAndPassword(auth, email, password)
@@ -43,64 +45,64 @@ const SignUp = () => {
 				<Row className="justify-content-center">
 					<Col lg={6} sm={12}>
 						<div className="text-center">
-							<h2 className="mb-4">Please, fill in your details</h2>
+							<h2 className="mb-4">{t(`pleaseFillInYourDetails`)}</h2>
 						</div>
 
 						<Form onSubmit={signUpUser}>
 							<Form.Group className="mb-3" controlId="formGridEmail">
 								<Form.Label>Email</Form.Label>
-								<Form.Control required type="email" placeholder="Enter email" value={email} onChange={(e) => setEmail(e.target.value)} />
+								<Form.Control required type="email" placeholder={t(`email`)} value={email} onChange={(e) => setEmail(e.target.value)} />
 							</Form.Group>
 
 							<Row className="mb-3">
 								<Form.Group as={Col} controlId="formGridPassword">
-									<Form.Label>Password</Form.Label>
-									<Form.Control required type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+									<Form.Label>{t(`password`)}</Form.Label>
+									<Form.Control required type="password" placeholder={t(`password`)} value={password} onChange={(e) => setPassword(e.target.value)} />
 								</Form.Group>
 
 								<Form.Group as={Col} controlId="formGridConfirmPassword">
-									<Form.Label>Confirm Password</Form.Label>
-									<Form.Control required type="password" placeholder="Confirm Password" value={cPassword} onChange={(e) => setCPassword(e.target.value)} />
+									<Form.Label>{t(`confirmPassword`)}</Form.Label>
+									<Form.Control required type="password" placeholder={t(`confirmPassword`)} value={cPassword} onChange={(e) => setCPassword(e.target.value)} />
 								</Form.Group>
 							</Row>
 
 							<Form.Group className="mb-3" controlId="formGridAddress1">
-								<Form.Label>Address</Form.Label>
+								<Form.Label>{t(`address`)}</Form.Label>
 								<Form.Control placeholder="1234 Main St" />
 							</Form.Group>
 
 							<Form.Group className="mb-3" controlId="formGridAddress2">
-								<Form.Label>Address 2</Form.Label>
+								<Form.Label>{t(`address`)} 2</Form.Label>
 								<Form.Control placeholder="Apartment, studio, or floor" />
 							</Form.Group>
 
 							<Row className="mb-3">
 								<Form.Group as={Col} controlId="formGridCity">
-									<Form.Label>City</Form.Label>
+									<Form.Label>{t(`city`)}</Form.Label>
 									<Form.Control />
 								</Form.Group>
 
 								<Form.Group as={Col} controlId="formGridCountry">
-									<Form.Label>Country</Form.Label>
+									<Form.Label>{t(`country`)}</Form.Label>
 									<Form.Control />
 								</Form.Group>
 
 								<Form.Group as={Col} controlId="formGridZip">
-									<Form.Label>Zip</Form.Label>
+									<Form.Label>{t(`zip`)}</Form.Label>
 									<Form.Control />
 								</Form.Group>
 							</Row>
 
 							<div className="text-center">
 								<Button variant="primary" type="submit">
-									Sign Up
+									{t(`signup`)}
 								</Button>
 							</div>
 						</Form>
 						<div className="d-flex flex-row align-items-center justify-content-center my-4">
-							<p className="mb-0">Already have an account?</p>
+							<p className="mb-0">{t(`alreadyHaveAnAccountQ`)}</p>
 							<Button as={NavLink} to="/login" className="mx-2 text-white" color="danger" variant="secondary">
-								Log In
+								{t(`login`)}
 							</Button>
 						</div>
 					</Col>

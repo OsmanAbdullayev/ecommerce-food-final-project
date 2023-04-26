@@ -1,8 +1,7 @@
 import React from "react";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from "chart.js";
 import { Bar } from "react-chartjs-2";
-
-
+import { useTranslation } from "react-i18next";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -21,14 +20,13 @@ export const options = {
 
 const Chart = () => {
 	// Create a new array of order status
-
-
+	const { t } = useTranslation();
 
 	const data = {
-		labels: ["Placed Orders", "Processing", "Shipped", "Delivered"],
+		labels: [t(`placedOrders`), t(`processing`), t(`shipped`), t(`delivered`)],
 		datasets: [
 			{
-				label: "Order count",
+				label: t(`orderCount`),
 				data: [453, 32, 56, 235],
 				backgroundColor: "rgba(255, 99, 132, 0.5)",
 			},
@@ -36,12 +34,10 @@ const Chart = () => {
 	};
 
 	return (
-	
-					<div className="text-center p-3">
-						<h3 className="my-3">Order Status Chart</h3>
-						<Bar options={options} data={data} />
-					</div>
-
+		<div className="text-center p-3">
+			<h3 className="my-3"> {t(`oderStatusChart`)} </h3>
+			<Bar options={options} data={data} />
+		</div>
 	);
 };
 

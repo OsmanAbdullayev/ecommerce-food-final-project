@@ -9,43 +9,46 @@ import { useNavigate, useParams } from "react-router";
 import Loader from "../../loader/Loader";
 import { useSelector } from "react-redux";
 import { selectProducts } from "../../../redux/slice/productsSlice";
-
-const categories = [
-	{
-		id: 1,
-		name: "Burger",
-	},
-	{
-		id: 2,
-		name: "Pizza",
-	},
-	{
-		id: 3,
-		name: "Side & Salads",
-	},
-	{
-		id: 4,
-		name: "Desserts",
-	},
-	{
-		id: 5,
-		name: "Drinks",
-	},
-];
-
-const initialState = {
-	name: "",
-	imageURL: "",
-	category: "",
-	description: "",
-	price: 0,
-	quantity: 0,
-	discount: 0,
-	vegetarian: false,
-	spicy: false,
-};
+import { useTranslation } from "react-i18next";
 
 const AddProduct = () => {
+	const { t } = useTranslation();
+
+	const categories = [
+		{
+			id: 1,
+			name: t(`burgers`),
+		},
+		{
+			id: 2,
+			name: t(`pizza`),
+		},
+		{
+			id: 3,
+			name: t(`sidesandsalads`),
+		},
+		{
+			id: 4,
+			name: t(`desserts`),
+		},
+		{
+			id: 5,
+			name: t(`drinks`),
+		},
+	];
+
+	const initialState = {
+		name: "",
+		imageURL: "",
+		category: "",
+		description: "",
+		price: 0,
+		quantity: 0,
+		discount: 0,
+		vegetarian: false,
+		spicy: false,
+	};
+
 	const { id } = useParams();
 
 	const products = useSelector(selectProducts);
@@ -189,7 +192,7 @@ const AddProduct = () => {
 		<>
 			{isLoading && <Loader />}
 			<section>
-				<h1 className="text-center my-3">{detectForm(id, "Add New Product", "Edit Product")}</h1>
+				<h1 className="text-center my-3">{detectForm(id, t(`addNewProduct`), t(`editProduct`))}</h1>
 
 				<Form onSubmit={detectForm(id, addProduct, editProduct)} className="p-3">
 					{/* name */}
@@ -199,10 +202,10 @@ const AddProduct = () => {
 								{" "}
 								{/* category */}
 								<Form.Group className="mb-3 ">
-									<Form.Label>Product Category:</Form.Label>
+									<Form.Label>{t(`productCategory`)}</Form.Label>
 									<Form.Select required name="category" value={product.category} onChange={(e) => handleInputChange(e)}>
 										<option value="" disabled>
-											-- choose product category --
+											-- {t(`chooseProductCategory`)} --
 										</option>
 										{categories.map((cat) => {
 											return (
@@ -215,25 +218,25 @@ const AddProduct = () => {
 								</Form.Group>
 								{/* Product Name */}
 								<Form.Group className="mb-3 ">
-									<Form.Label>Product Name:</Form.Label>
-									<Form.Control type="text" placeholder="Enter product name" required name="name" value={product.name} onChange={(e) => handleInputChange(e)} />
+									<Form.Label> {t(`productName`)} </Form.Label>
+									<Form.Control type="text" placeholder={t(`enterProductName`)} required name="name" value={product.name} onChange={(e) => handleInputChange(e)} />
 								</Form.Group>
 								{/* description */}
 								<Form.Group className="mb-3 ">
-									<Form.Label>Product Description:</Form.Label>
-									<Form.Control type="text" as="textarea" rows={5} placeholder="Describe your product" required name="description" value={product.description} onChange={(e) => handleInputChange(e)} />
+									<Form.Label> {t(`productDescription`)} </Form.Label>
+									<Form.Control type="text" as="textarea" rows={5} placeholder={t(`describeYourProduct`)} required name="description" value={product.description} onChange={(e) => handleInputChange(e)} />
 								</Form.Group>
 								<Row>
 									{/* vegetarian */}
 									<Col>
 										<Form.Group className="mb-3 ">
-											<Form.Check checked={product.vegetarian} label="Vegetarian" type="switch" name="vegetarian" onChange={(e) => handleVegetarianChange(e)} />
+											<Form.Check checked={product.vegetarian} label={t(`vegetarian`)} type="switch" name="vegetarian" onChange={(e) => handleVegetarianChange(e)} />
 										</Form.Group>
 									</Col>
 									{/* spicy */}
 									<Col>
 										<Form.Group className="mb-3 ">
-											<Form.Check checked={product.spicy} label="Spicy" type="switch" name="spicy" onChange={(e) => handleSpicyChange(e)} />
+											<Form.Check checked={product.spicy} label={t(`spicy`)} type="switch" name="spicy" onChange={(e) => handleSpicyChange(e)} />
 										</Form.Group>
 									</Col>
 								</Row>
@@ -244,19 +247,21 @@ const AddProduct = () => {
 
 							<div>
 								<Form.Group className="mb-3 ">
-									<Form.Label>Product Price:</Form.Label>
-									<Form.Control type="number" placeholder="Product Price" required name="price" value={product.price} onChange={(e) => handleInputChange(e)} />
+									<Form.Label> {t(`productPrice`)} </Form.Label>
+									<Form.Control type="number" placeholder={t(`productPrice`)}required name="price" value={product.price} onChange={(e) => handleInputChange(e)} />
 								</Form.Group>
 
 								{/* discount */}
 								<Form.Group className="mb-3">
-									<Form.Label>Discount {product.discount}%</Form.Label>
-									<Form.Range className="my-2" min="0" max="100" step="1" placeholder="Product Discount" required name="discount" value={product.discount} onChange={(e) => handleInputChange(e)} />
+									<Form.Label>
+										{t(`discount`)} {product.discount}%
+									</Form.Label>
+									<Form.Range className="my-2" min="0" max="100" step="1" placeholder={t(`productDiscount`)} required name="discount" value={product.discount} onChange={(e) => handleInputChange(e)} />
 								</Form.Group>
 
 								{/* image */}
 								<Form.Group className="mb-3 ">
-									<Form.Label>Product Image:</Form.Label>
+									<Form.Label> {t(`productImage`)} </Form.Label>
 
 									{uploadProgress === 0 ? null : (
 										<div className="my-2">
@@ -264,7 +269,7 @@ const AddProduct = () => {
 										</div>
 									)}
 
-									<Form.Control type="file" placeholder="Product Image" accept="image/*" name="image" onChange={(e) => handleImageChange(e)} />
+									<Form.Control type="file" placeholder={t(`productImage`)} accept="image/*" name="image" onChange={(e) => handleImageChange(e)} />
 									{product.imageURL === "" ? null : (
 										<Form.Control
 											className="my-2"
@@ -282,7 +287,7 @@ const AddProduct = () => {
 
 						<div className="text-center">
 							<Button type="submit" className="text-nowrap">
-								{detectForm(id, "Save Product", "Save Changes")}
+								{detectForm(id, t(`saveProduct`), t(`saveChanges`))}
 							</Button>
 						</div>
 					</Row>

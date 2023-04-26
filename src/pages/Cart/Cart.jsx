@@ -11,8 +11,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectIsLoggedIn } from "../../redux/slice/authSlice";
 import { SAVE_URL } from "../../redux/slice/cartSlice";
 import { ColorModeContext } from "../../routers/AppRouter";
+import { useTranslation } from "react-i18next";
+
 const Cart = () => {
-	const {colorMode} = useContext(ColorModeContext)
+	const { t } = useTranslation();
+	const { colorMode } = useContext(ColorModeContext);
 	const { isEmpty, totalUniqueItems, items, updateItemQuantity, removeItem, emptyCart, totalItems, cartTotal } = useCart();
 	const removed = () => toast("Item removed successfully!");
 
@@ -27,7 +30,7 @@ const Cart = () => {
 	});
 
 	const checkout = () => {
-		toast("Checking out...");
+		toast(t(`checkingOut`));
 		if (isLoggedIn) {
 			navigate("/checkout-details");
 		} else {
@@ -38,17 +41,17 @@ const Cart = () => {
 
 	const removeAllItems = () => {
 		confirmAlert({
-			title: "Are you sure?",
-			message: "All items will be removed.",
+			title: t(`areYouSureQ`),
+			message: t(`allItemsWillBeRemoved`),
 			buttons: [
 				{
-					label: "Yes",
+					label: t(`yes`),
 					onClick: () => {
 						emptyCart();
 					},
 				},
 				{
-					label: "No",
+					label: t(`no`),
 				},
 			],
 		});
@@ -56,21 +59,21 @@ const Cart = () => {
 
 	if (isEmpty)
 		return (
-			<h2 className="text-primary text-center p-5 mt-3">
+			<h2 className=" text-center p-5 mt-3">
 				{" "}
-				Your cart is empty. Please, visit{" "}
+				{t(`yourCartIsEmpty`)}{" "}
 				<NavLink to="/menu" className="text-secondary">
-					Menu
+					{t(`menu`)}
 				</NavLink>{" "}
-				to choose products.
+				{t(`toChooseProducts`)}
 			</h2>
 		);
 	return (
 		<Container>
 			<section className="d-flex justify-content-center align-items-center mt-3 p-3">
-				<h2 className="text-primary text-center m-0">Total Unique Products: {totalUniqueItems}</h2>
+				<h2 className=" text-center m-0">{t(`totalUniqueProducts`)} {totalUniqueItems}</h2>
 				<Button variant="danger" className="fs-5 text-light mx-4" onClick={removeAllItems}>
-					Remove All Items
+					{t(`removeAllItems`)}
 				</Button>
 			</section>
 			<div className="table-responsive-sm">
@@ -78,11 +81,11 @@ const Cart = () => {
 					<thead>
 						<tr className="align-middle text-center">
 							<th scope="col">#</th>
-							<th scope="col">Product Photo</th>
-							<th scope="col">Product Name</th>
-							<th scope="col">Price</th>
-							<th scope="col">Quantity</th>
-							<th scope="col">Action</th>
+							<th scope="col">{t(`productPhoto`)}</th>
+							<th scope="col">{t(`productName`)}</th>
+							<th scope="col">{t(`price`)}</th>
+							<th scope="col">{t(`quantity`)}</th>
+							<th scope="col">{t(`actions`)}</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -126,7 +129,7 @@ const Cart = () => {
 							</tr>
 						))}
 						<tr className="align-middle text-center">
-							<th>Total</th>
+							<th>{t(`total`)}</th>
 							<td></td>
 							<td></td>
 							<td>
@@ -141,7 +144,7 @@ const Cart = () => {
 				</Table>
 				<div className="text-center">
 					<Button variant="secondary" className="my-3 text-light text-nowrap" onClick={checkout}>
-						Checkout
+						{t(`checkout`)}
 					</Button>
 					<ToastContainer position="bottom-center" autoClose={1000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="colored" />
 				</div>

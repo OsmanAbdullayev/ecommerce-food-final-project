@@ -3,8 +3,10 @@ import React, { useContext } from "react";
 
 import { Button, Card, Form } from "react-bootstrap";
 import { ColorModeContext } from "../../../routers/AppRouter";
+import { useTranslation } from "react-i18next";
 
 const ChangeOrderStatus = () => {
+	const { t } = useTranslation();
 	const { colorMode } = useContext(ColorModeContext);
 
 	const editOrder = (e) => {
@@ -18,21 +20,21 @@ const ChangeOrderStatus = () => {
 				<Form onSubmit={(e) => editOrder(e)}>
 					<Form.Group>
 						<Form.Label>
-							<h4>Update Status</h4>
+							<h4>{t(`updateStatus`)}</h4>
 						</Form.Label>
 						<Form.Select>
 							<option value="" disabled>
-								-- Choose one --
+								-- {t(`chooseOne`)}--
 							</option>
-							<option value="Order Placed...">Order Placed...</option>
-							<option value="Processing...">Processing...</option>
-							<option value="Shipped...">Shipped...</option>
-							<option value="Delivered">Delivered</option>
+							<option value="Order Placed...">{t(`orderPlaced`)}...</option>
+							<option value="Processing...">{t(`processing`)}...</option>
+							<option value="Shipped...">{t(`shipped`)}...</option>
+							<option value="Delivered">{t(`delivered`)}</option>
 						</Form.Select>
 					</Form.Group>
 
 					<Button className="my-3" variant="primary" type="submit">
-						Update Status
+						{t(`updateStatus`)}
 					</Button>
 				</Form>
 			</Card.Body>

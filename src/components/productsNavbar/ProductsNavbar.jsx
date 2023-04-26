@@ -6,8 +6,10 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { SET_CATEGORY, selectCategory } from "../../redux/slice/filterSlice";
 import { ColorModeContext } from "../../routers/AppRouter";
+import { useTranslation } from "react-i18next";
 
 const ProductsNavbar = () => {
+	const { t } = useTranslation();
 	const { colorMode } = useContext(ColorModeContext);
 	const dispatch = useDispatch();
 	const category = useSelector(selectCategory);
@@ -23,7 +25,7 @@ const ProductsNavbar = () => {
 							dispatch(SET_CATEGORY("Pizza"));
 						}}
 						to="/menu">
-						<CiPizza size="3.5em" className={`${styles.icon}`} /> Pizza
+						<CiPizza size="3.5em" className={`${styles.icon}`} /> {t(`pizza`)}
 					</Nav.Link>
 
 					<Nav.Link
@@ -33,7 +35,7 @@ const ProductsNavbar = () => {
 							dispatch(SET_CATEGORY("Burger"));
 						}}
 						to="/menu">
-						<CiBurger size="3.5em" className={`${styles.icon}`} /> Burgers
+						<CiBurger size="3.5em" className={`${styles.icon}`} /> 	{t(`burgers`)}
 					</Nav.Link>
 
 					<Nav.Link
@@ -43,7 +45,7 @@ const ProductsNavbar = () => {
 							dispatch(SET_CATEGORY("Side & Salads"));
 						}}
 						to="/menu">
-						<CiFries size="3.5em" className={`${styles.icon}`} /> Sides & Salads
+						<CiFries size="3.5em" className={`${styles.icon}`} /> 	{t(`sidesandsalads`)}
 					</Nav.Link>
 
 					<Nav.Link
@@ -53,7 +55,7 @@ const ProductsNavbar = () => {
 							dispatch(SET_CATEGORY("Desserts"));
 						}}
 						to="/menu">
-						<CiWheat size="3.5em" className={`${styles.icon}`} /> Desserts
+						<CiWheat size="3.5em" className={`${styles.icon}`} /> 	{t(`desserts`)}
 					</Nav.Link>
 
 					<Nav.Link
@@ -63,7 +65,7 @@ const ProductsNavbar = () => {
 							dispatch(SET_CATEGORY("Drinks"));
 						}}
 						to="/menu">
-						<CiGlass size="3.5em" className={`${styles.icon}`} /> Drinks
+						<CiGlass size="3.5em" className={`${styles.icon}`} /> 		{t(`drinks`)}
 					</Nav.Link>
 				</div>
 			</Container>

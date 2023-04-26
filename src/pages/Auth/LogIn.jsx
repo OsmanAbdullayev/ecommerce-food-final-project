@@ -9,8 +9,10 @@ import Loader from "../../components/loader/Loader";
 import { useSelector } from "react-redux";
 // import { prefix } from "@fortawesome/free-regular-svg-icons";
 import { selectPreviousURL } from "../../redux/slice/cartSlice";
+import { useTranslation } from "react-i18next";
 
 const LogIn = () => {
+	const { t } = useTranslation();
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
@@ -49,32 +51,32 @@ const LogIn = () => {
 					<Col lg="6" sm="12" className="mb-5">
 						<div className="d-flex flex-column">
 							<div className="text-center">
-								<h4 className="mt-1 mb-5 pb-1">Welcome to Badam!</h4>
+								<h4 className="mt-1 mb-5 pb-1">{t(`welcomeToBadam`)}</h4>
 							</div>
 
-							<p>Please login to your account</p>
+							<p>{t(`pleaseLoginToYourAccount`)}</p>
 
 							<Form onSubmit={logIn}>
 								<Form.Group className="mb-3 text-center" controlId="formBasicEmail">
-									<Form.Control type="email" placeholder="Enter email" required value={email} onChange={(e) => setEmail(e.target.value)} />
+									<Form.Control type="email" placeholder={t(`enterEmail`)} required value={email} onChange={(e) => setEmail(e.target.value)} />
 								</Form.Group>
 
 								<Form.Group className="mb-3 text-center" controlId="formBasicPassword">
-									<Form.Control type="password" placeholder="Password" required value={password} onChange={(e) => setPassword(e.target.value)} />
+									<Form.Control type="password" placeholder={t(`password`)} required value={password} onChange={(e) => setPassword(e.target.value)} />
 								</Form.Group>
 
 								<Button className="mb-4 w-100 gradient-custom-2" variant="primary" type="submit">
-									Log In
+									{t(`login`)}
 								</Button>
 								<Link className="text-muted" to="/reset">
-									Forgot password?
+									{t(`forgotPasswordQ`)}
 								</Link>
 							</Form>
 
 							<div className="d-flex flex-row align-items-center justify-content-center pb-4 mb-4">
-								<p className="mb-0">Don't have an account?</p>
+								<p className="mb-0">{t(`dontHaveAnAccountQ`)}</p>
 								<Button as={NavLink} to="/signup" className="mx-2 text-white" color="danger" variant="secondary">
-									Sign Up
+									{t(`signup`)}
 								</Button>
 							</div>
 						</div>
@@ -83,8 +85,8 @@ const LogIn = () => {
 					<Col lg="6" sm="12" className="mb-5">
 						<div className="d-flex flex-column  justify-content-center bg-primary h-100 mb-4">
 							<div className="text-white px-3 py-4 p-md-5 mx-md-4">
-								<h4 className="mb-4">We are more than just a company</h4>
-								<p className="small mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+								<h4 className="mb-4">{t(`companyTitle`)}</h4>
+								<p className="small mb-0">{t(`compantDesc`)}</p>
 							</div>
 						</div>
 					</Col>
