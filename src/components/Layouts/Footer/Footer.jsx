@@ -96,14 +96,14 @@ const Footer = () => {
 				</Row>
 			</Container>
 			<Row className="px-5 py-2 bg-black text-white">
-				<Col sm={12} lg={6} className="p-2 d-flex justify-content-lg-start justify-content-center">
-					<p>{t(`developedByOsmanAbdullayev`)}.</p>
+				<Col sm={12} lg={6} className="py-2 d-flex justify-content-lg-start justify-content-center text-center">
+					{t(`developedByOsmanAbdullayev`)}.
 				</Col>
 
-				<Col sm={12} lg={6} className="p-2 d-flex justify-content-lg-end justify-content-center">
-					<p>
+				<Col sm={12} lg={6} className="py-2 d-flex justify-content-lg-end justify-content-center text-center">
+			
 						Copyright &copy; {year} {t(`allRightsReserved`)}.
-					</p>
+					
 				</Col>
 			</Row>
 		</Container>
