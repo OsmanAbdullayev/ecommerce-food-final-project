@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import AllProducts from "../../components/MenuComponents/AllProductsComponent";
 import { useTranslation } from "react-i18next";
 import { ColorModeContext } from "../../routers/AppRouter";
 
