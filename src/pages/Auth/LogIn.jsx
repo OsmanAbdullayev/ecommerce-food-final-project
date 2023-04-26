@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { Form, Button, Col, Container, Row } from "react-bootstrap";
@@ -10,12 +10,14 @@ import { useSelector } from "react-redux";
 // import { prefix } from "@fortawesome/free-regular-svg-icons";
 import { selectPreviousURL } from "../../redux/slice/cartSlice";
 import { useTranslation } from "react-i18next";
+import { ColorModeContext } from "../../routers/AppRouter";
 
 const LogIn = () => {
 	const { t } = useTranslation();
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
+	const { colorMode } = useContext(ColorModeContext);
 
 	const previousURL = useSelector(selectPreviousURL);
 	const navigate = useNavigate();
@@ -82,8 +84,8 @@ const LogIn = () => {
 						</div>
 					</Col>
 
-					<Col lg="6" sm="12" className="mb-5">
-						<div className="d-flex flex-column  justify-content-center bg-primary h-100 mb-4">
+					<Col lg="6" sm="12" className={colorMode === `dark` ? `bg-dark  mb-5` : `bg-primary mb-5`}>
+						<div className="d-flex flex-column  justify-content-center h-100 mb-4">
 							<div className="text-white px-3 py-4 p-md-5 mx-md-4">
 								<h4 className="mb-4">{t(`companyTitle`)}</h4>
 								<p className="small mb-0">{t(`compantDesc`)}</p>

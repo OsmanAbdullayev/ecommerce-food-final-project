@@ -60,7 +60,7 @@ i18next
 					chooseProductCategory: `choose product category`,
 					productName: `Product Name`,
 					productDescription: `Product Description:`,
-			
+
 					discount: `Discount`,
 					productImage: "Product Image:",
 					saveProduct: `Save Product`,
@@ -72,14 +72,12 @@ i18next
 					home: `Home`,
 					allProducts: `All Products`,
 					addProducts: `Add Products`,
-		
+
 					analytics: `Analytics`,
 					oderStatusChart: `Order Status Chart`,
 					placedOrders: `Placed Orders`,
 					processing: `Processing`,
 					shipped: `Shipped`,
-
-
 
 					orderCount: `orderCount`,
 					deleteProduct: `Delete Product`,
@@ -228,17 +226,16 @@ i18next
 					saveChanges: `Yadda Saxla`,
 					enterProductName: `Məhsulun adı`,
 					describeYourProduct: `Məhsul haqqda məlumat`,
-	
+
 					productDiscount: `Endirim`,
 					home: `Ana Səhifə`,
 					allProducts: `Bütün Məhsullar`,
 					addProducts: `Məhsul Əlavə Etmək`,
-				
+
 					analytics: `Analitika`,
 					oderStatusChart: `Sifarişlərin Çartı`,
 					placedOrders: `Ümumi sifarişlər`,
-				
-					
+
 					shipped: `Göndərilib`,
 
 					orderCount: `Sifariş Sayı`,
@@ -328,7 +325,7 @@ i18next
 					azadliq: `Azadlıq`,
 					avenue: `prospekti`,
 					followUsOn: `Bizi izləyin`,
-					developedByOsmanAbdullayev: `Bu veb-sayt Osman Abdullayev tərəfindən yaradılıb`,
+					developedByOsmanAbdullayev: `Bu veb-sayt Osman Abdullayev tərəfindən hazırlanıb`,
 					allRightsReserved: `Bütün hüquqlar qorunur`,
 				},
 			},
