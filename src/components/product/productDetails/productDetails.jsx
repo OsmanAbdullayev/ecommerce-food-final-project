@@ -12,7 +12,6 @@ import { Button, Card, Col, Container, Row, Spinner } from "react-bootstrap";
 import StarsRating from "react-star-rate";
 import { TOGGLE_WISHLIST, selectWishlistItems } from "../../../redux/slice/wishlistSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { FaHeartBroken } from "react-icons/fa";
 import { BsFillCartDashFill, BsFillHeartFill, BsHeart } from "react-icons/bs";
 import { ColorModeContext } from "../../../routers/AppRouter";
 import { useTranslation } from "react-i18next";
