@@ -7,21 +7,17 @@ import { CiUser } from "react-icons/ci";
 import { Button, ButtonGroup } from "react-bootstrap";
 import { ColorModeContext } from "../../../routers/AppRouter";
 
-
-
 const Navbar = () => {
-	const {colorMode} = useContext(ColorModeContext)
+	const { colorMode } = useContext(ColorModeContext);
 	const userName = useSelector(selectUserName);
 	return (
 		<>
-			<div className="bg-primary d-flex justify-content-center align-items-center flex-column p-5 mt-2">
+			<div className={`${colorMode === "dark" ? `bg-dark` : `bg-primary `} d-flex justify-content-center align-items-center flex-column p-5 mt-2`}>
 				<CiUser size="40" className="text-white" />
 				<h4 className="text-white mt-2">{userName}</h4>
 			</div>
 			<nav>
-
-				
-				<ButtonGroup vertical className="w-100" >
+				<ButtonGroup vertical className="w-100">
 					<Button as={NavLink} to="/admin/home" variant={colorMode === `dark` ? `dark` : `light`}>
 						&#8250; Home
 					</Button>

@@ -141,7 +141,7 @@ function Header() {
 							<span>Badam</span>
 						</h1>
 					</Navbar.Brand>
-					<Navbar.Toggle aria-controls="basic-navbar-nav" onClick={() => setExpanded(!expanded)}>
+					<Navbar.Toggle className="p-0 border-0" aria-controls="basic-navbar-nav" onClick={() => setExpanded(!expanded)}>
 						<Hamburger
 							size={20}
 							color="white"
@@ -225,7 +225,7 @@ function Header() {
 								</NavDropdown.Item>
 							</NavDropdown>
 
-							<Form className="d-flex align-items-start  me-2 py-2 mx-1">
+							<Form className="d-flex me-2 py-2 mx-1">
 								<Form.Control type="search" value={searchedKeyword} onChange={(e) => dispatch(SET_SEARCH_KEYWORD(e.target.value))} placeholder={t(`search`)} className={colorMode === `dark` ? `bg-dark me-2 text-white ` : `me-2`} aria-label="Search" list="search" />
 								<datalist id="search">
 									{searchedProducts.map((item, key) => (
@@ -258,28 +258,28 @@ function Header() {
 							</Stack> */}
 
 							<Dropdown className="p-0 my-1 py-2 mx-1">
-								<Dropdown.Toggle className={colorMode === "dark w-100" ? "" : "text-white w-100"} variant={colorMode === "dark" ? "outline-secondary " : "secondary "}>
-									<BsPerson size="1.4em" className="" />
+								<Dropdown.Toggle className={colorMode === "dark" ? "w-100 py-2" : "text-white w-100 py-2"} variant={colorMode === "dark" ? "outline-secondary " : "secondary "}>
+									<BsPerson size="1.6em" className="me-1" />
 									{displayName.substring(0, 10)}
 								</Dropdown.Toggle>
 
-								<Dropdown.Menu className="positi">
+								<Dropdown.Menu className={colorMode === `dark` ? `bg-dark` : ``}>
 									<ShowOnLogOut>
-										<Dropdown.Item onClick={() => setExpanded(false)} as={NavLink} to="/login" variant={colorMode === "dark" ? "outline-secondary " : "secondary "}>
+										<Dropdown.Item  className={colorMode === `dark` ? `text-white` : ``} onClick={() => setExpanded(false)} as={NavLink} to="/login" >
 											{t(`login`)}
 										</Dropdown.Item>
 									</ShowOnLogOut>
 
 									<ShowOnLogIn>
 										<AdminOnlyLink>
-											<Dropdown.Item onClick={() => setExpanded(false)} as={NavLink} to="/admin/home" variant={colorMode === "dark" ? "outline-primary " : "dark "}>
+											<Dropdown.Item  className={colorMode === `dark` ? `text-white` : ``} onClick={() => setExpanded(false)} as={NavLink} to="/admin/home" >
 												Admin Panel
 											</Dropdown.Item>
 										</AdminOnlyLink>
 									</ShowOnLogIn>
 
 									<ShowOnLogOut>
-										<Dropdown.Item onClick={() => setExpanded(false)} as={NavLink} to="/signup" variant={colorMode === "dark" ? "outline-secondary " : "secondary "}>
+										<Dropdown.Item  className={colorMode === `dark` ? `text-white` : ``} onClick={() => setExpanded(false)} as={NavLink} to="/signup" >
 											{t(`signup`)}
 										</Dropdown.Item>
 									</ShowOnLogOut>
@@ -298,11 +298,11 @@ function Header() {
 							</Dropdown>
 							<nav className="w-100 d-flex justify-content-between align-items-center my-1 py-2 mx-1">
 								<Button onClick={() => setExpanded(false)} as={NavLink} to="/wishlist" className={colorMode === "dark" ? "m-1 text-nowrap" : "text-white m-1 text-nowrap"} variant="transparent text-white">
-									<BsFillHeartFill /> <sup>{wishlistItems.length}</sup>
+									<BsFillHeartFill size="1.5em" /> <sup>{wishlistItems.length}</sup>
 								</Button>
 
 								<Button onClick={() => setExpanded(false)} as={NavLink} to="/cart" className={colorMode === "dark" ? "m-1 text-nowrap" : "text-white m-1 text-nowrap"} variant="transparent text-white">
-									<BsFillCartFill size="1.2em" />
+									<BsFillCartFill size="1.5em" />
 									<sup>{totalItems}</sup>
 								</Button>
 
