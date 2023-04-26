@@ -129,7 +129,13 @@ function Header() {
 			{isLoading && <Loader />}
 			<Navbar expanded={expanded} bg={colorMode} sticky="top" variant={colorMode} expand="lg" className="p-0 py-2" id="header">
 				<Container>
-					<Navbar.Brand as={NavLink} to="/" onClick={() => setExpanded(false)}>
+					<Navbar.Brand
+						as={NavLink}
+						to="/"
+						onClick={() => {
+							dispatch(SET_CATEGORY("All"));
+							setExpanded(false);
+						}}>
 						<h1 className={colorMode === `dark` ? `text-primary  pb-1 m-0 d-flex justify-content-between align-items-start` : `text-white pb-1 m-0 d-flex justify-content-between align-items-start`}>
 							<GiAlmond size="1.2em" className="me-2 " />
 							<span>Badam</span>

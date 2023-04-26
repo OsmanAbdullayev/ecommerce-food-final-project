@@ -27,6 +27,7 @@ import CheckoutDetails from "../pages/Checkout/CheckoutDetails";
 import Checkout from "../pages/Checkout/Checkout";
 import { createContext, useEffect, useState } from "react";
 import Wishlist from "../pages/Wishlist/Wishlist";
+import ProductsNavbar from "../components/productsNavbar/ProductsNavbar";
 // import { useTranslation } from "react-i18next";
 
 export const ColorModeContext = createContext();
@@ -61,6 +62,8 @@ function App() {
 					<ToastContainer />
 
 					<Header />
+					<ProductsNavbar />
+					
 
 					<Routes>
 						<Route path="/" element={<Home />} />
